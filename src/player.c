@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 23:09:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/15 20:02:43 by mbatstra         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:17:37 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	db_linetest(void *param)
 {
 	t_vect2		orgn;
 	t_vect2		end;
+	t_fvect2	dist;
+	double		len;
 	t_vars		*vars;
 
 	vars = (t_vars *)param;
@@ -77,6 +79,8 @@ void	db_linetest(void *param)
 	end = vec_round(vec_add(vec_mul(vars->player.dir, 25), vec_mul(vars->player.pos, TILESIZE)));
 	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * sizeof(int));
 	line(orgn, end, 0xffffffff, vars);
-	end = vec_round(vec_add(vec_mul(vars->player.dir, TILESIZE * cast_ray(&vars->map, &vars->player, vars->player.dir)), vec_mul(vars->player.pos, TILESIZE)));
+	dist = cast_ray(&vars->map, &vars->player, vars->player.dir);
+	len = dist.x < dist.y ? dist.x : dist.y;
+	end = vec_round(vec_add(vec_mul(vars->player.dir, TILESIZE * len), vec_mul(vars->player.pos, TILESIZE)));
 	line(orgn, end, 0xff0000ff, vars);
 }

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:15 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/16 16:05:46 by mbatstra         ###   ########.fr       */
+/*   Updated: 2022/12/16 19:12:04 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include <stdlib.h>
 # include "MLX42.h"
 
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 1024
+# define HEIGHT 1024
 // later tilesize should become a scaling factor for the minimap
 # define TILESIZE 85
+# define FOV M_PI / 3.0
 # define FLOOR 0
 # define WALL 1
 # define START_POS 2
@@ -94,5 +95,6 @@ uint8_t		get_alpha(uint32_t clr);
 
 // cast a single ray
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
+void		render(void *param);
 
 #endif

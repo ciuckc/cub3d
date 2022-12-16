@@ -12,6 +12,7 @@ vector2.c \
 player.c \
 color.c \
 render2d.c \
+render.c \
 get_next_line.c \
 get_next_line_utils.c
 
