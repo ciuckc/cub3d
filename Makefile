@@ -30,7 +30,7 @@ LIBMLX = lib/libmlx42/libmlx42.a
 LIBFT = lib/libft/libft.a
 
 all: $(LIBFT) $(LIBMLX) $(NAME)
-
+	
 $(LIBFT):
 	$(MAKE) -C $(LIB)libft
 

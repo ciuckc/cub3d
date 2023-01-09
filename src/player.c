@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 23:09:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/16 16:17:37 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:24:33 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "libft.h"
 #include "cub3d.h"
 
+// capture all keyboard input
+// check if mlx needs other cleanup!!!
 void	player_hook(void *param)
 {
 	t_player	*player;
@@ -25,21 +27,24 @@ void	player_hook(void *param)
 	mlx = ((t_vars *)param)->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{
-		mlx_close_window(mlx); //run other cleanup as well
+		mlx_close_window(mlx);
 		exit(EXIT_SUCCESS);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		player->pos = vec_add(vec_mul(player->dir, 0.025), player->pos);
+		player->pos = vec_add(vec_mul(player->dir, MOV_SPEED), player->pos);
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		player->pos = vec_add(vec_mul(vec_rot(player->dir, M_PI), 0.025), player->pos);
+		player->pos = \
+		vec_add(vec_mul(vec_rot(player->dir, M_PI), MOV_SPEED), player->pos);
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
-		player->pos = vec_add(vec_mul(vec_rot(player->dir, -M_PI_2), 0.025), player->pos);
+		player->pos = \
+		vec_add(vec_mul(vec_rot(player->dir, -M_PI_2), MOV_SPEED), player->pos);
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
-		player->pos = vec_add(vec_mul(vec_rot(player->dir, M_PI_2), 0.025), player->pos);
+		player->pos = \
+		vec_add(vec_mul(vec_rot(player->dir, M_PI_2), MOV_SPEED), player->pos);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		player->dir = vec_rot(player->dir, -0.050);
+		player->dir = vec_rot(player->dir, -ROT_SPEED);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		player->dir = vec_rot(player->dir, 0.050);
+		player->dir = vec_rot(player->dir, ROT_SPEED);
 }
 
 void	player_init(t_vars *vars)
@@ -49,38 +54,4 @@ void	player_init(t_vars *vars)
 	player = &((t_vars *)vars)->player;
 	player->pos = vec(2.5, 2.5);
 	player->dir = vec(1.0, 0.0);
-	player->player_img = mlx_new_image(vars->mlx, 8, 8);
-	fill_img(player->player_img, 0xffffffff);
-	mlx_image_to_window(vars->mlx, player->player_img, WIDTH / 2, HEIGHT / 2);
-}
-
-void	player_routine(void *vars)
-{
-	mlx_image_t	*player_img;
-	t_fvect2	pos;
-
-	vars = (t_vars *)vars;
-	player_img = ((t_vars *)vars)->player.player_img;
-	pos = ((t_vars *)vars)->player.pos;
-	player_img->instances[0].x = pos.x * TILESIZE;
-	player_img->instances[0].y = pos.y * TILESIZE;
-}
-
-void	db_linetest(void *param)
-{
-	t_vect2		orgn;
-	t_vect2		end;
-	t_fvect2	dist;
-	double		len;
-	t_vars		*vars;
-
-	vars = (t_vars *)param;
-	orgn = vec_round(vec_mul(vars->player.pos, TILESIZE));
-	end = vec_round(vec_add(vec_mul(vars->player.dir, 25), vec_mul(vars->player.pos, TILESIZE)));
-	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * sizeof(int));
-	line(orgn, end, 0xffffffff, vars);
-	dist = cast_ray(&vars->map, &vars->player, vars->player.dir);
-	len = dist.x < dist.y ? dist.x : dist.y;
-	end = vec_round(vec_add(vec_mul(vars->player.dir, TILESIZE * len), vec_mul(vars->player.pos, TILESIZE)));
-	line(orgn, end, 0xff0000ff, vars);
 }

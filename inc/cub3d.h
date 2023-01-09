@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:15 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/16 19:12:04 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:21:16 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 # define WIDTH 1024
 # define HEIGHT 1024
+# define MOV_SPEED 0.025
+# define ROT_SPEED 0.05
 // later tilesize should become a scaling factor for the minimap
 # define TILESIZE 85
 # define FOV M_PI / 3.0
@@ -36,10 +38,8 @@ typedef struct s_fvect2 {
 }			t_fvect2;
 
 typedef struct s_player {
-	mlx_image_t	*player_img; // this should later be moved to minimap renderer
 	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
 	t_fvect2	dir;	// unit vector player direction
-	t_fvect2	cam;	// camera "plane", perpendicular to direction
 }			t_player;
 
 typedef struct s_map {
@@ -58,8 +58,6 @@ typedef struct s_vars {
 void		player_hook(void *param);
 // initialize pos, dir and player image
 void		player_init(t_vars *vars);
-// update player position
-void		player_routine(void *vars);
 
 // atm parser only supports rectangular maps!!!
 void		parse(char **argv, t_map *map);
