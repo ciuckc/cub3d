@@ -5,15 +5,15 @@ all: $(LIBFT) $(LIBMLX) $(NAME)
 $(LIBFT):
 	$(MAKE) -C $(LIB)libft
 
-$(MLX_DIR):
-	git submodule init
-	git submodule update
-
 $(LIBMLX): $(MLX_DIR)
 	$(MAKE) -C $(MLX_DIR)
 
+#Exec build
+
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBMLX) $(LIBFT) -I$(INC) -I$(MLX_INC) -lm -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
+
+#Object build
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(BUILD_DIR)
 	$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
@@ -24,8 +24,14 @@ $(BUILD_DIR)%.o: $(PARSE_DIR)%.c | $(BUILD_DIR)
 $(BUILD_DIR)%.o: $(GNL_DIR)%.c | $(BUILD_DIR)
 	$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
 
+#Dir dependencies
+
 $(BUILD_DIR):
 	mkdir -p $@
+
+$(MLX_DIR):
+	git submodule init
+	git submodule update
 
 clean:
 	rm -rf $(OBJ)
