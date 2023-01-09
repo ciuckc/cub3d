@@ -29,8 +29,10 @@ else
 endif
 
 LIB = lib/
+
 MLX_DIR = $(LIB)libmlx42
 LIBMLX = $(MLX_DIR)/libmlx42.a
+
 LIBFT_DIR = $(LIB)libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
