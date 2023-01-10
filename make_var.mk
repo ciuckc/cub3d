@@ -52,7 +52,7 @@ OBJ += $(addprefix $(BUILD_DIR), $(UNPREFIXED_SRC:.c=.o))
 
 PARSE_DIR = $(SRC_DIR)parse/
 
-UNPREF_PARSE_SRC = parse.c
+UNPREF_PARSE_SRC = parse.c exit_strerr.c
 
 PARSE_SRC = $(addprefix $(PARSE_DIR), $(UNPREF_PARSE_SRC:.=.o))
 

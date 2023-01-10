@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:15 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/09 17:45:58 by mbatstra         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/01/10 17:56:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,17 @@ typedef struct s_fvect2 {
 	double	y;
 }			t_fvect2;
 
+/**
+ * @brief Stores current position of the player and the direction
+ * the player is facing.
+ * 
+ * @param pos Position on map. 1 tile == 1 unit.
+ * @param dir Direction vector which holds the current direction
+ * the player is facing
+ */
 typedef struct s_player {
-	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
-	t_fvect2	dir;	// unit vector player direction
+	t_fvect2	pos;
+	t_fvect2	dir;
 }			t_player;
 
 typedef struct s_map {
@@ -60,7 +68,17 @@ void		player_hook(void *param);
 void		player_init(t_vars *vars);
 
 // atm parser only supports rectangular maps!!!
-void		parse(char **argv, t_map *map);
+/**
+ * @brief Makes sure that the a map is provided, the map name provided is a 
+ * valid .cub map, then it creates a full string out of the content. Then it
+ * creates a matrix that simbolizes the map contents and another array which
+ * stores of 
+ * @param argc 
+ * @param argv 
+ * @param vars 
+ */
+void		parse(int argc, char **argv, t_vars *vars);
+// render
 void		render2d(mlx_t *mlx, t_map *map);
 void		fill_img(mlx_image_t *img, uint32_t clr);
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:31:14 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/09 17:12:59 by mbatstra         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/01/10 18:00:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int32_t	main(int argc, char **argv)
 {
 	t_vars	vars;
 
-	if (argc != 2)
-		return (EXIT_FAILURE);
-	parse(argv, &vars.map);
+	parse(argc, argv, &vars);
 	vars.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!vars.mlx)
 		exit(EXIT_FAILURE);
