@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:07:16 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/10 19:10:57 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/10 19:21:36 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	parse(int argc, char **argv, t_vars *vars)
 		exit_strerr(FD_ERR);
 	if (!st_make_map_str(&str_map, fd))
 		exit_strerr(MALLOC_ERR);
-	//store_map_and_textures(str_map, vars);
+	store_map_and_textures(str_map, vars);
 	exit(EXIT_SUCCESS);
 }
 
