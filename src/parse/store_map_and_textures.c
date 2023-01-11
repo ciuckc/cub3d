@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/10 19:10:00 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/10 20:26:18 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/10 21:49:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	st_get_map(char *str_map, t_map *map)
 	first_map_line_index = get_index_first_line(str_map);
 	if (first_map_line_index == -1)
 		exit_strerr(NO_MAP_FOUND);
+	printf("%d\n", first_map_line_index);
 }
 
 void	store_map_and_textures(char *str_map, t_vars *vars)
