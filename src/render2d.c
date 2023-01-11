@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:21:43 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/14 16:06:02 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:57:24 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,52 +20,46 @@ int	mapindex(t_map *map, int x, int y)
 	return (map->grid[x + y * map->size.x]);
 }
 
-void	fill_img(mlx_image_t *img, uint32_t clr)
+static void	st_fill_sqr(t_map *map, uint32_t x, uint32_t y, uint32_t clr)
 {
-	uint32_t	x;
-	uint32_t	y;
+	t_vect2	i;
 
-	x = 0;
-	y = 0;
-	while (x < img->width)
+	i.y = 0;
+	while (i.y < MAPSIZE / map->size.y)
 	{
-		while (y < img->height)
+		i.x = 0;
+		while (i.x < MAPSIZE / map->size.x)
 		{
-			if (x == 0 || x == img->width - 1 || y == 0 || y == img->height - 1)
-				mlx_put_pixel(img, x, y, 0xffffffff);
-			else
-				mlx_put_pixel(img, x, y, clr);
-			y++;
+			mlx_put_pixel(map->minimap, x + i.x, y + i.y, clr);
+			i.x++;
 		}
-		y = 0;
-		x++;
+		i.y++;
 	}
 }
 
-void	render2d(mlx_t *mlx, t_map *map)
+void	init_minimap(mlx_t *mlx, t_map *map)
 {
-	mlx_image_t	*wall_img;
-	mlx_image_t	*floor_img;
-	int			x;
-	int			y;
+	uint32_t	clr;
+	uint32_t	tilesize;
+	t_vect2		pos;
 
-	x = 0;
-	y = 0;
-	wall_img = mlx_new_image(mlx, TILESIZE, TILESIZE);
-	floor_img = mlx_new_image(mlx, TILESIZE, TILESIZE);
-	fill_img(wall_img, 0xdbb856ff);
-	fill_img(floor_img, 0x81b5b2ff);
-	while (y < map->size.y)
+	if (map->size.x > map->size.y)
+		tilesize = MAPSIZE / map->size.x;
+	else
+		tilesize = MAPSIZE / map->size.y;
+	map->minimap = mlx_new_image(mlx, MAPSIZE, MAPSIZE);
+	pos.y = 0;
+	while (pos.y < map->size.y)
 	{
-		while (x < map->size.x)
+		pos.x = 0;
+		while (pos.x < map->size.x)
 		{
-			if (mapindex(map, x, y) == WALL)
-				mlx_image_to_window(mlx, wall_img, x * TILESIZE, y * TILESIZE);
-			else
-				mlx_image_to_window(mlx, floor_img, x * TILESIZE, y * TILESIZE);
-			x++;
+			clr = 0x99999999;
+			if (mapindex(map, pos.x, pos.y) != WALL)
+				clr = 0x55555599;
+			st_fill_sqr(map, pos.x * tilesize, pos.y * tilesize, clr);
+			pos.x++;
 		}
-		x = 0;
-		y++;
+		pos.y++;
 	}
 }

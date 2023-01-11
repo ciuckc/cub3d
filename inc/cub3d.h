@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:15 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/09 17:45:58 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:02:19 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 # include <stdlib.h>
 # include "MLX42.h"
 
-# define WIDTH 1024
-# define HEIGHT 1024
-# define MOV_SPEED 0.025
-# define ROT_SPEED 0.05
-// later tilesize should become a scaling factor for the minimap
-# define TILESIZE 85
+# define WIDTH 1280
+# define HEIGHT 920
+# define MAPSIZE 164
+# define MOV_SPD 0.025
+# define ROT_SPD 0.05
 # define FOV M_PI / 3.0
 # define FLOOR 0
 # define WALL 1
@@ -38,13 +37,16 @@ typedef struct s_fvect2 {
 }			t_fvect2;
 
 typedef struct s_player {
+	mlx_image_t	*sprite; // minimap sprite
 	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
 	t_fvect2	dir;	// unit vector player direction
+	t_fvect2	mov;	// unit vector last player movement
 }			t_player;
 
 typedef struct s_map {
-	t_vect2	size;
-	int32_t	*grid;
+	mlx_image_t	*minimap;
+	t_vect2		size;
+	int32_t		*grid;
 }			t_map;
 
 typedef struct s_vars {
@@ -61,10 +63,10 @@ void		player_init(t_vars *vars);
 
 // atm parser only supports rectangular maps!!!
 void		parse(char **argv, t_map *map);
+void		init_minimap(mlx_t *mlx, t_map *map);
 void		render2d(mlx_t *mlx, t_map *map);
 void		fill_img(mlx_image_t *img, uint32_t clr);
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
-void		db_linetest(void *vars);
 int			mapindex(t_map *map, int x, int y);
 
 // round double vector to int vector

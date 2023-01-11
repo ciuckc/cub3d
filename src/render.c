@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:18:54 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/09 17:43:17 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:30:53 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static void	st_get_height(t_vars *vars, int x, int *ln_height, int *clr)
 	dst = cast_ray(&vars->map, &vars->player, vec_rot(vars->player.dir, angle));
 	if (dst.x < dst.y)
 	{
-		dst.x *= sin((M_PI_2 - angle)) / sin(M_PI_2);
+		dst.x *= sin(M_PI_2 - angle) / sin(M_PI_2);
 		*ln_height = (int)HEIGHT / dst.x;
 		*clr = 0xff0000ff;
 	}
 	else
 	{
-		dst.y *= sin((M_PI_2 - angle)) / sin(M_PI_2);
+		dst.y *= sin(M_PI_2 - angle) / sin(M_PI_2);
 		*ln_height = (int)HEIGHT / dst.y;
 		*clr = 0xaa0000ff;
 	}
@@ -67,13 +67,15 @@ static void	st_get_height(t_vars *vars, int x, int *ln_height, int *clr)
 // iterate over each pixel column in window
 void	render(void *param)
 {
-	t_vars		*vars;
-	int			ln_height;
-	int			clr;
-	int			x;
+	t_vars	*vars;
+	int		ln_height;
+	int		clr;
+	int		x;
 
 	vars = (t_vars *)param;
-	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * sizeof(int));
+	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * sizeof(int) / 2);
+	ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * sizeof(int) / 2, \
+				128, WIDTH * HEIGHT * sizeof(int) / 2);
 	x = 0;
 	while (x < WIDTH)
 	{

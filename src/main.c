@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:31:14 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/09 17:12:59 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:31:10 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int32_t	main(int argc, char **argv)
 	vars.canvas = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(vars.mlx, vars.canvas, 0, 0);
 	player_init(&vars);
+	init_minimap(vars.mlx, &vars.map);
+	mlx_image_to_window(vars.mlx, vars.map.minimap, 0, 0);
 	mlx_loop_hook(vars.mlx, &player_hook, &vars);
 	mlx_loop_hook(vars.mlx, &render, &vars);
 	mlx_loop(vars.mlx);
