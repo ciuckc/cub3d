@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:02:30 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/12 20:42:02 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/12 21:58:11 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define FD_ERR "Error while opening the map or the name doesn't exist.\n"
 # define MALLOC_ERR "Error while allocating!\n"
 # define NO_MAP_FOUND "Please provide a map with valid contents.\n"
+# define INV_MAP "Please provide a map with valid content!\n"
 # define DUP_TEX "Found texture duplicate!\n"
 # define ELEM_ERR "Invalid texture elements!\n"
 # define EXT_ERR "Invalid texture. Needs to end in \".xpm42\"\n"
@@ -45,8 +46,8 @@ void	store_map_and_textures(char *str_map, t_vars *vars);
 
 void	get_textures(char *str, t_vars *vars, uint32_t *i);
 
-void	make_texture(char key, char *path, t_vars *vars);
+void	get_map(char *str, t_vars *vars, uint32_t *i);
 
-int32_t	get_index_first_line(char *str_map);
+void	make_texture(char key, char *path, t_vars *vars);
 
 #endif

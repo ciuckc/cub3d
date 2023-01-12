@@ -6,22 +6,11 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/10 19:10:00 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/12 20:45:31 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/12 22:21:52 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-static void	st_get_map(char *str_map, t_map *map)
-{
-	int32_t	first_map_line_index;
-
-	(void)map;
-	first_map_line_index = get_index_first_line(str_map);
-	if (first_map_line_index == -1)
-		exit_strerr(NO_MAP_FOUND);
-	printf("%d\n", first_map_line_index);
-}
 
 void	store_map_and_textures(char *str_map, t_vars *vars)
 {
@@ -29,7 +18,8 @@ void	store_map_and_textures(char *str_map, t_vars *vars)
 
 	str_index = 0;
 	get_textures(str_map, vars, &str_index);
-	st_get_map(str_map, &vars->map);
+	get_map(str_map, vars, &str_index);
+	exit_strerr("OK");
 }
 
 //	get_map

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/12 20:08:33 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/12 21:53:30 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
 MORE SPRITES OR OTHER STUFF.
 */
-# define MAP_CONTENT " 01X"
+# define MAP_CONTENT " 01"
 # define TEXTURES "NSWEFC"
 
 // File extension
