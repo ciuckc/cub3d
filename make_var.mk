@@ -53,10 +53,13 @@ OBJ += $(addprefix $(BUILD_DIR), $(UNPREFIXED_SRC:.c=.o))
 PARSE_DIR = $(SRC_DIR)parse/
 
 UNPREF_PARSE_SRC = parse.c exit_strerr.c store_map_and_textures.c \
-get_index_first_line.c
+get_index_first_line.c get_textures.c make_texture.c
 
 PARSE_SRC = $(addprefix $(PARSE_DIR), $(UNPREF_PARSE_SRC:.=.o))
 
 PARSE_OBJ = $(addprefix $(BUILD_DIR), $(UNPREF_PARSE_SRC:.c=.o))
 
 OBJ += $(PARSE_OBJ)
+
+RESET		=	"\033[0m"
+YELLOW		=	"\033[0;33m"

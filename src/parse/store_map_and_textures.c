@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/10 19:10:00 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/10 21:49:38 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/12 20:45:31 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ static void	st_get_map(char *str_map, t_map *map)
 
 void	store_map_and_textures(char *str_map, t_vars *vars)
 {
-	//	get_map
-	//	- find first line of the map
-	//	- check from there until the end of the string if the only content is
-	// only the contents of MAP_CONTENT, if not screw out of the program
-	//	- get size of it and allocate, store the size in vars->map->size
-	//	- store the content in the vars->map->grid
+	uint32_t	str_index;
+
+	str_index = 0;
+	get_textures(str_map, vars, &str_index);
 	st_get_map(str_map, &vars->map);
 }
+
+//	get_map
+//	- find first line of the map
+//	- check from there until the end of the string if the only content is
+// only the contents of MAP_CONTENT, if not screw out of the program
+//	- get size of it and allocate, store the size in vars->map->size
+//	- store the content in the vars->map->grid

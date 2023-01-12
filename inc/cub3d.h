@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/10 17:56:39 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/12 20:08:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@
 # define FLOOR 0
 # define WALL 1
 # define START_POS 2
+
+/*
+Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
+MORE SPRITES OR OTHER STUFF.
+*/
+# define MAP_CONTENT " 01X"
+# define TEXTURES "NSWEFC"
+
+// File extension
+
+# define FILE_EXT ".xpm42"
 
 typedef struct s_vect2 {
 	int32_t	x;
@@ -50,14 +61,51 @@ typedef struct s_player {
 	t_fvect2	dir;
 }			t_player;
 
+/**
+ * @brief Map struct with size and pointer to the map contents.
+ * 
+ */
 typedef struct s_map {
 	t_vect2	size;
 	int32_t	*grid;
 }			t_map;
 
+/**
+ *@brief Used for indexing paths to images in the array of textures.
+ * 
+ */
+typedef enum e_content {
+	N,
+	S,
+	W,
+	E,
+	F,
+	C,
+	X
+}			t_cont;
+
+union u_tex {
+	mlx_image_t	*tex;
+	uint32_t	clr;
+};
+
+/**
+ * @brief Texture data.
+ * 
+ */
+typedef struct s_tex {
+	union u_tex	elem;
+	bool		is_clr;
+}			t_tex;
+
+/**
+ * @brief Program struct.
+ * 
+ */
 typedef struct s_vars {
 	mlx_image_t	*canvas;
 	t_player	player;
+	t_tex		texture[sizeof(TEXTURES) - 1];
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;

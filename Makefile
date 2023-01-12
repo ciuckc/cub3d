@@ -11,18 +11,22 @@ $(LIBMLX): $(MLX_DIR)
 #Exec build
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBMLX) $(LIBFT) -I$(INC) -I$(MLX_INC) -lm -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) $(OBJ) $(LIBMLX) $(LIBFT) -I$(INC) -I$(MLX_INC) -lm -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
 
 #Object build
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(BUILD_DIR)
-	$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
 
 $(BUILD_DIR)%.o: $(PARSE_DIR)%.c | $(BUILD_DIR)
-	$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
 
 $(BUILD_DIR)%.o: $(GNL_DIR)%.c | $(BUILD_DIR)
-	$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
 
 #Dir dependencies
 
