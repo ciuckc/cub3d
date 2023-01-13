@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:18:54 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/11 19:30:53 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:09:25 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ static void	st_get_height(t_vars *vars, int x, int *ln_height, int *clr)
 	dst = cast_ray(&vars->map, &vars->player, vec_rot(vars->player.dir, angle));
 	if (dst.x < dst.y)
 	{
-		dst.x *= sin(M_PI_2 - angle) / sin(M_PI_2);
+		// dst.x *= sin(M_PI_2 - angle) / sin(M_PI_2);
+		dst.x *= cos(angle);
 		*ln_height = (int)HEIGHT / dst.x;
-		*clr = 0xff0000ff;
+		*clr = 0x80652bff;
 	}
 	else
 	{
-		dst.y *= sin(M_PI_2 - angle) / sin(M_PI_2);
+		// dst.y *= sin(M_PI_2 - angle) / sin(M_PI_2);
+		dst.y *= cos(angle);
 		*ln_height = (int)HEIGHT / dst.y;
-		*clr = 0xaa0000ff;
+		*clr = 0xb08e45ff;
 	}
 }
 

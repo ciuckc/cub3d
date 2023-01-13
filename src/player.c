@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 23:09:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/11 17:54:05 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/13 21:14:23 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // calculate new position based on pressed key
 // movement vector can be set directly instead of returning the value
-// because theoretically, the collision algorithm only cares about
+// because the collision algorithm only cares about
 // the direction the player last *tried* to move in
 static t_fvect2	st_get_pos(t_player *plyr, mlx_t *mlx)
 {	
@@ -49,30 +49,32 @@ static t_fvect2	st_get_pos(t_player *plyr, mlx_t *mlx)
 	return (pos);
 }
 
-// use movement vector to project a point and see if it's inside a wall
-// right now a magic number defines de player boundary
-// if you cut a corner tight enough you can clip through
-// maybe use a raycast and check if dist is below buondary thershold instead
-static bool	st_is_collision(t_player *plyr, t_map *map)
-{
-	t_fvect2	project_pos;
-
-	project_pos = vec_add(plyr->pos, vec_mul(plyr->mov, 0.1));
-	project_pos.x = floor(project_pos.x);
-	project_pos.y = floor(project_pos.y);
-	return (mapindex(map, (int)project_pos.x, (int)project_pos.y) == WALL);
-}
-
-// driver code for above two functions
+// fetch new position and perform collision checks
+// if there is only one wall blocking movement
+// move proportionally along the unblocked axis
 static void	st_move_player(t_player *plyr, t_map *map, mlx_t *mlx)
 {
 	t_fvect2	pos;
+	t_fvect2	dist;
 
 	pos = st_get_pos(plyr, mlx);
 	if (pos.x == -1.0)
 		return ;
-	if (!st_is_collision(plyr, map))
+	dist = cast_ray(map, plyr, plyr->mov);
+	if (dist.x > MOV_SPD && dist.y > MOV_SPD)
 		plyr->pos = pos;
+	else if (dist.x > dist.y)
+	{
+		pos = vec_add(plyr->pos, vec_mul(vec(plyr->mov.x, 0.0), MOV_SPD));
+		if (mapindex(map, floor(pos.x), floor(pos.y)) != WALL)
+			plyr->pos = pos;
+	}
+	else
+	{
+		pos = vec_add(plyr->pos, vec_mul(vec(0.0, plyr->mov.y), MOV_SPD));
+		if (mapindex(map, floor(pos.x), floor(pos.y)) != WALL)
+			plyr->pos = pos;
+	}
 }
 
 // capture all keyboard input

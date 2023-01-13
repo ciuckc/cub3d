@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:15 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/11 20:02:19 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:14:15 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include <stdlib.h>
 # include "MLX42.h"
 
-# define WIDTH 1280
-# define HEIGHT 920
-# define MAPSIZE 164
+# define WIDTH 1024
+# define HEIGHT 1024
+# define MAPSIZE 256
 # define MOV_SPD 0.025
 # define ROT_SPD 0.05
-# define FOV M_PI / 3.0
+# define FOV 1.0471976 // pi / 3
 # define FLOOR 0
 # define WALL 1
 # define START_POS 2
@@ -37,7 +37,6 @@ typedef struct s_fvect2 {
 }			t_fvect2;
 
 typedef struct s_player {
-	mlx_image_t	*sprite; // minimap sprite
 	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
 	t_fvect2	dir;	// unit vector player direction
 	t_fvect2	mov;	// unit vector last player movement
