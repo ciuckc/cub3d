@@ -6,5 +6,8 @@
 		"__locale": "c",
 		"mlx42_int.h": "c",
 		"sstream": "c"
+	},
+	"files.watcherExclude": {
+		"**/target": true
 	}
 }

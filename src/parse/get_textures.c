@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/11 17:35:39 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/12 20:41:44 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/13 15:13:46 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,23 @@ static char	st_get_key(char *str, uint32_t *i, char *table)
 static char	*st_get_path(char *str, uint32_t *i)
 {
 	uint32_t	len;
+	char		*un_trim;
 	char		*path;
 
 	len = 0;
-	path = NULL;
-	while ((str + *i)[len] != '\n' && (str + *i)[len])
+	while ((str + *i)[len] != '\n' && (str + *i)[len] != '\0')
 		len++;
-	if ((str + *i)[len] == '\0' || (str + *i)[len] != '\n')
+	if ((str + *i)[len] == '\0')
 		exit_strerr(EXT_ERR);
-	path = ft_substr(str, *i, len);
+	un_trim = ft_substr(str, *i, len);
+	if (un_trim == NULL)
+		exit_strerr(MALLOC_ERR);
+	path = ft_strtrim(un_trim, " ");
 	if (path == NULL)
 		exit_strerr(MALLOC_ERR);
 	while (str[*i] != '\n')
 		(*i)++;
+	free(un_trim);
 	return (path);
 }
 
@@ -100,9 +104,7 @@ void	get_textures(char *str, t_vars *vars, uint32_t *i)
 		if (str[*i] == '\0')
 			exit_strerr(NO_MAP_FOUND);
 		if (!st_is_valid_element(str, i))
-		{
 			exit_strerr(ELEM_ERR);
-		}
 		key = st_get_key(str, i, table);
 		path = st_get_path(str, i);
 		make_texture(key, path, vars);
