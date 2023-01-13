@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/12 21:53:30 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/13 17:45:27 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
 MORE SPRITES OR OTHER STUFF.
 */
-# define MAP_CONTENT " 01"
+# define MAP_CONTENT " 01NSWE"
 # define TEXTURES "NSWEFC"
 
 // File extension
@@ -67,7 +67,7 @@ typedef struct s_player {
  */
 typedef struct s_map {
 	t_vect2	size;
-	int32_t	*grid;
+	uint8_t	*grid;
 }			t_map;
 
 /**

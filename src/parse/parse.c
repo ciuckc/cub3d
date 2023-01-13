@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:07:16 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/10 19:21:36 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/13 18:57:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	parse(int argc, char **argv, t_vars *vars)
 	if (!st_make_map_str(&str_map, fd))
 		exit_strerr(MALLOC_ERR);
 	store_map_and_textures(str_map, vars);
-	exit(EXIT_SUCCESS);
 }
 
 // To do init player as well and the map

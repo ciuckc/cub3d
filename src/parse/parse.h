@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:02:30 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/12 21:58:11 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/13 18:55:42 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+
+extern int	g_i;
 
 // Error message for problems during parsing
 # define ARG_ERR "Usage: ./cub3d [.cub map]\n"
@@ -33,7 +35,10 @@
 # define COL_ERR "Invalid colour. Needs to have (R,G,B) values.\n"
 # define IMG_ERR "Error while opening the textures. Make sure it exists or \
 you have the right permissions!\n"
-# define LOAD_ERR "Could not load the texture!"
+# define LOAD_ERR "Could not load the texture!\n"
+# define MAP_NL_ERR "Consecutive new-lines inside the map!\n"
+# define POS_DUP_ERR "Player position duplicate found!\n"
+# define NO_PLR "Could not resolve player position.\n"
 
 /**
  * @brief Print error and str_err and exit with code 1
