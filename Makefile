@@ -1,60 +1,56 @@
-NAME = cub3d
-
-SRC_DIR = src/
-BUILD_DIR = build/
-
-UNPREFIXED_SRC = main.c \
-parse.c \
-raycast.c \
-line.c \
-vector.c \
-vector2.c \
-player.c \
-color.c \
-render2d.c \
-render.c \
-get_next_line.c \
-get_next_line_utils.c
-
-OBJ = $(addprefix $(BUILD_DIR), $(UNPREFIXED_SRC:.c=.o))
-SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))
-
-INC = inc/
-MLX_INC = lib/libmlx42/include/MLX42/
-
-FLAGS = -Wall -Wextra -Werror
-#FLAGS = -g -fsanitize=address
-
-LIB = lib/
-LIBMLX = lib/libmlx42/libmlx42.a
-LIBFT = lib/libft/libft.a
+include make_var.mk
 
 all: $(LIBFT) $(LIBMLX) $(NAME)
 	
 $(LIBFT):
 	$(MAKE) -C $(LIB)libft
 
-$(LIBMLX):
-	$(MAKE) -C $(LIB)mlx
+$(LIBMLX): $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
+
+#Exec build
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBMLX) $(LIBFT) -I$(INC) -I$(MLX_INC) -lm -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) $(OBJ) $(LIBMLX) $(LIBFT) -I$(INC) -I$(MLX_INC) -lm -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
+
+#Object build
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(BUILD_DIR)
-	$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+
+$(BUILD_DIR)%.o: $(PARSE_DIR)%.c | $(BUILD_DIR)
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+
+$(BUILD_DIR)%.o: $(GNL_DIR)%.c | $(BUILD_DIR)
+	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
+	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
+
+#Dir dependencies
 
 $(BUILD_DIR):
-	mkdir $@
+	mkdir -p $@
+
+$(MLX_DIR):
+	git submodule init
+	git submodule update
 
 clean:
-	rm -f $(OBJ)
-	rm -f $(LIB)libft/*.o
+	rm -rf $(OBJ)
+	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)
 	rm -f $(LIBFT)
+	rm -f $(LIBMLX)
+
+asan: fclean
+	$(MAKE) WITH_ASAN=1
 
 re: fclean all
 
 .PHONY:
-	all clean fclean re
+	all clean fclean re asan

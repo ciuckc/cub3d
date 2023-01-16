@@ -1,0 +1,6 @@
+lib/libmlx42/
+build
+*.o
+*.swp
+*.xpm42
+.vscode

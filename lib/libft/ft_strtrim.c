@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 17:48:50 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/13 15:11:52 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:42:50 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	is_inset(char c, char const *set)
 {
@@ -39,7 +40,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (is_inset(s1[new_len - 1], set))
 		new_len--;
 	new_str = (char *) malloc((new_len + 1) * sizeof(char));
-	if (new_str)
+	if (new_str != NULL)
 		ft_strlcpy(new_str, s1, new_len + 1);
 	return (new_str);
 }
