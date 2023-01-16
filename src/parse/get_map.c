@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 21:50:29 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/13 20:27:06 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/16 18:23:47 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ static void	st_check_map_content(char *str, uint32_t *i)
 		exit_strerr(INV_MAP);
 }
 
-static void	st_check_pos(char *str, uint32_t i)
+static void	st_check_pos(char *str)
 {
-	char		*table;
+	uint32_t	i;
 	uint32_t	found;
+	char		*table;
 	bool		player_found;
 
+	i = 0;
 	found = 0;
 	table = (char [128]){0};
 	player_found = false;
@@ -53,10 +55,12 @@ static void	st_check_pos(char *str, uint32_t i)
 		exit_strerr(NO_PLR);
 }
 
-static void	st_check_nl(char *str, uint32_t i)
+static void	st_check_nl(char *str)
 {
+	uint32_t	i;
 	uint32_t	line_len;
 
+	i = 0;
 	line_len = 0;
 	while (str[i])
 	{
@@ -73,46 +77,19 @@ static void	st_check_nl(char *str, uint32_t i)
 	}
 }
 
-static void	st_set_mapsize(t_map *map, char *map_str)
+static void	st_check_walls(char *str)
 {
-	int	x;
-	int	y;
-	int	i;
-
-	i = 0;
-	y = 0;
-	while (map_str[i] != '\0')
-	{
-		if (map_str[i] == '\n')
-			y++;
-		i++;
-	}
-	x = (i - y) / y;
-	map->size.x = x;
-	map->size.y = y;
+	(void)str;
 }
 
 void	get_map(char *str, t_vars *vars, u_int32_t *i)
 {
-	int	j;
-
-	j = 0;
 	st_check_map_content(str, i);
-	st_check_nl(str, *i);
-	st_check_pos(str, *i);
-	st_set_mapsize(&vars->map, str + *i);
-	vars->map.grid = ft_calloc(vars->map.size.x * vars->map.size.y, \
-	sizeof(char));
-	while (str[*i])
-	{
-		if (str[*i] == '\n')
-			(*i)++;
-		if (str[*i] == '\0')
-			break ;
-		if (ft_isdigit(str[*i]))
-			vars->map.grid[j] = str[*i] - '0';
-		j++;
-		(*i)++;
-	}
-	free(str);
+	st_check_nl(str + *i);
+	st_check_pos(str + *i);
+	st_check_walls(str + *i);
+	set_map_content(vars, str + *i);
+	printf("map size x y: %d %d\n", vars->map.size.x, vars->map.size.y);
+	printf("player pos x y: %f %f\n", vars->player.pos.x, vars->player.pos.y);
+	flood_fill_map(vars);
 }

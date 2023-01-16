@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:02:30 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/13 18:55:42 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/16 18:17:16 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-
-extern int	g_i;
 
 // Error message for problems during parsing
 # define ARG_ERR "Usage: ./cub3d [.cub map]\n"
@@ -47,12 +45,14 @@ you have the right permissions!\n"
  */
 void	exit_strerr(char *str_err);
 
-void	store_map_and_textures(char *str_map, t_vars *vars);
-
 void	get_textures(char *str, t_vars *vars, uint32_t *i);
 
 void	get_map(char *str, t_vars *vars, uint32_t *i);
 
 void	make_texture(char key, char *path, t_vars *vars);
+
+void	set_map_content(t_vars *vars, char *str);
+
+void	flood_fill_map(t_vars *vars);
 
 #endif

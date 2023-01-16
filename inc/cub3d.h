@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/13 17:45:27 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/16 20:36:42 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,6 @@ typedef struct s_vars {
 
 // capture keyboard input
 void		player_hook(void *param);
-// initialize pos, dir and player image
-void		player_init(t_vars *vars);
 
 // atm parser only supports rectangular maps!!!
 /**
