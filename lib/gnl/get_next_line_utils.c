@@ -6,13 +6,13 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/14 15:49:16 by mbatstra      #+#    #+#                 */
-/*   Updated: 2021/12/14 15:49:18 by mbatstra      ########   odam.nl         */
+/*   Updated: 2023/01/09 20:55:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	gnl_strlen(const char *s)
 {
 	size_t	size;
 
@@ -27,7 +27,7 @@ size_t	ft_strlen(const char *s)
 	return (size);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*gnl_strchr(const char *s, int c)
 {
 	while (*s)
 	{
@@ -40,7 +40,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strndup(const char *s1, size_t n)
+char	*gnl_strndup(const char *s1, size_t n)
 {
 	size_t	i;
 	char	*dup;
@@ -48,7 +48,7 @@ char	*ft_strndup(const char *s1, size_t n)
 	if (!s1)
 		return (NULL);
 	i = 0;
-	dup = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	dup = (char *)malloc(sizeof(char) * (gnl_strlen(s1) + 1));
 	if (!dup)
 		return (dup);
 	while (*s1 && n)
@@ -62,7 +62,7 @@ char	*ft_strndup(const char *s1, size_t n)
 	return (dup);
 }
 
-char	*ft_strjoin(const char *s1, char const *s2)
+char	*gnl_strjoin(const char *s1, char const *s2)
 {
 	size_t	size;
 	size_t	i;
@@ -71,7 +71,7 @@ char	*ft_strjoin(const char *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	i = 0;
-	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	size = gnl_strlen(s1) + gnl_strlen(s2) + 1;
 	str = (char *)malloc(size * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -95,9 +95,9 @@ void	set_tail(const char *buf, char *tail)
 {
 	char	*next;
 
-	next = ft_strchr(buf, '\n');
+	next = gnl_strchr(buf, '\n');
 	if (next)
-		ft_strlcpy(tail, next + 1, ft_strlen(next));
+		gnl_strlcpy(tail, next + 1, gnl_strlen(next));
 	else
 		tail[0] = '\0';
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 23:09:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/16 19:05:43 by mbatstra         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   player.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/01/17 16:13:22 by mbatstra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,4 @@ void	player_hook(void *param)
 		player->dir = vec_rot(player->dir, -ROT_SPD);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		player->dir = vec_rot(player->dir, ROT_SPD);
-}
-
-void	player_init(t_vars *vars)
-{
-	t_player	*player;
-
-	player = &((t_vars *)vars)->player;
-	player->pos = vec(1.5, 1.5);
-	player->dir = vec(1.0, 0.0);
-	player->mov = vec(1.0, 0.0);
 }
