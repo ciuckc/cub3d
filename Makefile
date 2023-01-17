@@ -35,7 +35,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIB)libft
 
 $(LIBMLX):
-	$(MAKE) -C $(LIB)mlx
+	$(MAKE) -C $(LIB)libmlx42
 
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBMLX) $(LIBFT) -I$(INC) -I$(MLX_INC) -lm -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
