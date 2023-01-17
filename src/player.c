@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 23:09:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/13 21:14:23 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:05:43 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	player_init(t_vars *vars)
 	t_player	*player;
 
 	player = &((t_vars *)vars)->player;
-	player->pos = vec(2.5, 2.5);
+	player->pos = vec(1.5, 1.5);
 	player->dir = vec(1.0, 0.0);
 	player->mov = vec(1.0, 0.0);
 }
