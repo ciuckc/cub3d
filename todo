@@ -1,0 +1,8 @@
+cleanup!!!
+remove garbage from libft makefile
+make mlx_put_pixel wrapper
+dist functions seem to overshoot by a pixel per tile
+- could be a rounding error
+- could be wrong projection in db_linetest
+- could be a slightly faulty algorithm
+y-rays are borked
