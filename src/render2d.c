@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:21:43 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/13 17:55:47 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:05:38 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_minimap(mlx_t *mlx, t_map *map)
 		tilesize = MAPSIZE / map->size.y;
 	map->minimap = mlx_new_image(mlx, MAPSIZE, MAPSIZE);
 	pos.y = 0;
+	printf("%d, %d\n---\n", map->size.x, map->size.y);
 	while (pos.y < map->size.y)
 	{
 		pos.x = 0;
