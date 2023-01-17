@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 21:50:29 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/16 18:23:47 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/17 16:37:22 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,11 @@ static void	st_check_nl(char *str)
 	}
 }
 
-static void	st_check_walls(char *str)
-{
-	(void)str;
-}
-
 void	get_map(char *str, t_vars *vars, u_int32_t *i)
 {
 	st_check_map_content(str, i);
 	st_check_nl(str + *i);
 	st_check_pos(str + *i);
-	st_check_walls(str + *i);
 	set_map_content(vars, str + *i);
 	printf("map size x y: %d %d\n", vars->map.size.x, vars->map.size.y);
 	printf("player pos x y: %f %f\n", vars->player.pos.x, vars->player.pos.y);
