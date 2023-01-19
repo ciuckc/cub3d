@@ -6,12 +6,13 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:49:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/17 15:43:02 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:26:36 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "libft.h"
 #include "cub3d.h"
 
@@ -102,7 +103,6 @@ static void	st_iter_ray(t_fvect2 *dst, t_fvect2 dir, t_vect2 *pos, t_map *map)
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir)
 {
 	t_fvect2	dist;
-	t_fvect2	delta;
 	t_vect2		step;
 	t_vect2		ray_pos;
 
@@ -110,7 +110,6 @@ t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir)
 	ray_pos.x = floor(player->pos.x);
 	ray_pos.y = floor(player->pos.y);
 	dist = st_side_dist(player, step, raydir);
-	delta = st_delta_dist(raydir);
 	while (mapindex(map, ray_pos.x, ray_pos.y) != WALL)
 		st_iter_ray(&dist, raydir, &ray_pos, map);
 	return (dist);

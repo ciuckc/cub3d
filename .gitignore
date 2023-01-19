@@ -1,6 +1,9 @@
+cub3d
+*.a
 lib/libmlx42/
 build
 *.o
 *.swp
+*.swo
 *.xpm42
 .vscode
