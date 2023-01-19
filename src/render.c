@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:18:54 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/19 18:54:16 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/19 19:33:11 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 // shift line segment to middle of screen
 // clamp height if it's negative or bigger than screen height
-// right now it gets clipped to HEIGHT - 1 for debugging purposes!
+// running into walls at straight angles makes ln_height overflow
+// find a better solution!!!
 static void	st_display_line(void *param, int x, int ln_height, int clr)
 {
 	t_vect2		ln_start;
@@ -36,7 +37,7 @@ static void	st_display_line(void *param, int x, int ln_height, int clr)
 	ln_end.x = x;
 	ln_end.y = ln_height / 2 + HEIGHT / 2;
 	if (ln_end.y >= HEIGHT)
-		ln_end.y = HEIGHT - 1;
+		ln_end.y = HEIGHT;
 	line(ln_start, ln_end, clr, vars);
 }
 

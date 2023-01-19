@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:04:08 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/17 16:10:30 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/19 19:40:00 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void	st_copy_content(t_map *map, char *str)
 		if (line == NULL)
 			exit_strerr(MALLOC_ERR);
 		ft_memmove(map->grid + j, line, ft_strlen(line));
-		free(line);
 		j += map->size.x;
 		i += ft_strlen(line);
+		free(line);
 		if (str[i] == '\0')
 			break ;
 		i++;
