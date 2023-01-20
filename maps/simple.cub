@@ -1,15 +1,10 @@
+NO ./assets/wall2.xpm42
+SO ./assets/wall2.xpm42
+WE ./assets/wall3.xpm42
+EA ./assets/wall4.xpm42
 
-      NO         ok.xpm42 
-
-SO 2.xpm42
-
-WE 3.xpm42         
-EA 4.xpm42
-
-
-C 255,000,120
-
-F 100,100,100
+F 220,100,0
+C 225,30,0
 
 1111
 10S1
