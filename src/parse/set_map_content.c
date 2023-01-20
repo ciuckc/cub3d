@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:04:08 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/16 20:34:20 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/20 01:17:07 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void	st_copy_content(t_map *map, char *str)
 		if (line == NULL)
 			exit_strerr(MALLOC_ERR);
 		ft_memmove(map->grid + j, line, ft_strlen(line));
-		free(line);
 		j += map->size.x;
 		i += ft_strlen(line);
+		free(line);
 		if (str[i] == '\0')
 			break ;
 		i++;
@@ -64,7 +64,6 @@ static void	st_get_player_pos(t_vars *var)
 			break ;
 		player_idx++;
 	}
-	printf("playeridx: %d\n", player_idx);
 	var->player.pos.y = (player_idx / var->map.size.x) + 0.5;
 	var->player.pos.x = (player_idx % var->map.size.x) + 0.5;
 	var->player.dir = table[(int) var->map.grid[player_idx]];
@@ -118,6 +117,8 @@ void	set_map_content(t_vars *vars, char *str)
 	{
 		if (ft_isdigit(vars->map.grid[i]))
 			vars->map.grid[i] -= '0';
+		else if (vars->map.grid[i] == ' ')
+			vars->map.grid[i] = UNREACH;
 		i++;
 	}
 	st_get_player_pos(vars);

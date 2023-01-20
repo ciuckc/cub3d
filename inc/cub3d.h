@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/16 20:42:14 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/20 01:51:31 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FLOOR 0
 # define WALL 1
 # define START_POS 2
+# define UNREACH 3
 
 /*
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
@@ -55,7 +56,8 @@ typedef struct s_fvect2 {
  * @param dir Direction vector which holds the current direction
  * the player is facing
  */
-typedef struct s_player {
+typedef struct s_player
+{
 	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
 	t_fvect2	dir;	// unit vector player direction
 	t_fvect2	mov;	// unit vector last player movement

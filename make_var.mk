@@ -53,7 +53,8 @@ OBJ += $(addprefix $(BUILD_DIR), $(UNPREFIXED_SRC:.c=.o))
 PARSE_DIR = $(SRC_DIR)parse/
 
 UNPREF_PARSE_SRC = parse.c exit_strerr.c get_textures.c make_texture.c \
-get_map.c set_map_content.c flood_fill_map.c
+get_map.c set_map_content.c flood_fill_map.c reach_neighbours.c \
+add_neighbours_to_queue.c fill_from_pos.c find_unreached_spots.c
 
 PARSE_SRC = $(addprefix $(PARSE_DIR), $(UNPREF_PARSE_SRC:.=.o))
 
