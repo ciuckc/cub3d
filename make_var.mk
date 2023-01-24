@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 SRC_DIR = src/
 BUILD_DIR = build/
@@ -54,7 +54,8 @@ PARSE_DIR = $(SRC_DIR)parse/
 
 UNPREF_PARSE_SRC = parse.c exit_strerr.c get_textures.c make_texture.c \
 get_map.c set_map_content.c flood_fill_map.c reach_neighbours.c \
-add_neighbours_to_queue.c fill_from_pos.c find_unreached_spots.c
+add_neighbours_to_queue.c fill_from_pos.c find_unreached_spots.c \
+crop_map.c get_map_range.c init_tile_map.c
 
 PARSE_SRC = $(addprefix $(PARSE_DIR), $(UNPREF_PARSE_SRC:.=.o))
 

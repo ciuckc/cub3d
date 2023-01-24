@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:04:08 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/20 04:13:09 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/24 15:34:47 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	st_get_player_pos(t_vars *var)
 	var->player.pos.y = (player_idx / var->map.size.x) + 0.5;
 	var->player.pos.x = (player_idx % var->map.size.x) + 0.5;
 	var->player.dir = table[(int) var->map.grid[player_idx]];
-	printf("dir: %f %f\n", var->player.dir.x, var->player.dir.y);
 	var->map.grid[player_idx] = START_POS;
 }
 

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 00:50:16 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/20 03:51:59 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/20 05:00:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ t_tile **tile_map)
 	if (curr_pos.x == m_size.x - 1 || curr_pos.x == 0 || curr_pos.y == 0 \
 	|| curr_pos.y == m_size.y - 1)
 		return (true);
-	if (tile_map[curr_pos.y][curr_pos.x].type == UNREACH)
+	else if (tile_map[curr_pos.y][curr_pos.x].type == UNREACH)
 		return (true);
-	return (false);
+	else
+		return (false);
 }
 
 void	fill_from_pos(t_tile **tile_map, t_list *queue, t_vect2 m_size)

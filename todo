@@ -6,3 +6,6 @@ dist functions seem to overshoot by a pixel per tile
 - could be wrong projection in db_linetest
 - could be a slightly faulty algorithm
 y-rays are borked
+1 2 3 4
+1 2 3 4
+1 2 3 4

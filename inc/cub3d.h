@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/20 01:51:31 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/24 16:02:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <stdlib.h>
+# include <assert.h>
 # include "MLX42.h"
 
 # define WIDTH 1024

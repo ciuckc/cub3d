@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 21:50:29 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/17 16:37:22 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/24 16:09:12 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void	st_check_nl(char *str)
 		}
 		if (line_len == 0)
 			exit_strerr(MAP_NL_ERR);
+		if (str[i] == '\0')
+			break ;
 		line_len = 0;
 		i++;
 	}
@@ -83,7 +85,5 @@ void	get_map(char *str, t_vars *vars, u_int32_t *i)
 	st_check_nl(str + *i);
 	st_check_pos(str + *i);
 	set_map_content(vars, str + *i);
-	printf("map size x y: %d %d\n", vars->map.size.x, vars->map.size.y);
-	printf("player pos x y: %f %f\n", vars->player.pos.x, vars->player.pos.y);
 	flood_fill_map(vars);
 }

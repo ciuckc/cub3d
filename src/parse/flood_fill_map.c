@@ -6,30 +6,11 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:34:25 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/20 03:41:43 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/24 16:07:44 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-static t_tile	**st_init_map(t_map grid)
-{
-	t_tile	**tiles;
-	int32_t	i;
-
-	tiles = ft_calloc(grid.size.y, sizeof(t_tile *));
-	if (tiles == NULL)
-		exit_strerr(MALLOC_ERR);
-	i = 0;
-	while (i < grid.size.y)
-	{
-		tiles[i] = ft_calloc(grid.size.x, sizeof(t_tile));
-		if (tiles[i] == NULL)
-			exit_strerr(MALLOC_ERR);
-		i++;
-	}
-	return (tiles);
-}
 
 static void	st_init_each_tile(t_map grid, t_tile **tile)
 {
@@ -69,29 +50,28 @@ static void	st_fill_from_player(t_vars *vars, t_tile **tile_map)
 	fill_from_pos(tile_map, queue, vars->map.size);
 }
 
-static void	st_fill_left_spots(t_vars *vars, t_tile **tile_map)
+static void	st_free_tiles(t_tile **tile_map, int32_t len)
 {
-	t_vect2	*left_spot;
-	t_list	*queue;
+	int32_t	i;
 
-	while (true)
+	i = 0;
+	while (i < len)
 	{
-		left_spot = find_unreached_spots(tile_map, vars->map.size);
-		if (left_spot == NULL)
-			return ;
-		queue = ft_lstnew(left_spot);
-		if (queue == NULL)
-			exit_strerr(MALLOC_ERR);
-		fill_from_pos(tile_map, queue, vars->map.size);
+		free(tile_map[i]);
+		i++;
 	}
+	free(tile_map);
 }
 
 void	flood_fill_map(t_vars *vars)
 {
 	t_tile	**flood_map;
+	int32_t	tiles_y_size;
 
-	flood_map = st_init_map(vars->map);
+	tiles_y_size = vars->map.size.y;
+	flood_map = init_tile_map(vars->map.size.x, tiles_y_size);
 	st_init_each_tile(vars->map, flood_map);
 	st_fill_from_player(vars, flood_map);
-	st_fill_left_spots(vars, flood_map);
+	crop_map(&vars->map, flood_map, &vars->player);
+	st_free_tiles(flood_map, tiles_y_size);
 }

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:07:16 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/16 17:52:23 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/24 17:36:06 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	st_make_map_str(char **str_map, int32_t fd)
 void	parse(int argc, char **argv, t_vars *vars)
 {
 	char		*str_map;
-	u_int32_t	str_index;
+	uint32_t	str_index;
 	int32_t		fd;
 
 	if (argc != 2)
@@ -71,5 +71,3 @@ void	parse(int argc, char **argv, t_vars *vars)
 	get_map(str_map, vars, &str_index);
 	free(str_map);
 }
-
-// To do init player as well and the map

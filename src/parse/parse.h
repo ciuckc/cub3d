@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:02:30 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/20 03:51:52 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/24 15:19:02 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ you have the right permissions!\n"
 # define POS_DUP_ERR "Player position duplicate found!\n"
 # define NO_PLR "Could not resolve player position.\n"
 # define INV_WALL_ERR "Map has openings in the walls.\n"
+
+# define FIRST 0
+# define LAST 1
 
 typedef enum e_front_neighbour
 {
@@ -79,5 +82,11 @@ void	reach_neighbours(t_tile **map, t_list *queue);
 void	add_neighbours_to_queue(t_tile **map, t_list *queue);
 
 t_vect2	*find_unreached_spots(t_tile **map, t_vect2 m_size);
+
+void	crop_map(t_map *unsan_map, t_tile **tiles, t_player *plr);
+
+void	get_map_range(t_map *unsan_map, t_tile **tiles, t_vect2 *ranges);
+
+t_tile	**init_tile_map(int32_t x, int32_t y);
 
 #endif
