@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/25 19:08:41 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 20:19:53 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 # define WIDTH 1024
 # define HEIGHT 1024
-# define MAPSIZE 256
+# define MAPSCALE 0.275
+# define TPM 8
+# define PLAYER2D_CLR 0xffffffff
 # define MOV_SPD 0.025
 # define ROT_SPD 0.05
 # define FOV 1.0471976 // pi / 3
@@ -27,13 +29,18 @@
 # define WALL 1
 # define START_POS 2
 # define UNREACH 3
+# define Z_LVL_SPRITE 0
+# define Z_LVL_CANVAS 1
+# define Z_LVL_MINIMAP 2
+# define Z_LVL_HUD 3
 
 /*
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
 MORE SPRITES OR OTHER STUFF.
 */
 # define MAP_CONTENT " 01NSWE"
-# define TEXTURES "NSWEFC"
+# define TEXTURES "NSWE"
+# define HUD_PATH "assets/hud2.xpm42"
 
 // File extension
 
@@ -69,7 +76,6 @@ typedef struct s_player
  * 
  */
 typedef struct s_map {
-	mlx_image_t	*minimap;
 	t_vect2		size;
 	uint8_t		*grid;
 }			t_map;
@@ -94,10 +100,11 @@ typedef enum e_content {
  */
 typedef struct s_vars {
 	mlx_image_t	*canvas;
-	t_player	player;
 	mlx_image_t	*texture[sizeof(TEXTURES) - 1];
-	uint32_t	floor;
-	uint32_t	ceil;
+	mlx_image_t	*texture2d[4];
+	uint32_t	floor_clr;
+	uint32_t	ceil_clr;
+	t_player	player;
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;
@@ -105,8 +112,7 @@ typedef struct s_vars {
 // capture keyboard input
 void		player_hook(void *param);
 
-// atm parser only supports rectangular maps!!!
-void		init_minimap(mlx_t *mlx, t_map *map);
+
 /**
  * @brief Makes sure that the a map is provided, the map name provided is a 
  * valid .cub map, then it creates a full string out of the content. Then it
@@ -118,7 +124,6 @@ void		init_minimap(mlx_t *mlx, t_map *map);
  */
 void		parse(int argc, char **argv, t_vars *vars);
 // render
-void		render2d(mlx_t *mlx, t_map *map);
 void		fill_img(mlx_image_t *img, uint32_t clr);
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
 int			mapindex(t_map *map, int x, int y);
@@ -150,5 +155,9 @@ uint8_t		get_alpha(uint32_t clr);
 // cast a single ray
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
 void		render(void *param);
+
+// render2d
+void		render2d_init(t_vars *vars);
+void		render2d_minimap(void *param);
 
 #endif

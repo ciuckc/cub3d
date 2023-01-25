@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:07:16 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/24 17:36:06 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 20:20:58 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	parse(int argc, char **argv, t_vars *vars)
 	if (!st_make_map_str(&str_map, fd))
 		exit_strerr(MALLOC_ERR);
 	str_index = 0;
+	printf("1\n");
 	get_textures(str_map, vars, &str_index);
+	printf("2\n");
 	get_map(str_map, vars, &str_index);
+	printf("3\n");
 	free(str_map);
 }

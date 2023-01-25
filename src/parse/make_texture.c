@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/25 19:10:42 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 20:19:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void	make_texture(char key, char *path, t_vars *vars)
 	{
 		st_check_colour(path);
 		if (key == 'C')
-			vars->ceil = st_get_clr(path);
+			vars->ceil_clr = st_get_clr(path);
 		else
-			vars->floor = st_get_clr(path);
+			vars->floor_clr = st_get_clr(path);
 		return ;
 	}
 	st_check_path(path);

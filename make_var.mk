@@ -2,6 +2,7 @@ NAME = cub3D
 
 SRC_DIR = src/
 BUILD_DIR = build/
+BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/render2d build/vector
 
 # make with asan rule to compile with the adress sanitizer -> make re to get rid of it
 ifdef WITH_ASAN
@@ -35,33 +36,26 @@ OBJ += $(GNL_OBJ)
 # SRC
 
 UNPREFIXED_SRC = main.c \
-raycast.c \
-line.c \
-vector.c \
-vector2.c \
-player.c \
-color.c \
-render2d.c \
-render.c \
+render/raycast.c \
+render/render.c \
+vector/vector.c \
+vector/vector2.c \
+gameplay/player.c \
+draw_util/color.c \
+draw_util/line.c \
+render2d/init.c \
+render2d/minimap.c \
+parse/exit_strerr.c \
+parse/flood_fill_map.c \
+parse/get_map.c \
+parse/get_textures.c \
+parse/make_texture.c \
+parse/set_map_content.c \
+parse/parse.c
 
 SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))
 
 OBJ += $(addprefix $(BUILD_DIR), $(UNPREFIXED_SRC:.c=.o))
-
-# Parse
-
-PARSE_DIR = $(SRC_DIR)parse/
-
-UNPREF_PARSE_SRC = parse.c exit_strerr.c get_textures.c make_texture.c \
-get_map.c set_map_content.c flood_fill_map.c reach_neighbours.c \
-add_neighbours_to_queue.c fill_from_pos.c find_unreached_spots.c \
-crop_map.c get_map_range.c init_tile_map.c
-
-PARSE_SRC = $(addprefix $(PARSE_DIR), $(UNPREF_PARSE_SRC:.=.o))
-
-PARSE_OBJ = $(addprefix $(BUILD_DIR), $(UNPREF_PARSE_SRC:.c=.o))
-
-OBJ += $(PARSE_OBJ)
 
 RESET		=	"\033[0m"
 YELLOW		=	"\033[0;33m"
