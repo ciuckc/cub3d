@@ -16,11 +16,7 @@ $(NAME): $(OBJ)
 
 #Object build
 
-$(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(BUILD_DIR)
-	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
-	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
-
-$(BUILD_DIR)%.o: $(PARSE_DIR)%.c | $(BUILD_DIR)
+$(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(BUILD_DIR) $(BUILD_SUBDIRS)
 	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
 	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
 
@@ -31,7 +27,10 @@ $(BUILD_DIR)%.o: $(GNL_DIR)%.c | $(BUILD_DIR)
 #Dir dependencies
 
 $(BUILD_DIR):
-	mkdir -p $@
+	@mkdir -p $@
+
+$(BUILD_SUBDIRS):
+	@mkdir -p $@
 
 $(MLX_DIR):
 	git submodule init

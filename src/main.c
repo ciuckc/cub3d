@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/19 17:56:47 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:46:06 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "libft.h"
 #include "cub3d.h"
 #include <stdlib.h>
+
+int	mapindex(t_map *map, int x, int y)
+{
+	return (map->grid[x + y * map->size.x]);
+}
 
 int32_t	main(int argc, char **argv)
 {
@@ -23,12 +28,13 @@ int32_t	main(int argc, char **argv)
 	if (!vars.mlx)
 		exit(EXIT_FAILURE);
 	parse(argc, argv, &vars);
+	render2d_init(&vars);
 	vars.canvas = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(vars.mlx, vars.canvas, 0, 0);
-	init_minimap(vars.mlx, &vars.map);
-	mlx_image_to_window(vars.mlx, vars.map.minimap, 0, 0);
+	vars.canvas->instances[0].z = Z_LVL_CANVAS;
 	mlx_loop_hook(vars.mlx, &player_hook, &vars);
 	mlx_loop_hook(vars.mlx, &render, &vars);
+	mlx_loop_hook(vars.mlx, &render2d_minimap, &vars);
 	mlx_loop(vars.mlx);
 	mlx_terminate(vars.mlx);
 	return (EXIT_SUCCESS);

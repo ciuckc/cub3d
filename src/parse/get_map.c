@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 21:50:29 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/16 18:23:47 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 18:20:12 by mbatstra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static void	st_check_map_content(char *str, uint32_t *i)
 	while (str[j] && table[(int) str[j]])
 		j++;
 	if (table[(int) str[j]] == false && str[j])
-		exit_strerr(INV_MAP);
+	{
+		printf("here\n");
+		// exit_strerr(INV_MAP);
+	}
 }
 
 static void	st_check_pos(char *str)
@@ -70,8 +73,8 @@ static void	st_check_nl(char *str)
 				line_len++;
 			i++;
 		}
-		if (line_len == 0)
-			exit_strerr(MAP_NL_ERR);
+		// if (line_len == 0)
+		// 	exit_strerr(MAP_NL_ERR);
 		line_len = 0;
 		i++;
 	}
