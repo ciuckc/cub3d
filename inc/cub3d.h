@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/24 16:02:39 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 19:08:41 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,20 +88,6 @@ typedef enum e_content {
 	X
 }			t_cont;
 
-union u_tex {
-	mlx_image_t	*tex;
-	uint32_t	clr;
-};
-
-/**
- * @brief Texture data.
- * 
- */
-typedef struct s_tex {
-	union u_tex	elem;
-	bool		is_clr;
-}			t_tex;
-
 /**
  * @brief Program struct.
  * 
@@ -109,7 +95,9 @@ typedef struct s_tex {
 typedef struct s_vars {
 	mlx_image_t	*canvas;
 	t_player	player;
-	t_tex		texture[sizeof(TEXTURES) - 1];
+	mlx_image_t	*texture[sizeof(TEXTURES) - 1];
+	uint32_t	floor;
+	uint32_t	ceil;
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;

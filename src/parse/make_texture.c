@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/12 22:21:37 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 19:10:42 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,18 @@ static mlx_image_t	*st_get_tex(char *path, mlx_t *mlx)
 void	make_texture(char key, char *path, t_vars *vars)
 {
 	char	*table;
-	t_tex	*texture;
 
-	texture = vars->texture;
 	table = (char [128]){['N'] = N, ['S'] = S, ['W'] = W, \
 	['E'] = E, ['F'] = F, ['C'] = C};
 	if (key == 'C' || key == 'F')
 	{
 		st_check_colour(path);
-		texture[(int) table[(int) key]].is_clr = true;
-		texture[(int) table[(int) key]].elem.clr = st_get_clr(path);
+		if (key == 'C')
+			vars->ceil = st_get_clr(path);
+		else
+			vars->floor = st_get_clr(path);
 		return ;
 	}
 	st_check_path(path);
-	texture[(int) table[(int) key]].is_clr = false;
-	texture[(int) table[(int) key]].elem.tex = st_get_tex(path, vars->mlx);
+	vars->texture[(int) table[(int) key]] = st_get_tex(path, vars->mlx);
 }
