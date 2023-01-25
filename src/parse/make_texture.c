@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:29:16 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 20:44:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,10 @@ void	make_texture(char key, char *path, t_vars *vars)
 			vars->ceil_clr = st_get_clr(path);
 		else
 			vars->floor_clr = st_get_clr(path);
-		return ;
 	}
-	st_check_path(path);
-	vars->texture[(int) table[(int) key]] = st_get_tex(path, vars->mlx);
+	else
+	{
+		st_check_path(path);
+		vars->texture[(int) table[(int) key]] = st_get_tex(path, vars->mlx);
+	}
 }

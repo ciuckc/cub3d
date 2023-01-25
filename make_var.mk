@@ -51,6 +51,12 @@ parse/get_map.c \
 parse/get_textures.c \
 parse/make_texture.c \
 parse/set_map_content.c \
+parse/crop_map.c \
+parse/fill_from_pos.c \
+parse/init_tile_map.c \
+parse/add_neighbours_to_queue.c \
+parse/get_map_range.c \
+parse/reach_neighbours.c \
 parse/parse.c
 
 SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))

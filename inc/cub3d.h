@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:19:53 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 20:32:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
 MORE SPRITES OR OTHER STUFF.
 */
 # define MAP_CONTENT " 01NSWE"
-# define TEXTURES "NSWE"
+# define TEXTURES "NSWEFC"
 # define HUD_PATH "assets/hud2.xpm42"
 
 // File extension

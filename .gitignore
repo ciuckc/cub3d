@@ -5,5 +5,4 @@ build
 *.o
 *.swp
 *.swo
-*.xpm42
 .vscode
