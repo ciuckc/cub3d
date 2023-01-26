@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:02:30 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/24 15:19:02 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/25 20:52:50 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef enum e_front_neighbour
 
 typedef struct s_tile
 {
-	uint16_t	type;
-	uint16_t	frontier_neighbour;
-	bool		reached;
+	uint16_t	type : 3;
+	uint16_t	frontier_neighbour : 4;
+	bool		reached : 1;
 }		t_tile;
 
 /**
