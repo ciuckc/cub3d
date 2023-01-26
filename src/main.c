@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/25 19:46:06 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/25 20:51:28 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int32_t	main(int argc, char **argv)
 {
 	t_vars	vars;
 
-	vars.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	vars.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	if (!vars.mlx)
 		exit(EXIT_FAILURE);
 	parse(argc, argv, &vars);

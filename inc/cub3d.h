@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:32:49 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/26 20:32:00 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define MAPSCALE 0.275
 # define TPM 8
 # define PLAYER2D_CLR 0xffffffff
-# define MOV_SPD 0.025
+# define MOV_SPD 0.05
 # define ROT_SPD 0.05
 # define FOV 1.0471976 // pi / 3
 # define FLOOR 0
@@ -124,7 +124,6 @@ void		player_hook(void *param);
  */
 void		parse(int argc, char **argv, t_vars *vars);
 // render
-void		fill_img(mlx_image_t *img, uint32_t clr);
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
 int			mapindex(t_map *map, int x, int y);
 
