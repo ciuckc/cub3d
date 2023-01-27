@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:32:49 by scristia      ########   odam.nl         */
+/*   Updated: 2023/01/27 18:43:01 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@
 # define MAPSCALE 0.275
 # define TPM 8
 # define PLAYER2D_CLR 0xffffffff
-# define MOV_SPD 0.025
+# define MOV_SPD 0.05
 # define ROT_SPD 0.05
 # define FOV 1.0471976 // pi / 3
 # define FLOOR 0
 # define WALL 1
 # define START_POS 2
 # define UNREACH 3
-# define Z_LVL_SPRITE 0
-# define Z_LVL_CANVAS 1
-# define Z_LVL_MINIMAP 2
-# define Z_LVL_HUD 3
+# define Z_LVL_CANVAS 0
+# define Z_LVL_MINIMAP 1
+# define Z_LVL_HUD 2
 
 /*
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
@@ -64,12 +63,16 @@ typedef struct s_fvect2 {
  * @param dir Direction vector which holds the current direction
  * the player is facing
  */
-typedef struct s_player
-{
+typedef struct s_player {
 	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
 	t_fvect2	dir;	// unit vector player direction
 	t_fvect2	mov;	// unit vector last player movement
 }			t_player;
+
+typedef struct s_sprite {
+	mlx_image_t	*tex;
+	t_fvect2	pos;
+}			t_sprite;
 
 /**
  * @brief Map struct with size and pointer to the map contents.
@@ -84,7 +87,7 @@ typedef struct s_map {
  *@brief Used for indexing paths to images in the array of textures.
  * 
  */
-typedef enum e_content {
+enum e_content {
 	N,
 	S,
 	W,
@@ -92,7 +95,7 @@ typedef enum e_content {
 	F,
 	C,
 	X
-}			t_cont;
+};
 
 /**
  * @brief Program struct.
@@ -105,13 +108,13 @@ typedef struct s_vars {
 	uint32_t	floor_clr;
 	uint32_t	ceil_clr;
 	t_player	player;
+	t_sprite	sprite;
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;
 
 // capture keyboard input
 void		player_hook(void *param);
-
 
 /**
  * @brief Makes sure that the a map is provided, the map name provided is a 
@@ -124,7 +127,6 @@ void		player_hook(void *param);
  */
 void		parse(int argc, char **argv, t_vars *vars);
 // render
-void		fill_img(mlx_image_t *img, uint32_t clr);
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
 int			mapindex(t_map *map, int x, int y);
 
@@ -159,5 +161,7 @@ void		render(void *param);
 // render2d
 void		render2d_init(t_vars *vars);
 void		render2d_minimap(void *param);
+void		sprite_display(t_vars *vars, double *z_arr);
+void		sprite_init(t_vars *vars, t_sprite *sprt, char *path);
 
 #endif

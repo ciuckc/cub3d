@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:17:50 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/25 19:48:19 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/26 20:37:15 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 #include "libft.h"
 #include "cub3d.h"
 
-void	init_hud(t_vars *vars)
+// load HUD texture and dispaly it
+// until we make a proper scaling algorithm, this only executes
+// when WIDTH and HEIGHT are 1024
+void	st_init_hud(t_vars *vars)
 {
 	mlx_image_t	*hud_img;
 	mlx_t		*mlx;
 	xpm_t		*xpm;
 
-	if (WIDTH != 1024 || HEIGHT != 1024)
-		return ;
 	mlx = vars->mlx;
 	xpm = mlx_load_xpm42(HUD_PATH);
 	if (xpm == NULL)
@@ -35,7 +36,8 @@ void	init_hud(t_vars *vars)
 	vars->texture2d[0]->instances[0].z = Z_LVL_HUD;
 }
 
-void	init_player2d(t_vars *vars)
+// display the cube at the center of the minimap
+void	st_init_player2d(t_vars *vars)
 {
 	mlx_image_t	*img;
 	uint32_t	tilesize;
@@ -55,7 +57,9 @@ void	init_player2d(t_vars *vars)
 	vars->texture2d[2]->instances[0].z = Z_LVL_HUD;
 }
 
-void	init_minimap(t_vars *vars)
+// create the image for the minimap and then call the rendering func
+// to fill it up
+void	st_init_minimap(t_vars *vars)
 {
 	uint32_t	mapsize;
 
@@ -70,9 +74,11 @@ void	init_minimap(t_vars *vars)
 	render2d_minimap(vars);
 }
 
+// driver code for above static funcs
 void	render2d_init(t_vars *vars)
 {
-	init_minimap(vars);
-	init_player2d(vars);
-	init_hud(vars);
+	st_init_minimap(vars);
+	st_init_player2d(vars);
+	if (WIDTH == 1024 && HEIGHT == 1024)
+		st_init_hud(vars);
 }

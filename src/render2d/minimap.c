@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 17:21:43 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/25 19:40:25 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/26 20:30:38 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,45 @@
 #include "libft.h"
 #include "cub3d.h"
 
+// fills a square inside minimap image with a given color
+// parameters x and y are upper-left corner of square to fill
+// x_off and y_off are coords inside square
 static void	st_fill_sqr(t_vars *vars, uint32_t x, uint32_t y, uint32_t clr)
 {
-	int32_t	tilesize;
-	int32_t	mapsize;
-	t_vect2	i;
+	uint32_t	tilesize;
+	uint32_t	mapsize;
+	uint32_t	x_off;
+	uint32_t	y_off;
 
 	if (WIDTH >= HEIGHT)
 		mapsize = WIDTH * MAPSCALE;
 	else
 		mapsize = HEIGHT * MAPSCALE;
 	tilesize = mapsize / TPM;
-	i.y = 0;
-	while (i.y < tilesize)
+	y_off = 0;
+	while (y_off < tilesize)
 	{
-		i.x = 0;
-		while (i.x < tilesize)
+		x_off = 0;
+		while (x_off < tilesize)
 		{
-			mlx_put_pixel(vars->texture2d[1], x + i.x, y + i.y, clr);
-			i.x++;
+			mlx_put_pixel(vars->texture2d[1], x + x_off, y + y_off, clr);
+			x_off++;
 		}
-		i.y++;
+		y_off++;
 	}
 }
 
+// check if a position plus offset is a valid point on the map
 bool	st_inbounds(t_map *map, t_vect2 pos, t_vect2 i)
 {
 	return (pos.x + i.x >= 0 && pos.y + i.y >= 0 && \
 			pos.x + i.x < map->size.x && pos.y + i.y < map->size.y);
 }
 
+// draw entire minimap plus an extra row and column so the image can be
+// moved without the image tearing
+// pos is expressed in map coordinates and iterates over mapsize
+// in tiles such that the player is always in the center
 void	st_drawmap(t_vars *vars, uint32_t tilesize)
 {
 	uint32_t	clr;
@@ -72,6 +81,8 @@ void	st_drawmap(t_vars *vars, uint32_t tilesize)
 	}
 }
 
+// offset the minimap image so that the player is in the center
+// any pixels beyond the minimap's borders get their aplha set to 0
 void	st_mapoffset(t_vars *vars, uint32_t tilesize, uint32_t mapsize)
 {
 	mlx_image_t	*img;
@@ -98,11 +109,16 @@ void	st_mapoffset(t_vars *vars, uint32_t tilesize, uint32_t mapsize)
 	img->instances[0].y = -offset.y;
 }
 
+// driver function
+// redraws the minimap every time the player moves to a new tile
+// because the room to translate the image is exactly one tile
+// on each frame, regardless of redrawing, translate and set alpha of image
 void	render2d_minimap(void *param)
 {
-	uint32_t	tilesize;
-	uint32_t	mapsize;
-	t_vars		*vars;
+	static t_fvect2	last_pos;
+	uint32_t		tilesize;
+	uint32_t		mapsize;
+	t_vars			*vars;
 
 	vars = (t_vars *)param;
 	if (WIDTH >= HEIGHT)
@@ -110,6 +126,8 @@ void	render2d_minimap(void *param)
 	else
 		mapsize = HEIGHT * MAPSCALE;
 	tilesize = mapsize / TPM;
-	st_drawmap(vars, tilesize);
+	if (vars->player.pos.x != last_pos.x || vars->player.pos.y != last_pos.y)
+		st_drawmap(vars, tilesize);
 	st_mapoffset(vars, tilesize, mapsize);
+	last_pos = vars->player.pos;
 }
