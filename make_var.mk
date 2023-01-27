@@ -2,7 +2,7 @@ NAME = cub3D
 
 SRC_DIR = src/
 BUILD_DIR = build/
-BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/render2d build/vector
+BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/render2d build/vector build/sprites
 
 # make with asan rule to compile with the adress sanitizer -> make re to get rid of it
 ifdef WITH_ASAN
@@ -57,7 +57,8 @@ parse/init_tile_map.c \
 parse/add_neighbours_to_queue.c \
 parse/get_map_range.c \
 parse/reach_neighbours.c \
-parse/parse.c
+parse/parse.c \
+sprites/sprite_display.c
 
 SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))
 

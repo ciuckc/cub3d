@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/26 20:58:27 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:29:11 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@
 // clamp height if it's negative or bigger than screen height
 // running into walls at straight angles makes ln_height overflow
 // find a better solution!!!
-static void	st_display_line(void *param, uint32_t x, \
+static void	st_display_line(t_vars *vars, uint32_t x, \
 							int32_t ln_height, uint32_t clr)
 {
 	t_vect2		ln_start;
 	t_vect2		ln_end;
-	t_vars		*vars;
 
 	if (ln_height == INT_MIN)
 		ln_height = HEIGHT;
-	vars = (t_vars *)param;
 	ln_start.x = x;
 	ln_start.y = -ln_height / 2 + HEIGHT / 2;
 	if (ln_start.y < 0)
@@ -47,10 +45,8 @@ static void	st_display_line(void *param, uint32_t x, \
 // cos(angle) is simplified form of
 // sin(M_PI_2 - angle) / sin(M_PI_2);
 // by having both x and y rays we know if hit was NS or EW
-// later we might have to use part of the raycaster 
-// to figure out what single direction the hit was (eg. N, W, S or E) 
-static void	st_get_height(t_vars *vars, uint32_t x, \
-						int32_t *ln_height, uint32_t *clr)
+static double	st_get_height(t_vars *vars, uint32_t x, \
+							int32_t *ln_height, uint32_t *clr)
 {
 	t_fvect2	dst;
 	double		angle;
@@ -62,13 +58,12 @@ static void	st_get_height(t_vars *vars, uint32_t x, \
 		dst.x *= cos(angle);
 		*ln_height = (int32_t)HEIGHT / dst.x;
 		*clr = 0x80652bff;
+		return (dst.x);
 	}
-	else
-	{
-		dst.y *= cos(angle);
-		*ln_height = (int32_t)HEIGHT / dst.y;
-		*clr = 0xb08e45ff;
-	}
+	dst.y *= cos(angle);
+	*ln_height = (int32_t)HEIGHT / dst.y;
+	*clr = 0xb08e45ff;
+	return (dst.y);
 }
 
 // clear canvas for new frame
@@ -79,6 +74,7 @@ void	render(void *param)
 	uint32_t	x;
 	int32_t		ln_height;
 	t_vars		*vars;
+	double		z_arr[WIDTH];
 
 	vars = (t_vars *)param;
 	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * sizeof(uint32_t) / 2);
@@ -87,8 +83,9 @@ void	render(void *param)
 	x = 0;
 	while (x < WIDTH)
 	{
-		st_get_height(vars, x, &ln_height, &clr);
-		st_display_line(param, x, ln_height, clr);
+		z_arr[x] = st_get_height(vars, x, &ln_height, &clr);
+		st_display_line(vars, x, ln_height, clr);
 		x++;
 	}
+	sprite_display(vars, z_arr);
 }
