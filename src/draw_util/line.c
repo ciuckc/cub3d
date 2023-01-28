@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 18:19:13 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/12 19:14:51 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:04:45 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include "libft.h"
 #include "cub3d.h"
 #include "MLX42.h"
+
+uint32_t	get_pixel(mlx_image_t *img, t_vect2 i)
+{
+	return (get_rgba(img->pixels[(i.x + i.y * img->width) * sizeof(uint32_t)], \
+				img->pixels[(i.x + i.y * img->width) * sizeof(uint32_t) + 1], \
+				img->pixels[(i.x + i.y * img->width) * sizeof(uint32_t) + 2], \
+				img->pixels[(i.x + i.y * img->width) * sizeof(uint32_t) + 3]));
+}
 
 // set inital diff and heading for line
 static void	set_d_step(t_vect2 *d, t_vect2 *step, t_vect2 start, t_vect2 end)

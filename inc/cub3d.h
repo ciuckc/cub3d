@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/27 18:43:01 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:04:32 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ t_fvect2	vec(double x, double y);
 
 // functions to extract components or construct a color
 uint32_t	get_rgba(int r, int g, int b, int a);
+uint32_t	get_pixel(mlx_image_t *img, t_vect2 i);
 uint8_t		get_red(uint32_t clr);
 uint8_t		get_grn(uint32_t clr);
 uint8_t		get_blu(uint32_t clr);
