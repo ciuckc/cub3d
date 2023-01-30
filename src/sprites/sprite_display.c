@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/28 16:16:12 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:14:00 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,14 @@ void	sprite_init(t_vars *vars, t_sprite *sprt, char *path)
 // 2 * atan(plane_len / dir_len) = fov
 // or
 // plane_len = tan(fov / 2) = 0.58
-t_fvect2	get_transform_coord(t_vars *vars)
+t_fvect2	get_transform_coord(t_vars *vars, t_sprite *sprite)
 {
 	t_fvect2	cam_plane;
 	t_fvect2	pos;
 	t_player	*player;
-	t_sprite	*sprite;
 	double		inv_det;
 
 	player = &vars->player;
-	sprite = &vars->sprite;
 	pos.x = sprite->pos.x - player->pos.x;
 	pos.y = sprite->pos.y - player->pos.y;
 	cam_plane = vec_mul(vec_rot(player->dir, M_PI_2), 0.58);
@@ -71,39 +69,60 @@ void	set_draw_lim(t_vect2 *start, t_vect2 *end, int32_t dim, int32_t x)
 		end->x = WIDTH;
 }
 
-void	sprite_display(t_vars *vars, double *z_arr)
+void	sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr)
 {
-	t_fvect2	transform;
-	t_sprite	*sprite;
-	uint32_t	clr;
+	if (get_pixel(spr->tex, img_i) & 0xffffff00)
+		mlx_put_pixel(vars->canvas, i.x, i.y, get_pixel(spr->tex, img_i));
+}
+
+t_vect2	lerp_tex_coords(t_sprite *spr, t_vect2 spr_vars, t_vect2 i)
+{
+	t_vect2	img_i;
+
+	img_i.x = (i.x - (-spr_vars.y / 2 + spr_vars.x)) * \
+				spr->tex->width / spr_vars.y;
+	img_i.y = (i.y * 2 - HEIGHT + spr_vars.y) * \
+				spr->tex->height / spr_vars.y / 2;
+	return (img_i);
+}
+
+void	sprite_drawcols(t_vars *vars, t_sprite *sprite, \
+						t_vect2 spr_vars, double *z_arr)
+{
+	t_fvect2	transf;
 	t_vect2		draw_start;
 	t_vect2		draw_end;
 	t_vect2		img_i;
 	t_vect2		i;
-	int32_t		sprite_dim;
-	int32_t		sprite_x;
-	int32_t		d;
 
-	sprite = &vars->sprite;
-	transform = get_transform_coord(vars);
-	sprite_dim = fabs((int)HEIGHT / transform.y);
-	sprite_x = (int)((WIDTH / 2) * (1 + transform.x / transform.y));
-	set_draw_lim(&draw_start, &draw_end, sprite_dim, sprite_x);
+	set_draw_lim(&draw_start, &draw_end, spr_vars.y, spr_vars.x);
+	transf = get_transform_coord(vars, sprite);
 	i.x = draw_start.x;
 	while (i.x < draw_end.x)
 	{
-		img_i.x = (int)((i.x - (-sprite_dim / 2 + sprite_x)) * sprite->tex->width / sprite_dim);
 		i.y = draw_start.y;
-		if (transform.y > 0 && i.x > 0 && i.x < WIDTH && transform.y < z_arr[i.x])
+		if (transf.y > 0 && i.x > 0 && i.x < WIDTH && transf.y < z_arr[i.x])
+		{
 			while (i.y < draw_end.y)
 			{
-				d = i.y * 2 - HEIGHT + sprite_dim;
-				img_i.y = d * sprite->tex->height / sprite_dim / 2;
-				clr = get_pixel(sprite->tex, img_i);
-				if (clr & 0xffffff00)
-					mlx_put_pixel(vars->canvas, i.x, i.y, clr);
+				img_i = lerp_tex_coords(sprite, spr_vars, i);
+				sprite_put_pixel(vars, i, img_i, sprite);
 				i.y++;
 			}
+		}
 		i.x++;
 	}
+}
+
+void	sprite_display(t_vars *vars, double *z_arr)
+{
+	t_fvect2	transform;
+	t_sprite	*sprite;
+	t_vect2		spr_vars;
+
+	sprite = &vars->sprite;
+	transform = get_transform_coord(vars, sprite);
+	spr_vars.y = fabs((int)HEIGHT / transform.y);
+	spr_vars.x = (int)((WIDTH / 2) * (1 + transform.x / transform.y));
+	sprite_drawcols(vars, sprite, spr_vars, z_arr);
 }
