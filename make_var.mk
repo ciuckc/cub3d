@@ -41,6 +41,7 @@ render/render.c \
 vector/vector.c \
 vector/vector2.c \
 gameplay/player.c \
+gameplay/enemy.c \
 draw_util/color.c \
 draw_util/line.c \
 render2d/init.c \
@@ -58,7 +59,8 @@ parse/add_neighbours_to_queue.c \
 parse/get_map_range.c \
 parse/reach_neighbours.c \
 parse/parse.c \
-sprites/sprite_display.c
+sprites/sprite_display.c \
+sprites/sprite_util.c
 
 SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))
 

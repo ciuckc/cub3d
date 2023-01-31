@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/27 18:48:45 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:06:05 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int32_t	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	parse(argc, argv, &vars);
 	render2d_init(&vars);
-	sprite_init(&vars, &vars.sprite, "assets/ghoulie2.xpm42");
+	sprite_init(&vars, &vars.sprite[0], "assets/ghoulie2.xpm42");
 	vars.canvas = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(vars.mlx, vars.canvas, 0, 0);
 	vars.canvas->instances[0].z = Z_LVL_CANVAS;
 	mlx_loop_hook(vars.mlx, &player_hook, &vars);
 	mlx_loop_hook(vars.mlx, &render, &vars);
 	mlx_loop_hook(vars.mlx, &render2d_minimap, &vars);
+	mlx_loop_hook(vars.mlx, &enemy_hook, &vars);
 	mlx_loop(vars.mlx);
 	mlx_terminate(vars.mlx);
 	return (EXIT_SUCCESS);

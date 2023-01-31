@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/30 17:14:00 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:57:54 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,6 @@
 #include "parse.h"
 #include "libft.h"
 #include "cub3d.h"
-
-void	sprite_init(t_vars *vars, t_sprite *sprt, char *path)
-{
-	xpm_t	*xpm;
-
-	xpm = mlx_load_xpm42(path);
-	if (xpm == NULL)
-		exit_strerr(MALLOC_ERR);
-	sprt->tex = mlx_texture_to_image(vars->mlx, &xpm->texture);
-	if (sprt->tex == NULL)
-		exit_strerr(MALLOC_ERR);
-	sprt->pos.x = 30;
-	sprt->pos.y = 2;
-}
 
 // calculate the sprite coords relative to the player
 // multiply those coords by the inverse of the camera matrix
@@ -67,12 +53,6 @@ void	set_draw_lim(t_vect2 *start, t_vect2 *end, int32_t dim, int32_t x)
 	end->x = dim / 2 + x;
 	if (end->x > WIDTH)
 		end->x = WIDTH;
-}
-
-void	sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr)
-{
-	if (get_pixel(spr->tex, img_i) & 0xffffff00)
-		mlx_put_pixel(vars->canvas, i.x, i.y, get_pixel(spr->tex, img_i));
 }
 
 t_vect2	lerp_tex_coords(t_sprite *spr, t_vect2 spr_vars, t_vect2 i)
@@ -116,13 +96,19 @@ void	sprite_drawcols(t_vars *vars, t_sprite *sprite, \
 
 void	sprite_display(t_vars *vars, double *z_arr)
 {
+	uint32_t	i;
 	t_fvect2	transform;
 	t_sprite	*sprite;
 	t_vect2		spr_vars;
 
-	sprite = &vars->sprite;
-	transform = get_transform_coord(vars, sprite);
-	spr_vars.y = fabs((int)HEIGHT / transform.y);
-	spr_vars.x = (int)((WIDTH / 2) * (1 + transform.x / transform.y));
-	sprite_drawcols(vars, sprite, spr_vars, z_arr);
+	i = 0;
+	while (i < NUM_ENEMIES)
+	{
+		sprite = &vars->sprite[i];
+		transform = get_transform_coord(vars, sprite);
+		spr_vars.y = fabs((int)HEIGHT / transform.y);
+		spr_vars.x = (int)((WIDTH / 2) * (1 + transform.x / transform.y));
+		sprite_drawcols(vars, sprite, spr_vars, z_arr);
+		i++;
+	}
 }

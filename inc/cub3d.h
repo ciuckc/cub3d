@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/28 14:04:32 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:59:12 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define PLAYER2D_CLR 0xffffffff
 # define MOV_SPD 0.05
 # define ROT_SPD 0.05
+# define ENEMY_SPD 0.005
 # define FOV 1.0471976 // pi / 3
 # define FLOOR 0
 # define WALL 1
@@ -32,6 +33,7 @@
 # define Z_LVL_CANVAS 0
 # define Z_LVL_MINIMAP 1
 # define Z_LVL_HUD 2
+# define NUM_ENEMIES 1
 
 /*
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
@@ -108,13 +110,14 @@ typedef struct s_vars {
 	uint32_t	floor_clr;
 	uint32_t	ceil_clr;
 	t_player	player;
-	t_sprite	sprite;
+	t_sprite	sprite[NUM_ENEMIES];
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;
 
 // capture keyboard input
 void		player_hook(void *param);
+void		enemy_hook(void *param);
 
 /**
  * @brief Makes sure that the a map is provided, the map name provided is a 
@@ -164,5 +167,6 @@ void		render2d_init(t_vars *vars);
 void		render2d_minimap(void *param);
 void		sprite_display(t_vars *vars, double *z_arr);
 void		sprite_init(t_vars *vars, t_sprite *sprt, char *path);
+void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr);
 
 #endif
