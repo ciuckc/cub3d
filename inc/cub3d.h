@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/31 16:59:12 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:29:01 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void		enemy_hook(void *param);
 void		parse(int argc, char **argv, t_vars *vars);
 // render
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
-int			mapindex(t_map *map, int x, int y);
+int8_t		mapindex(t_map *map, int x, int y);
 
 // round double vector to int vector
 t_vect2		vec_round(t_fvect2 vec);

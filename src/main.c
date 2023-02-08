@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/31 16:06:05 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:28:41 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "cub3d.h"
 #include <stdlib.h>
 
-int	mapindex(t_map *map, int x, int y)
+int8_t	mapindex(t_map *map, int32_t x, int32_t y)
 {
 	return (map->grid[x + y * map->size.x]);
 }
