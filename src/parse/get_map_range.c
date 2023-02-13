@@ -6,13 +6,13 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 20:02:32 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/24 15:09:28 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/13 12:33:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static int32_t	st_get_first_reached_y(t_map unsan_map, t_tile **tiles)
+static int32_t	st_get_first_reached_y(t_map unsan_map, t_tile **tile_map)
 {
 	int32_t	x;
 	int32_t	y;
@@ -23,7 +23,8 @@ static int32_t	st_get_first_reached_y(t_map unsan_map, t_tile **tiles)
 	{
 		while (x < unsan_map.size.x)
 		{
-			if (tiles[y][x].type == FLOOR && tiles[y][x].reached)
+			if ((tile_map[y][x].type == FLOOR || \
+			tile_map[y][x].type == START_POS) && tile_map[y][x].reached)
 				return (y);
 			x++;
 		}
@@ -33,7 +34,7 @@ static int32_t	st_get_first_reached_y(t_map unsan_map, t_tile **tiles)
 	return (y);
 }
 
-static int32_t	st_get_last_reached_y(t_map unsan_map, t_tile **tiles)
+static int32_t	st_get_last_reached_y(t_map unsan_map, t_tile **tile_map)
 {
 	int32_t	x;
 	int32_t	y;
@@ -44,7 +45,8 @@ static int32_t	st_get_last_reached_y(t_map unsan_map, t_tile **tiles)
 	{
 		while (x < unsan_map.size.x)
 		{
-			if (tiles[y][x].type == FLOOR && tiles[y][x].reached)
+			if ((tile_map[y][x].type == FLOOR || \
+			tile_map[y][x].type == START_POS) && tile_map[y][x].reached)
 				return (y);
 			x++;
 		}
@@ -68,7 +70,8 @@ static int32_t	st_get_min_x_pos(t_map unsan_map, t_tile **tile_map)
 		x = 0;
 		while (x < unsan_map.size.x)
 		{
-			if (tile_map[y][x].type == FLOOR && tile_map[y][x].reached)
+			if ((tile_map[y][x].type == FLOOR || \
+			tile_map[y][x].type == START_POS) && tile_map[y][x].reached)
 				break ;
 			x++;
 		}
@@ -93,7 +96,8 @@ static int32_t	st_get_max_x_pos(t_map unsan_map, t_tile **tile_map)
 		x = unsan_map.size.x - 1;
 		while (x > 0)
 		{
-			if (tile_map[y][x].type == FLOOR && tile_map[y][x].reached)
+			if ((tile_map[y][x].type == FLOOR || \
+			tile_map[y][x].type == START_POS) && tile_map[y][x].reached)
 				break ;
 			x--;
 		}
