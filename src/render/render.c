@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/15 17:34:11 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/15 20:56:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 // running into walls at straight angles makes ln_height overflow
 // find a better solution!!!
 static void	st_display_line(t_vars *vars, uint32_t x, \
-							int32_t ln_height, uint32_t clr)
+	int32_t ln_height, uint32_t *clr)
 {
 	t_vect2		ln_start;
 	t_vect2		ln_end;
 
-	if (ln_height == INT_MIN)
+	if (ln_height > HEIGHT)
 		ln_height = HEIGHT;
 	ln_start.x = x;
 	ln_start.y = -ln_height / 2 + HEIGHT / 2;
@@ -38,6 +38,7 @@ static void	st_display_line(t_vars *vars, uint32_t x, \
 	if (ln_end.y >= HEIGHT)
 		ln_end.y = HEIGHT;
 	line(ln_start, ln_end, clr, vars);
+	free(clr);
 }
 
 // angle is relative to player direction 
@@ -46,7 +47,7 @@ static void	st_display_line(t_vars *vars, uint32_t x, \
 // sin(M_PI_2 - angle) / sin(M_PI_2);
 // by having both x and y rays we know if hit was NS or EW
 static double	st_get_dist(t_vars *vars, uint32_t x, \
-							int32_t *ln_height, uint32_t *clr)
+							int32_t *ln_height, uint32_t **clr)
 {
 	double		angle;
 	t_fvect2	dst;
@@ -61,34 +62,33 @@ static double	st_get_dist(t_vars *vars, uint32_t x, \
 		if (dst.x < MOV_SPD)
 			dst.x = MOV_SPD;
 		*ln_height = (int32_t)HEIGHT / dst.x;
-		get_img_vert_array(vars, dst, ray_dir, *ln_height);
-		*clr = 0x80652bff;
+		*clr = get_img_vert_array(vars, dst, ray_dir, *ln_height);
 		return (dst.x);
 	}
 	dst.y *= cos(angle);
 	if (dst.y < MOV_SPD)
 		dst.y = MOV_SPD;
 	*ln_height = (int32_t)HEIGHT / dst.y;
-	get_img_vert_array(vars, dst, ray_dir, *ln_height);
-	*clr = 0xb08e45ff;
+	*clr = get_img_vert_array(vars, dst, ray_dir, *ln_height);
 	return (dst.y);
 }
 
 static void	st_draw_floor_ceil(t_vars *vars)
 {
-	ft_memset(vars->canvas->pixels, vars->ceil_clr, WIDTH * HEIGHT * \
+	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * \
 		sizeof(uint32_t) / 2);
 	ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * sizeof(uint32_t) / 2, \
-		vars->floor_clr, WIDTH * HEIGHT * sizeof(uint32_t) / 2);
+		128, WIDTH * HEIGHT * sizeof(uint32_t) / 2);
 }
 
 static void	st_draw_walls(t_vars *vars, double *z_arr)
 {
-	uint32_t	clr;
+	uint32_t	*clr;
 	uint32_t	x;
 	int32_t		ln_height;
 
 	x = 0;
+	clr = NULL;
 	while (x < WIDTH)
 	{
 		z_arr[x] = st_get_dist(vars, x, &ln_height, &clr);

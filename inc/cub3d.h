@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/14 18:34:33 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/15 20:45:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		player_hook(void *param);
  */
 void		parse(int argc, char **argv, t_vars *vars);
 // render
-void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
+void		line(t_vect2 start, t_vect2 end, uint32_t *clr, t_vars *vars);
 int			mapindex(t_map *map, int x, int y);
 
 // round double vector to int vector
@@ -156,7 +156,7 @@ uint8_t		get_alpha(uint32_t clr);
 
 // cast a single ray
 uint32_t	*get_img_vert_array(t_vars *vars, t_fvect2 dst, t_fvect2 ray_dir, \
-	int32_t ln_height);
+	uint32_t ln_height);
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
 void		render(void *param);
 
