@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/08 16:52:50 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:46:21 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	sprite_display(t_vars *vars, double *z_arr)
 	t_vect2		spr_vars;
 
 	i = 0;
-	while (i < NUM_ENEMIES)
+	while (i < vars->num_sprites)
 	{
 		sprite = &vars->sprite[i];
 		transform = get_transform_coord(vars, sprite);

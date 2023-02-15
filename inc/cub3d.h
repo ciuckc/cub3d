@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/08 16:29:01 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:02:31 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,40 @@
 
 # define WIDTH 1024
 # define HEIGHT 1024
+
 # define MAPSCALE 0.275
 # define TPM 8
 # define PLAYER2D_CLR 0xffffffff
+
 # define MOV_SPD 0.05
 # define ROT_SPD 0.05
 # define ENEMY_SPD 0.005
 # define FOV 1.0471976 // pi / 3
+
 # define FLOOR 0
 # define WALL 1
 # define START_POS 2
 # define UNREACH 3
+# define COLLEC 4
+# define EXIT 5
+# define ENEMY 6
+
 # define Z_LVL_CANVAS 0
 # define Z_LVL_MINIMAP 1
 # define Z_LVL_HUD 2
-# define NUM_ENEMIES 1
 
 /*
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
 MORE SPRITES OR OTHER STUFF.
 */
-# define MAP_CONTENT " 01NSWE"
+# define MAP_CONTENT " 01NSWEHC"
 # define TEXTURES "NSWEFC"
+
 # define HUD_PATH "assets/hud2.xpm42"
+# define ENEMY1_PATH "assets/ghoulie.xpm42"
+# define ENEMY2_PATH "assets/ghoulie2.xpm42"
+# define COLLEC_PATH "assets/crystal.xpm42"
+# define EXIT_PATH "assets/hud2.xpm42"
 
 // File extension
 
@@ -74,6 +85,7 @@ typedef struct s_player {
 typedef struct s_sprite {
 	mlx_image_t	*tex;
 	t_fvect2	pos;
+	bool		is_enemy;
 }			t_sprite;
 
 /**
@@ -110,7 +122,8 @@ typedef struct s_vars {
 	uint32_t	floor_clr;
 	uint32_t	ceil_clr;
 	t_player	player;
-	t_sprite	sprite[NUM_ENEMIES];
+	t_sprite	*sprite;
+	uint32_t	num_sprites;
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;
@@ -166,7 +179,7 @@ void		render(void *param);
 void		render2d_init(t_vars *vars);
 void		render2d_minimap(void *param);
 void		sprite_display(t_vars *vars, double *z_arr);
-void		sprite_init(t_vars *vars, t_sprite *sprt, char *path);
+void		sprites_init(t_vars *vars);
 void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr);
 
 #endif

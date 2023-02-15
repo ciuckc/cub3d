@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   set_map_content.c                                  :+:    :+:            */
+/*   set_map_content.c                                  :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:04:08 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/24 15:34:47 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/15 15:43:18 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,10 @@ void	set_map_content(t_vars *vars, char *str)
 			vars->map.grid[i] -= '0';
 		else if (vars->map.grid[i] == ' ')
 			vars->map.grid[i] = UNREACH;
+		else if (vars->map.grid[i] == 'H')
+			vars->map.grid[i] = ENEMY;
+		else if (vars->map.grid[i] == 'C')
+			vars->map.grid[i] = COLLEC;
 		i++;
 	}
 	st_get_player_pos(vars);

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:29:23 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/31 16:59:04 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:03:44 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ void	enemy_hook(void *param)
 
 	vars = (t_vars *)param;
 	i = 0;
-	while (i < NUM_ENEMIES)
+	while (i < vars->num_sprites)
 	{
-		pos.x = vars->player.pos.x - vars->sprite[i].pos.x;
-		pos.y = vars->player.pos.y - vars->sprite[i].pos.y;
-		inv_sqrt = 1 / sqrt(vec_len(pos));
-		pos = vec_mul(pos, inv_sqrt * ENEMY_SPD);
-		vars->sprite[i].pos = vec_add(vars->sprite[i].pos, pos);
+		if (vars->sprite[i].is_enemy)
+		{
+			pos.x = vars->player.pos.x - vars->sprite[i].pos.x;
+			pos.y = vars->player.pos.y - vars->sprite[i].pos.y;
+			inv_sqrt = 1 / sqrt(vec_len(pos));
+			pos = vec_mul(pos, inv_sqrt * ENEMY_SPD);
+			vars->sprite[i].pos = vec_add(vars->sprite[i].pos, pos);
+		}
 		i++;
 	}
 }

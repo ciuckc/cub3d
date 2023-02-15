@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/08 16:28:41 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:54:36 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int32_t	main(int argc, char **argv)
 
 	vars.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	if (!vars.mlx)
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	parse(argc, argv, &vars);
 	render2d_init(&vars);
-	sprite_init(&vars, &vars.sprite[0], "assets/ghoulie2.xpm42");
+	sprites_init(&vars);
 	vars.canvas = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(vars.mlx, vars.canvas, 0, 0);
 	vars.canvas->instances[0].z = Z_LVL_CANVAS;
