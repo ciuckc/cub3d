@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/27 18:43:01 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:34:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ uint8_t		get_blu(uint32_t clr);
 uint8_t		get_alpha(uint32_t clr);
 
 // cast a single ray
+uint32_t	*get_img_vert_array(t_vars *vars, t_fvect2 dst, t_fvect2 ray_dir, \
+	int32_t ln_height);
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
 void		render(void *param);
 

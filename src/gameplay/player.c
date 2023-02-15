@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/19 18:46:56 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:55:13 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ static t_fvect2	st_get_pos(t_player *plyr, mlx_t *mlx)
 	return (pos);
 }
 
+static void	st_normalize_dst(t_fvect2 *dist)
+{
+	if (dist->x < 0.05)
+		dist->x = 0.05;
+	else if (dist->x > 0.95)
+		dist->x = 0.95;
+	if (dist->y < 0.05)
+		dist->y = 0.05;
+	else if (dist->y > 0.95)
+		dist->y = 0.95;
+}
+
 // fetch new position and perform collision checks
 // if there is only one wall blocking movement
 // move proportionally along the unblocked axis
@@ -65,12 +77,14 @@ static void	st_move_player(t_player *plyr, t_map *map, mlx_t *mlx)
 		plyr->pos = pos;
 	else if (dist.x > dist.y)
 	{
+		st_normalize_dst(&dist);
 		pos = vec_add(plyr->pos, vec_mul(vec(plyr->mov.x, 0.0), MOV_SPD));
 		if (mapindex(map, floor(pos.x), floor(pos.y)) != WALL)
 			plyr->pos = pos;
 	}
 	else
 	{
+		st_normalize_dst(&dist);
 		pos = vec_add(plyr->pos, vec_mul(vec(0.0, plyr->mov.y), MOV_SPD));
 		if (mapindex(map, floor(pos.x), floor(pos.y)) != WALL)
 			plyr->pos = pos;
