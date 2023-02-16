@@ -60,7 +60,8 @@ parse/get_map_range.c \
 parse/reach_neighbours.c \
 parse/parse.c \
 sprites/sprite_display.c \
-sprites/sprite_util.c
+sprites/sprite_util.c \
+sprites/sprite_sort.c
 
 SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))
 

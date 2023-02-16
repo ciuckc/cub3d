@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/15 16:02:31 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:56:14 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,6 @@ void		render2d_minimap(void *param);
 void		sprite_display(t_vars *vars, double *z_arr);
 void		sprites_init(t_vars *vars);
 void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr);
+void		sprites_sort(void *param);
 
 #endif
