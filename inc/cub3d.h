@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/15 20:45:49 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/16 18:2 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ MORE SPRITES OR OTHER STUFF.
 // File extension
 
 # define FILE_EXT ".xpm42"
+
+/*
+	vector defines for drawing to screen
+*/
+# define IMG_POS 0
+# define LN_START 1
+# define LN_END 2
 
 typedef struct s_vect2 {
 	int32_t	x;
@@ -108,6 +115,7 @@ typedef struct s_vars {
 	uint32_t	floor_clr;
 	uint32_t	ceil_clr;
 	t_player	player;
+	t_fvect2	dst;
 	t_sprite	sprite;
 	t_map		map;
 	mlx_t		*mlx;
@@ -155,8 +163,8 @@ uint8_t		get_blu(uint32_t clr);
 uint8_t		get_alpha(uint32_t clr);
 
 // cast a single ray
-uint32_t	*get_img_vert_array(t_vars *vars, t_fvect2 dst, t_fvect2 ray_dir, \
-	uint32_t ln_height);
+uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
+void		draw_line(t_vars *vars, uint32_t x, double angle);
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
 void		render(void *param);
 

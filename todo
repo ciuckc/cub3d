@@ -1,3 +1,5 @@
+leaks string texture name
+
 make mlx_put_pixel wrapper
 change line function so it only does vert lines (mega optimal)
 make player dot on minimap

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_textures.c                                     :+:      :+:    :+:   */
+/*   get_textures.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/11 17:35:39 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/25 17:54:04 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:25:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void	get_textures(char *str, t_vars *vars, uint32_t *i)
 		key = st_get_key(str, i, table);
 		path = st_get_path(str, i);
 		make_texture(key, path, vars);
+		free(path);
 	}
 }
