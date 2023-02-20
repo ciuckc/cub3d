@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/15 16:20:28 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:34:48 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == COLLEC)
 	{
-		st_init_sprite(vars, &vars->sprite[*i_spr], COLLEC_PATH, i);
+		collec_init(vars, &vars->sprite[*i_spr], i);
 		vars->sprite[*i_spr].is_enemy = false;
 		*i_spr += 1;
 	}

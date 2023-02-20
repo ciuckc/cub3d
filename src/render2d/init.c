@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:17:50 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/26 20:37:15 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:41:41 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,31 @@ void	st_init_minimap(t_vars *vars)
 	render2d_minimap(vars);
 }
 
+void	st_init_sky(t_vars *vars)
+{	
+	mlx_image_t	*sky_img1;
+	mlx_image_t	*sky_img2;
+	mlx_t		*mlx;
+	xpm_t		*xpm;
+
+	mlx = vars->mlx;
+	xpm = mlx_load_xpm42(SKY_PATH);
+	if (xpm == NULL)
+		exit_strerr(IMG_ERR);
+	sky_img1 = mlx_texture_to_image(mlx, &xpm->texture);
+	if (sky_img1 == NULL)
+		exit_strerr(IMG_ERR);
+	vars->texture2d[3] = sky_img1;
+	sky_img2 = mlx_texture_to_image(mlx, &xpm->texture);
+	if (sky_img2 == NULL)
+		exit_strerr(IMG_ERR);
+	vars->texture2d[4] = sky_img2;
+	mlx_image_to_window(vars->mlx, vars->texture2d[3], 0, 0);
+	mlx_image_to_window(vars->mlx, vars->texture2d[4], WIDTH, 0);
+	vars->texture2d[3]->instances[0].z = Z_LVL_BACKGRND;
+	vars->texture2d[4]->instances[0].z = Z_LVL_BACKGRND;
+}
+
 // driver code for above static funcs
 void	render2d_init(t_vars *vars)
 {
@@ -81,4 +106,5 @@ void	render2d_init(t_vars *vars)
 	st_init_player2d(vars);
 	if (WIDTH == 1024 && HEIGHT == 1024)
 		st_init_hud(vars);
+	st_init_sky(vars);
 }

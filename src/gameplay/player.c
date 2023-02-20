@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/19 18:46:56 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:10:58 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,34 @@ static void	st_move_player(t_player *plyr, t_map *map, mlx_t *mlx)
 	}
 }
 
+void	st_move_sky(t_vars *vars, int32_t offset)
+{
+	mlx_image_t	*img1;
+	mlx_image_t	*img2;
+
+	img1 = vars->texture2d[3];
+	img2 = vars->texture2d[4];
+	img1->instances[0].x += offset;
+	img1->instances[0].x %= WIDTH;
+	if (img1->instances[0].x > 0)
+		img2->instances[0].x = (img1->instances[0].x - WIDTH) % WIDTH;
+	else
+		img2->instances[0].x = (img1->instances[0].x + WIDTH) % WIDTH;
+}
+
 // capture all keyboard input
 // check if mlx needs other cleanup!!!
 void	player_hook(void *param)
 {
 	t_player	*player;
+	t_vars		*vars;
 	t_map		*map;
 	mlx_t		*mlx;
 
-	player = &((t_vars *)param)->player;
-	map = &((t_vars *)param)->map;
-	mlx = ((t_vars *)param)->mlx;
+	vars = (t_vars *)param;
+	player = &vars->player;
+	map = &vars->map;
+	mlx = vars->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(mlx);
@@ -95,7 +112,13 @@ void	player_hook(void *param)
 	}
 	st_move_player(player, map, mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	{
 		player->dir = vec_rot(player->dir, -ROT_SPD);
+		st_move_sky(vars, 8);
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	{
 		player->dir = vec_rot(player->dir, ROT_SPD);
+		st_move_sky(vars, -8);
+	}
 }

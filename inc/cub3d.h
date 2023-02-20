@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/16 17:56:14 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:29:52 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define TPM 8
 # define PLAYER2D_CLR 0xffffffff
 
+# define ANIM_FR 100
+
 # define MOV_SPD 0.05
 # define ROT_SPD 0.05
 # define ENEMY_SPD 0.005
@@ -37,6 +39,7 @@
 # define EXIT 5
 # define ENEMY 6
 
+# define Z_LVL_BACKGRND -1
 # define Z_LVL_CANVAS 0
 # define Z_LVL_MINIMAP 1
 # define Z_LVL_HUD 2
@@ -49,6 +52,7 @@ MORE SPRITES OR OTHER STUFF.
 # define TEXTURES "NSWEFC"
 
 # define HUD_PATH "assets/hud2.xpm42"
+# define SKY_PATH "assets/sky.xpm42"
 # define ENEMY1_PATH "assets/ghoulie.xpm42"
 # define ENEMY2_PATH "assets/ghoulie2.xpm42"
 # define COLLEC_PATH "assets/crystal.xpm42"
@@ -85,6 +89,8 @@ typedef struct s_player {
 typedef struct s_sprite {
 	mlx_image_t	*tex;
 	t_fvect2	pos;
+	uint8_t		frame;
+	xpm_t		*pix_arr[7];
 	bool		is_enemy;
 }			t_sprite;
 
@@ -118,7 +124,7 @@ enum e_content {
 typedef struct s_vars {
 	mlx_image_t	*canvas;
 	mlx_image_t	*texture[sizeof(TEXTURES) - 1];
-	mlx_image_t	*texture2d[4];
+	mlx_image_t	*texture2d[5];
 	uint32_t	floor_clr;
 	uint32_t	ceil_clr;
 	t_player	player;
@@ -145,6 +151,9 @@ void		parse(int argc, char **argv, t_vars *vars);
 // render
 void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
 int8_t		mapindex(t_map *map, int x, int y);
+
+long long	time_tdelta(long long tzero);
+long long	time_gettime(void);
 
 // round double vector to int vector
 t_vect2		vec_round(t_fvect2 vec);
@@ -180,6 +189,8 @@ void		render2d_init(t_vars *vars);
 void		render2d_minimap(void *param);
 void		sprite_display(t_vars *vars, double *z_arr);
 void		sprites_init(t_vars *vars);
+void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
+void		collec_update_frame(t_sprite *collec, long long *last_frm);
 void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr);
 void		sprites_sort(void *param);
 

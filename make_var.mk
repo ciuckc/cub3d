@@ -61,7 +61,9 @@ parse/reach_neighbours.c \
 parse/parse.c \
 sprites/sprite_display.c \
 sprites/sprite_util.c \
-sprites/sprite_sort.c
+sprites/collec_util.c \
+sprites/sprite_sort.c \
+time.c
 
 SRC = $(addprefix $(SRC_DIR), $(UNPREFIXED_SRC))
 
