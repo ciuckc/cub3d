@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:44:08 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/17 18:25:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static uint32_t	st_get_clr(char *path)
 		ch_i++;
 		i++;
 	}
-	return (get_rgba(channel[0], channel[1], channel[2], UINT8_MAX));
+	return (get_rgba(channel[0], channel[1], channel[2], 255));
 }
 
 static void	st_check_path(char *path)

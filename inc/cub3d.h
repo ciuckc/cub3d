@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/20 18:29:52 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:51:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ MORE SPRITES OR OTHER STUFF.
 // File extension
 
 # define FILE_EXT ".xpm42"
+
+/*
+	vector defines for drawing to screen
+*/
+# define IMG_POS 0
+# define LN_START 1
+# define LN_END 2
 
 typedef struct s_vect2 {
 	int32_t	x;
@@ -130,6 +137,7 @@ typedef struct s_vars {
 	t_player	player;
 	t_sprite	*sprite;
 	uint32_t	num_sprites;
+	t_fvect2	dst;
 	t_map		map;
 	mlx_t		*mlx;
 }			t_vars;
@@ -181,6 +189,8 @@ uint8_t		get_blu(uint32_t clr);
 uint8_t		get_alpha(uint32_t clr);
 
 // cast a single ray
+uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
+void		draw_line(t_vars *vars, uint32_t x, double angle);
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
 void		render(void *param);
 

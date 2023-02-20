@@ -87,4 +87,5 @@ void	crop_map(t_map *unsan_map, t_tile **tiles, t_player *plr)
 	unsan_map->grid = san_map;
 	unsan_map->size = (t_vect2){new_x, new_y};
 	st_get_new_player_pos(unsan_map, plr);
+	printf("new px: %f new py: %f\n", plr->pos.x, plr->pos.y);
 }

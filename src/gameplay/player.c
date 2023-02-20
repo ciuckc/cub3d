@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/17 18:10:58 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:52:55 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	st_move_player(t_player *plyr, t_map *map, mlx_t *mlx)
 	}
 	else
 	{
-		pos = vec_add(plyr->pos, vec_mul(vec(0.0, plyr->mov.y), MOV_SPD));
+		pos = vec_add(plyr->pos, vec_mul(vec(plyr->mov.y, 0.0), MOV_SPD));
 		if (mapindex(map, floor(pos.x), floor(pos.y)) != WALL)
 			plyr->pos = pos;
 	}

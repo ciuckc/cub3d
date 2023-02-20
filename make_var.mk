@@ -38,6 +38,8 @@ OBJ += $(GNL_OBJ)
 UNPREFIXED_SRC = main.c \
 render/raycast.c \
 render/render.c \
+render/draw_line.c \
+render/set_pixel_color.c \
 vector/vector.c \
 vector/vector2.c \
 gameplay/player.c \
