@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/15 21:50:10 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/17 17:48:41 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/20 19:27:19 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void	render(void *param)
 		128, WIDTH * HEIGHT * sizeof(uint32_t) / 2);
 	st_draw_walls(vars, z_arr);
 	sprite_display(vars, z_arr);
+	printf("pos x %f pos y %f\n", vars->player.pos.x, vars->player.pos.y);
 }

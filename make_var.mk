@@ -45,7 +45,7 @@ vector/vector2.c \
 gameplay/player.c \
 gameplay/enemy.c \
 draw_util/color.c \
-draw_util/line.c \
+draw_util/get_pixel.c \
 render2d/init.c \
 render2d/minimap.c \
 parse/exit_strerr.c \

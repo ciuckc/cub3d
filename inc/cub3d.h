@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/20 18:51:35 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/20 19:27:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <assert.h>
 # include "MLX42.h"
+# include <stdio.h>
 
 # define WIDTH 1024
 # define HEIGHT 1024
@@ -157,7 +158,6 @@ void		enemy_hook(void *param);
  */
 void		parse(int argc, char **argv, t_vars *vars);
 // render
-void		line(t_vect2 start, t_vect2 end, int clr, t_vars *vars);
 int8_t		mapindex(t_map *map, int x, int y);
 
 long long	time_tdelta(long long tzero);
