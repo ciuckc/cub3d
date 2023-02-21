@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/21 19:25:04 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/21 19:28:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	st_draw_wall(t_vars *vars, double *z_arr)
 	t_fvect2	pos[3];
 	t_fvect2	ray_dir;
 
+	(void)wall_x;
 	x = 0;
 	angle = 0.0;
 	ray_dir = (t_fvect2){0};
@@ -45,10 +46,10 @@ void	render(void *param)
 	double		z_arr[WIDTH];
 
 	vars = (t_vars *)param;
-	ft_memset(vars->canvas->pixels, 128, WIDTH * HEIGHT * \
+	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * \
 		sizeof(uint32_t) / 2);
 	ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * \
-	sizeof(uint32_t) / 2, 0, WIDTH * HEIGHT * \
+	sizeof(uint32_t) / 2, 128, WIDTH * HEIGHT * \
 		sizeof(uint32_t) / 2);
 	st_draw_wall(vars, z_arr);
 	sprite_display(vars, z_arr);
