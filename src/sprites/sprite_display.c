@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/20 18:20:36 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:20:35 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,10 @@ void	sprite_drawcols(t_vars *vars, t_sprite *sprite, \
 // to ensure correct drawing
 void	sprite_display(t_vars *vars, double *z_arr)
 {
-	static long long	last_frm;
-	uint32_t			i;
-	t_fvect2			transform;
-	t_sprite			*sprite;
-	t_vect2				spr_vars;
+	uint32_t	i;
+	t_fvect2	transform;
+	t_sprite	*sprite;
+	t_vect2		spr_vars;
 
 	i = 0;
 	while (i < vars->num_sprites)
@@ -125,10 +124,10 @@ void	sprite_display(t_vars *vars, double *z_arr)
 		transform = get_transform_coord(vars, sprite);
 		spr_vars.y = fabs((int)HEIGHT / transform.y);
 		spr_vars.x = (int)((WIDTH / 2) * (1 + transform.x / transform.y));
-		if (!sprite->is_enemy)
+		if (sprite->is_animated)
 		{
 			spr_vars.y /= 2;
-			collec_update_frame(sprite, &last_frm);
+			collec_update_frame(sprite, vars->mlx->delta_time);
 		}
 		if (transform.y > 0)
 			sprite_drawcols(vars, sprite, spr_vars, z_arr);

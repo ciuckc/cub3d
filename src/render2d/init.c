@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:17:50 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/17 17:41:41 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:21:34 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,18 @@
 // when WIDTH and HEIGHT are 1024
 void	st_init_hud(t_vars *vars)
 {
-	mlx_image_t	*hud_img;
-	mlx_t		*mlx;
-	xpm_t		*xpm;
+	mlx_texture_t	*tex;
+	mlx_image_t		*hud_img;
+	mlx_t			*mlx;
 
 	mlx = vars->mlx;
-	xpm = mlx_load_xpm42(HUD_PATH);
-	if (xpm == NULL)
+	tex = mlx_load_png(HUD_PATH);
+	if (tex == NULL)
 		exit_strerr(IMG_ERR);
-	hud_img = mlx_texture_to_image(mlx, &xpm->texture);
+	hud_img = mlx_texture_to_image(mlx, tex);
 	if (hud_img == NULL)
 		exit_strerr(IMG_ERR);
+	mlx_delete_texture(tex);
 	vars->texture2d[0] = hud_img;
 	mlx_image_to_window(vars->mlx, vars->texture2d[0], 0, 0);
 	vars->texture2d[0]->instances[0].z = Z_LVL_HUD;
@@ -40,8 +41,7 @@ void	st_init_hud(t_vars *vars)
 void	st_init_player2d(t_vars *vars)
 {
 	mlx_image_t	*img;
-	uint32_t	tilesize;
-	uint32_t	mapsize;
+	uint32_t	tilesize; uint32_t	mapsize;
 
 	if (WIDTH >= HEIGHT)
 		mapsize = WIDTH * MAPSCALE;
@@ -92,6 +92,7 @@ void	st_init_sky(t_vars *vars)
 	sky_img2 = mlx_texture_to_image(mlx, &xpm->texture);
 	if (sky_img2 == NULL)
 		exit_strerr(IMG_ERR);
+	mlx_delete_xpm42(xpm);
 	vars->texture2d[4] = sky_img2;
 	mlx_image_to_window(vars->mlx, vars->texture2d[3], 0, 0);
 	mlx_image_to_window(vars->mlx, vars->texture2d[4], WIDTH, 0);
