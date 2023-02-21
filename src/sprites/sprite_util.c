@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/20 17:34:48 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:53:43 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	st_init_sprite(t_vars *vars, t_sprite *sprt, char *path, t_vect2 i)
 	sprt->tex = mlx_texture_to_image(vars->mlx, &xpm->texture);
 	if (sprt->tex == NULL)
 		exit_strerr(MALLOC_ERR);
+	mlx_delete_xpm42(xpm);
 	sprt->pos.x = (double)(i.x + 0.5);
 	sprt->pos.y = (double)(i.y + 0.5);
 }
@@ -67,19 +68,22 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 			st_init_sprite(vars, &vars->sprite[*i_spr], ENEMY1_PATH, i);
 		else
 			st_init_sprite(vars, &vars->sprite[*i_spr], ENEMY2_PATH, i);
-		vars->sprite[*i_spr].is_enemy = true;
+		vars->sprite[*i_spr].is_animated = false;
+		vars->sprite[*i_spr].is_movable = true;
 		*i_spr += 1;
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == COLLEC)
 	{
 		collec_init(vars, &vars->sprite[*i_spr], i);
-		vars->sprite[*i_spr].is_enemy = false;
+		vars->sprite[*i_spr].is_animated = true;
+		vars->sprite[*i_spr].is_movable = false;
 		*i_spr += 1;
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == EXIT)
 	{
 		st_init_sprite(vars, &vars->sprite[*i_spr], EXIT_PATH, i);
-		vars->sprite[*i_spr].is_enemy = false;
+		vars->sprite[*i_spr].is_animated = false;
+		vars->sprite[*i_spr].is_movable = false;
 		*i_spr += 1;
 	}
 }
@@ -97,6 +101,8 @@ void	sprites_init(t_vars *vars)
 
 	arr_size = st_count_sprites(vars);
 	vars->num_sprites = arr_size;
+	if (arr_size == 0)
+		return ;
 	sprites = (t_sprite *)malloc(arr_size * sizeof(t_sprite));
 	if (sprites == NULL)
 		exit_strerr(MALLOC_ERR);

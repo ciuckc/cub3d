@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/21 18:43:15 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/21 19:24:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define TPM 8
 # define PLAYER2D_CLR 0xffffffff
 
-# define ANIM_FR 100
+# define ANIM_FR 0.15
 
 # define MOV_SPD 0.05
 # define ROT_SPD 0.05
@@ -52,12 +52,12 @@ MORE SPRITES OR OTHER STUFF.
 # define MAP_CONTENT " 01NSWEHC"
 # define TEXTURES "NSWEFC"
 
-# define HUD_PATH "assets/hud2.xpm42"
-# define SKY_PATH "assets/sky.xpm42"
+# define HUD_PATH "assets/hud3.png"
+# define SKY_PATH "assets/sky3.xpm42"
 # define ENEMY1_PATH "assets/ghoulie.xpm42"
 # define ENEMY2_PATH "assets/ghoulie2.xpm42"
 # define COLLEC_PATH "assets/crystal.xpm42"
-# define EXIT_PATH "assets/hud2.xpm42"
+# define EXIT_PATH "assets/portal.xpm42"
 
 // File extension
 
@@ -99,7 +99,8 @@ typedef struct s_sprite {
 	t_fvect2	pos;
 	uint8_t		frame;
 	xpm_t		*pix_arr[7];
-	bool		is_enemy;
+	bool		is_animated;
+	bool		is_movable;
 }			t_sprite;
 
 /**
@@ -160,9 +161,6 @@ void		parse(int argc, char **argv, t_vars *vars);
 // render
 int8_t		mapindex(t_map *map, int x, int y);
 
-long long	time_tdelta(long long tzero);
-long long	time_gettime(void);
-
 // round double vector to int vector
 t_vect2		vec_round(t_fvect2 vec);
 // returns the sum of two vectors
@@ -201,9 +199,8 @@ void		render2d_minimap(void *param);
 void		sprite_display(t_vars *vars, double *z_arr);
 void		sprites_init(t_vars *vars);
 void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
-void		collec_update_frame(t_sprite *collec, long long *last_frm);
-void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, \
-	t_sprite *spr);
+void		collec_update_frame(t_sprite *collec, double delta);
+void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr);
 void		sprites_sort(void *param);
 
 #endif
