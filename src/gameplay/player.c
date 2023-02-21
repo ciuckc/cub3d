@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/20 19:26:01 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/20 20:54:51 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_fvect2	st_get_pos(t_player *plyr, mlx_t *mlx)
 	}
 	return (pos);
 }
+
 
 // fetch new position and perform collision checks
 // if there is only one wall blocking movement

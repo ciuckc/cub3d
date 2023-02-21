@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/15 21:50:10 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/20 19:27:19 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/21 18:46:57 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,25 @@
 #include "libft.h"
 #include "cub3d.h"
 
-static void	st_draw_walls(t_vars *vars, double *z_arr)
+static void	st_draw_wall(t_vars *vars, double *z_arr)
 {
 	uint32_t	x;
 	double		angle;
+	t_fvect2	pos[3];
+	t_fvect2	ray_dir;
 
 	x = 0;
 	angle = 0.0;
+	ray_dir = (t_fvect2){0};
 	while (x < WIDTH)
 	{
 		angle = (double)x / WIDTH * FOV - FOV / 2;
-		vars->dst = cast_ray(&vars->map, &vars->player, \
-			vec_rot(vars->player.dir, angle));
+		ray_dir = vec_rot(vars->player.dir, angle);
+		vars->dst = cast_ray(&vars->map, &vars->player, ray_dir);
+		z_arr[x] = vars->dst.y;
 		if (vars->dst.x < vars->dst.y)
 			z_arr[x] = vars->dst.x;
-		else
-			z_arr[x] = vars->dst.y;
-		draw_line(vars, x, angle);
+		draw_line(vars, x, angle, pos);
 		x++;
 	}
 }
@@ -42,11 +44,9 @@ void	render(void *param)
 	double		z_arr[WIDTH];
 
 	vars = (t_vars *)param;
-	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * \
+	ft_memset(vars->canvas->pixels, 128, WIDTH * HEIGHT * \
 		sizeof(uint32_t) / 2);
-	ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * sizeof(uint32_t) / 2, \
-		128, WIDTH * HEIGHT * sizeof(uint32_t) / 2);
-	st_draw_walls(vars, z_arr);
+	st_draw_wall(vars, z_arr);
 	sprite_display(vars, z_arr);
-	printf("pos x %f pos y %f\n", vars->player.pos.x, vars->player.pos.y);
+	printf("pos x %f pos y %f\n", vars->dst.x, vars->dst.y);
 }

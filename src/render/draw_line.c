@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 17:59:20 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/20 19:20:54 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/20 21:27:47 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ static double	st_set_wallx_ln_height(t_vars *vars, double angle, \
 	return (wall_x);
 }
 
-void	draw_line(t_vars *vars, uint32_t x, double angle)
+void	draw_line(t_vars *vars, uint32_t x, double angle, t_fvect2 \
+	*pos)
 {
 	mlx_image_t	*img;
-	t_fvect2	pos[3];
 	t_fvect2	ray_dir;
 	int32_t		ln_height;
 	double		wall_x;
@@ -108,5 +108,6 @@ void	draw_line(t_vars *vars, uint32_t x, double angle)
 	wall_x = st_set_wallx_ln_height(vars, angle, ray_dir, &ln_height);
 	st_set_img_pos(img, pos, ln_height, wall_x);
 	pos[LN_START].x = x;
+	pos[LN_END].x = x;
 	st_put_pixels(vars, img, pos, (double)img->height / ln_height);
 }
