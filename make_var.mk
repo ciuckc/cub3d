@@ -47,6 +47,7 @@ gameplay/enemy.c \
 draw_util/color.c \
 draw_util/get_pixel.c \
 render2d/init.c \
+render2d/interact.c \
 render2d/minimap.c \
 parse/exit_strerr.c \
 parse/flood_fill_map.c \

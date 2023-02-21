@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   player.c                                           :+:    :+:            */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/21 19:11:50 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/21 20:23:24 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,14 @@ void	st_move_sky(t_vars *vars, int32_t offset)
 		img2->instances[0].x = (img1->instances[0].x + WIDTH) % WIDTH;
 }
 
+void	st_interact(t_vars *vars)
+{
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
+		vars->texture2d[5]->enabled = true;
+	else
+		vars->texture2d[5]->enabled = false;
+}
+
 // capture all keyboard input
 // check if mlx needs other cleanup!!!
 void	player_hook(void *param)
@@ -111,6 +119,7 @@ void	player_hook(void *param)
 		exit(EXIT_SUCCESS);
 	}
 	st_move_player(player, map, mlx);
+	st_interact(vars);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		player->dir = vec_rot(player->dir, -ROT_SPD);
