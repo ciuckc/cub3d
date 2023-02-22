@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/21 19:24:35 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/22 00:49:44 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ uint8_t		get_alpha(uint32_t clr);
 
 // cast a single ray
 uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
+void		draw_floor(t_vars *vars);
 void		draw_line(t_vars *vars, uint32_t x, double angle, t_fvect2 \
 	*pos);
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
@@ -200,7 +201,8 @@ void		sprite_display(t_vars *vars, double *z_arr);
 void		sprites_init(t_vars *vars);
 void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
 void		collec_update_frame(t_sprite *collec, double delta);
-void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr);
+void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, \
+	t_sprite *spr);
 void		sprites_sort(void *param);
 
 #endif

@@ -40,6 +40,7 @@ render/raycast.c \
 render/render.c \
 render/draw_line.c \
 render/set_pixel_color.c \
+render/draw_floor.c \
 vector/vector.c \
 vector/vector2.c \
 gameplay/player.c \

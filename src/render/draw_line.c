@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 17:59:20 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/21 19:12:43 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/22 00:36:37 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ ray_dir)
 	}
 	return (img);
 }
-
-//(coords[LN_START].y - HEIGHT / 2 + ln_height / 2)
 
 static void	st_set_img_pos(mlx_image_t *img, t_fvect2 *coords, \
 int32_t ln_height, double wall_x)
