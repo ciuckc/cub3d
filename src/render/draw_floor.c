@@ -6,14 +6,15 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/22 02:19:41 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/23 17:40:32 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "math.h"
 
 static void	st_draw_row(uint32_t y, t_vars *vars, t_fvect2 *pos, t_fvect2 step, \
-	mlx_image_t *img)
+	mlx_image_t *img, double row_dist)
 {
 	uint32_t	x;
 	t_vect2		cell;
@@ -30,7 +31,7 @@ static void	st_draw_row(uint32_t y, t_vars *vars, t_fvect2 *pos, t_fvect2 step, 
 			(img->height - 1)};
 		pos->x += step.x;
 		pos->y += step.y;
-		mlx_put_pixel(vars->canvas, x, y, get_pixel(img, tex_pos));
+		mlx_put_pixel(vars->canvas, x, y, apply_shade(get_pixel(img, tex_pos), row_dist));
 		x++;
 	}
 }
@@ -40,22 +41,21 @@ void	draw_floor(t_vars *vars)
 	uint32_t	y;
 	double		row_dist;
 	t_fvect2	*raydir;
-	t_fvect2	flr[2];
-	mlx_image_t	*img;
+	t_fvect2	flr[3];
 
-	img = vars->texture[N];
-	y = HEIGHT / 2 + 1;
+	y = HEIGHT / 2;
+	flr[2] = vec_mul(vec_rot(vars->player.dir, M_PI_2), 0.58);
 	raydir = (t_fvect2 [2]){(t_fvect2){0}, (t_fvect2){0}};
+	raydir[0] = vec_sub(vars->player.dir, flr[2]);
+	raydir[1] = vec_add(vars->player.dir, flr[2]);
 	while (y < HEIGHT)
 	{
-		raydir[0] = vec_rot(vars->player.dir, -FOV / 2);
-		raydir[1] = vec_rot(vars->player.dir, FOV - FOV / 2);
 		row_dist = (0.5 * HEIGHT) / (y - HEIGHT / 2);
 		flr[0] = (t_fvect2){row_dist * (raydir[1].x - raydir[0].x) / WIDTH, \
 			row_dist * (raydir[1].y - raydir[0].y) / WIDTH};
 		flr[1] = (t_fvect2){vars->player.pos.x + row_dist * raydir[0].x, \
-			vars->player.pos.y + row_dist * raydir[1].y};
-		st_draw_row(y, vars, &flr[1], flr[0], img);
+			vars->player.pos.y + row_dist * raydir[0].y};
+		st_draw_row(y, vars, &flr[1], flr[0], vars->texture[N], row_dist);
 		y++;
 	}
 }

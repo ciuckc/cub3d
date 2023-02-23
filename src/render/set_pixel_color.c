@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/17 18:05:10 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/22 00:42:11 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/23 17:42:54 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords)
 		shortest = vars->dst.x;
 	else
 		shortest = vars->dst.y;
-	intensity = 2 / shortest * 0.6;
+	intensity = 1 / shortest * 0.6;
 	if (intensity > 1)
 		intensity = 1;
 	pix = (img->height * (int)coords[IMG_POS].y + (int)coords[IMG_POS].x) * 4;
