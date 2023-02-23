@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/21 20:23:24 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:36:13 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,21 @@ void	st_move_sky(t_vars *vars, int32_t offset)
 
 void	st_interact(t_vars *vars)
 {
+	t_fvect2	dist;
+	uint8_t		i;
+
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
+	{
 		vars->texture2d[5]->enabled = true;
+		i = 0;
+		while (!vars->sprite[i].is_animated && i < vars->num_sprites)
+			i++;
+		if (i == vars->num_sprites)
+			return ;
+		dist = vec_sub(vars->player.pos, vars->sprite[i].pos);
+		if (dist.x < 0.1 && dist.y < 0.1)
+			vars->sprite[i].is_toggled = true;
+	}
 	else
 		vars->texture2d[5]->enabled = false;
 }

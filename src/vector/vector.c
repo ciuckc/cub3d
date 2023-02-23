@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:17:05 by mbatstra          #+#    #+#             */
-/*   Updated: 2022/12/14 13:17:33 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:34:45 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ t_fvect2	vec_add(t_fvect2 v1, t_fvect2 v2)
 
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
+	return (result);
+}
+
+t_fvect2	vec_sub(t_fvect2 v1, t_fvect2 v2)
+{
+	t_fvect2	result;
+
+	result.x = v1.x - v2.x;
+	result.y = v1.y - v2.y;
 	return (result);
 }
 

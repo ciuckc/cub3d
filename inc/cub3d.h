@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/21 21:29:47 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:35:08 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_sprite {
 	xpm_t		*pix_arr[7];
 	bool		is_animated;
 	bool		is_movable;
+	bool		is_toggled;
 }			t_sprite;
 
 /**
@@ -167,6 +168,8 @@ int8_t		mapindex(t_map *map, int x, int y);
 t_vect2		vec_round(t_fvect2 vec);
 // returns the sum of two vectors
 t_fvect2	vec_add(t_fvect2 v1, t_fvect2 v2);
+// returns the difference of two vectors
+t_fvect2	vec_sub(t_fvect2 v1, t_fvect2 v2);
 // rotates vec by angle radians
 t_fvect2	vec_rot(t_fvect2 vec, double angle);
 // multiply a vector by a scalar
@@ -187,6 +190,7 @@ uint8_t		get_red(uint32_t clr);
 uint8_t		get_grn(uint32_t clr);
 uint8_t		get_blu(uint32_t clr);
 uint8_t		get_alpha(uint32_t clr);
+uint32_t	inv_color(uint32_t clr);
 
 // cast a single ray
 uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
