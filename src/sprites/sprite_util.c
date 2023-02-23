@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/21 14:53:43 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:21:18 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 			st_init_sprite(vars, &vars->sprite[*i_spr], ENEMY2_PATH, i);
 		vars->sprite[*i_spr].is_animated = false;
 		vars->sprite[*i_spr].is_movable = true;
+		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == COLLEC)
@@ -77,6 +78,7 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 		collec_init(vars, &vars->sprite[*i_spr], i);
 		vars->sprite[*i_spr].is_animated = true;
 		vars->sprite[*i_spr].is_movable = false;
+		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == EXIT)
@@ -84,6 +86,7 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 		st_init_sprite(vars, &vars->sprite[*i_spr], EXIT_PATH, i);
 		vars->sprite[*i_spr].is_animated = false;
 		vars->sprite[*i_spr].is_movable = false;
+		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 }
@@ -126,6 +129,14 @@ void	sprites_init(t_vars *vars)
 // purple as invisible color instead
 void	sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr)
 {
-	if (get_pixel(spr->tex, img_i) & 0xffffff00)
-		mlx_put_pixel(vars->canvas, i.x, i.y, get_pixel(spr->tex, img_i));
+	uint32_t	clr;
+
+	clr = get_pixel(spr->tex, img_i);
+	if (clr & 0xffffff00)
+	{
+		if (spr->is_animated && spr->is_toggled)
+			mlx_put_pixel(vars->canvas, i.x, i.y, inv_color(clr));
+		else
+			mlx_put_pixel(vars->canvas, i.x, i.y, clr);
+	}
 }

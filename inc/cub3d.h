@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:41:55 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/23 17:46:27 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@
 # define ENEMY 6
 
 # define Z_LVL_BACKGRND -1
-# define Z_LVL_CANVAS 0
-# define Z_LVL_MINIMAP 1
-# define Z_LVL_HUD 2
+# define Z_LVL_CANVAS 1
+# define Z_LVL_MINIMAP 2
+# define Z_LVL_MAPDOT 3
+# define Z_LVL_HUD 4
 
 /*
 Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
@@ -58,6 +59,7 @@ MORE SPRITES OR OTHER STUFF.
 # define ENEMY2_PATH "assets/ghoulie2.xpm42"
 # define COLLEC_PATH "assets/crystal.xpm42"
 # define EXIT_PATH "assets/portal.xpm42"
+# define INTERACT_PATH "assets/interact.png"
 
 // File extension
 
@@ -101,6 +103,7 @@ typedef struct s_sprite {
 	xpm_t		*pix_arr[7];
 	bool		is_animated;
 	bool		is_movable;
+	bool		is_toggled;
 }			t_sprite;
 
 /**
@@ -133,7 +136,7 @@ enum e_content {
 typedef struct s_vars {
 	mlx_image_t	*canvas;
 	mlx_image_t	*texture[sizeof(TEXTURES) - 1];
-	mlx_image_t	*texture2d[5];
+	mlx_image_t	*texture2d[6];
 	uint32_t	floor_clr;
 	uint32_t	ceil_clr;
 	t_player	player;
@@ -165,7 +168,7 @@ int8_t		mapindex(t_map *map, int x, int y);
 t_vect2		vec_round(t_fvect2 vec);
 // returns the sum of two vectors
 t_fvect2	vec_add(t_fvect2 v1, t_fvect2 v2);
-// returns the sub of two vecs
+// returns the difference of two vectors
 t_fvect2	vec_sub(t_fvect2 v1, t_fvect2 v2);
 // rotates vec by angle radians
 t_fvect2	vec_rot(t_fvect2 vec, double angle);
@@ -188,6 +191,7 @@ uint8_t		get_grn(uint32_t clr);
 uint8_t		get_blu(uint32_t clr);
 uint8_t		get_alpha(uint32_t clr);
 uint32_t	apply_shade(uint32_t clr, double dist);
+uint32_t	inv_color(uint32_t clr);
 
 // cast a single ray
 uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
@@ -203,6 +207,7 @@ void		render2d_minimap(void *param);
 void		sprite_display(t_vars *vars, double *z_arr);
 void		sprites_init(t_vars *vars);
 void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
+void		init_interact(t_vars *vars);
 void		collec_update_frame(t_sprite *collec, double delta);
 void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, \
 	t_sprite *spr);

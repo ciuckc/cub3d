@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:17:50 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/21 19:21:34 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:34:12 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	st_init_hud(t_vars *vars)
 	mlx_delete_texture(tex);
 	vars->texture2d[0] = hud_img;
 	mlx_image_to_window(vars->mlx, vars->texture2d[0], 0, 0);
-	vars->texture2d[0]->instances[0].z = Z_LVL_HUD;
+	mlx_set_instance_depth(&vars->texture2d[0]->instances[0], Z_LVL_HUD);
 }
 
 // display the cube at the center of the minimap
@@ -54,7 +54,7 @@ void	st_init_player2d(t_vars *vars)
 	vars->texture2d[2] = img;
 	mlx_image_to_window(vars->mlx, img, \
 					mapsize / 2 - tilesize / 16, mapsize / 2 - tilesize / 16);
-	vars->texture2d[2]->instances[0].z = Z_LVL_HUD;
+	mlx_set_instance_depth(&vars->texture2d[2]->instances[0], Z_LVL_MAPDOT);
 }
 
 // create the image for the minimap and then call the rendering func
@@ -70,8 +70,8 @@ void	st_init_minimap(t_vars *vars)
 	mapsize += mapsize / TPM;
 	vars->texture2d[1] = mlx_new_image(vars->mlx, mapsize, mapsize);
 	mlx_image_to_window(vars->mlx, vars->texture2d[1], 0, 0);
-	vars->texture2d[1]->instances[0].z = Z_LVL_MINIMAP;
 	render2d_minimap(vars);
+	mlx_set_instance_depth(&vars->texture2d[1]->instances[0], Z_LVL_MINIMAP);
 }
 
 void	st_init_sky(t_vars *vars)
@@ -96,8 +96,8 @@ void	st_init_sky(t_vars *vars)
 	vars->texture2d[4] = sky_img2;
 	mlx_image_to_window(vars->mlx, vars->texture2d[3], 0, 0);
 	mlx_image_to_window(vars->mlx, vars->texture2d[4], WIDTH, 0);
-	vars->texture2d[3]->instances[0].z = Z_LVL_BACKGRND;
-	vars->texture2d[4]->instances[0].z = Z_LVL_BACKGRND;
+	mlx_set_instance_depth(&vars->texture2d[3]->instances[0], Z_LVL_BACKGRND);
+	mlx_set_instance_depth(&vars->texture2d[4]->instances[0], Z_LVL_BACKGRND);
 }
 
 // driver code for above static funcs
@@ -105,6 +105,7 @@ void	render2d_init(t_vars *vars)
 {
 	st_init_minimap(vars);
 	st_init_player2d(vars);
+	init_interact(vars);
 	if (WIDTH == 1024 && HEIGHT == 1024)
 		st_init_hud(vars);
 	st_init_sky(vars);
