@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_pixel.c                                        :+:    :+:            */
+/*   get_pixel.c                                        :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/20 18:59:13 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:46:32 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/23 18:23:35 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint32_t	apply_shade(uint32_t clr, double dist)
 	double	intensity;
 
 	intensity = 1 / dist * 0.6;
-	if (intensity == 1)
+	if (intensity > 1)
 		return (clr);
 	clr = get_rgba(get_red(clr) * intensity, get_grn(clr) * intensity, \
 		get_blu(clr) * intensity, get_alpha(clr));

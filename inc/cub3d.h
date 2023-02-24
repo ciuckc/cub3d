@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:46:27 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/24 18:08:32 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 # define MOV_SPD 0.1
 # define ROT_SPD 0.1
-# define ENEMY_SPD 0.005
+# define ENEMY_SPD 0.05
 # define FOV 1.0471976 // pi / 3
 
 # define FLOOR 0
@@ -100,6 +100,7 @@ typedef struct s_sprite {
 	mlx_image_t	*tex;
 	t_fvect2	pos;
 	uint8_t		frame;
+	double		t_delta;
 	xpm_t		*pix_arr[7];
 	bool		is_animated;
 	bool		is_movable;
@@ -208,9 +209,9 @@ void		sprite_display(t_vars *vars, double *z_arr);
 void		sprites_init(t_vars *vars);
 void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
 void		init_interact(t_vars *vars);
-void		collec_update_frame(t_sprite *collec, double delta);
+void		collec_update_frame(t_sprite *collec, double t_delta);
 void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, \
 	t_sprite *spr);
-void		sprites_sort(void *param);
+void		sprites_sort(t_vars *vars);
 
 #endif

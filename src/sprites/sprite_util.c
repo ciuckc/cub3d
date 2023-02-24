@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/23 17:21:18 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:06:52 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	st_init_sprite(t_vars *vars, t_sprite *sprt, char *path, t_vect2 i)
 	mlx_delete_xpm42(xpm);
 	sprt->pos.x = (double)(i.x + 0.5);
 	sprt->pos.y = (double)(i.y + 0.5);
+	sprt->t_delta = 0.0;
 }
 
 // count all sprites in the map

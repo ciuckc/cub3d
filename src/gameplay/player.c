@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:36:13 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:01:21 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ void	st_interact(t_vars *vars)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
 	{
 		vars->texture2d[5]->enabled = true;
-		i = 0;
-		while (!vars->sprite[i].is_animated && i < vars->num_sprites)
-			i++;
-		if (i == vars->num_sprites)
+		i = vars->num_sprites;
+		while (i > 0 && !vars->sprite[i].is_animated)
+			i--;
+		if (i == 0 && !vars->sprite[i].is_animated)
 			return ;
 		dist = vec_sub(vars->player.pos, vars->sprite[i].pos);
-		if (dist.x < 0.1 && dist.y < 0.1)
+		if (vec_len(dist) < 0.5)
 			vars->sprite[i].is_toggled = true;
 	}
 	else
@@ -136,11 +136,11 @@ void	player_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		player->dir = vec_rot(player->dir, -ROT_SPD);
-		st_move_sky(vars, 8);
+		st_move_sky(vars, 16);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		player->dir = vec_rot(player->dir, ROT_SPD);
-		st_move_sky(vars, -8);
+		st_move_sky(vars, -16);
 	}
 }

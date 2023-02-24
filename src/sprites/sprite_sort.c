@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:58:26 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/16 18:01:13 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:21:57 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ void	st_qsort(t_sprite *arr, int32_t lo, int32_t hi, t_fvect2 player)
 	st_qsort(arr, st_part_i + 1, hi, player);
 }
 
-void	sprites_sort(void *param)
+void	sprites_sort(t_vars *vars)
 {
-	t_vars	*vars;
-
-	vars = (t_vars *)param;
 	st_qsort(vars->sprite, 0, vars->num_sprites - 1, vars->player.pos);
 }
