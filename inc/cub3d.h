@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/24 18:08:32 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:49:32 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <assert.h>
 # include "MLX42.h"
+# include "libft.h"
 # include <stdio.h>
 
 # define WIDTH 1024
@@ -164,6 +165,7 @@ void		enemy_hook(void *param);
 void		parse(int argc, char **argv, t_vars *vars);
 // render
 int8_t		mapindex(t_map *map, int x, int y);
+t_list		**astar(t_vect2 start, t_vect2 end, t_map *map);
 
 // round double vector to int vector
 t_vect2		vec_round(t_fvect2 vec);

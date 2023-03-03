@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/24 18:06:52 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:37:10 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 			st_init_sprite(vars, &vars->sprite[*i_spr], ENEMY2_PATH, i);
 		vars->sprite[*i_spr].is_animated = false;
 		vars->sprite[*i_spr].is_movable = true;
-		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == COLLEC)
@@ -87,7 +86,6 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 		st_init_sprite(vars, &vars->sprite[*i_spr], EXIT_PATH, i);
 		vars->sprite[*i_spr].is_animated = false;
 		vars->sprite[*i_spr].is_movable = false;
-		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 }

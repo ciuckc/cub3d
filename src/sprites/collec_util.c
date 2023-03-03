@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:22:57 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/24 18:08:22 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:31:43 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos)
 
 void	collec_update_frame(t_sprite *collec, double t_delta)
 {
+	if (!collec->is_animated)
+		return ;
 	collec->t_delta += t_delta;
 	if (collec->t_delta > ANIM_FR)
 	{

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/24 18:07:54 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:56:44 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,11 @@ void	sprite_display(t_vars *vars, double *z_arr)
 		transform = get_transform_coord(vars, sprite);
 		spr_vars.y = fabs((int)HEIGHT / transform.y);
 		spr_vars.x = (int)((WIDTH / 2) * (1 + transform.x / transform.y));
+		collec_update_frame(sprite, vars->mlx->delta_time);
 		if (transform.y > 0)
 		{
 			if (sprite->is_animated)
-			{
 				spr_vars.y /= 2;
-				collec_update_frame(sprite, vars->mlx->delta_time);
-			}
 			sprite_drawcols(vars, sprite, spr_vars, z_arr);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/24 18:01:21 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:38:04 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ void	st_interact(t_vars *vars)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
 	{
 		vars->texture2d[5]->enabled = true;
-		i = vars->num_sprites;
+		i = vars->num_sprites - 1;
 		while (i > 0 && !vars->sprite[i].is_animated)
 			i--;
-		if (i == 0 && !vars->sprite[i].is_animated)
+		if (!vars->sprite[i].is_animated)
 			return ;
 		dist = vec_sub(vars->player.pos, vars->sprite[i].pos);
 		if (vec_len(dist) < 0.5)
