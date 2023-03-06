@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:25:07 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/03 18:19:58 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:07:48 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,33 @@ typedef struct s_astar {
 void	st_init_node(t_astar *node, t_vect2 pos)
 {
 	node->prev = NULL;
-	node->dist_score = 1e30;
-	node->heur_score = 1e30;
+	node->dist_score = 10e10;
+	node->heur_score = 10e10;
 	node->pos = pos;
 }
 
-t_astar	*st_init_arr(t_map *map)
+void	st_freenodes(t_list *lst)
 {
-	t_astar	*arr;
-	t_vect2			i;
+	t_list	*temp;
 
-	arr = (t_astar *)malloc(map->size.x * map->size.y * sizeof(t_astar));
-	if (arr == NULL)
+	if (lst == NULL)
+		return ;
+	temp = lst->next;
+	while (temp != NULL)
+	{
+		free(lst);
+		lst = temp;
+		temp = temp->next;
+	}
+}
+
+void	st_init_arr(t_map *map, t_astar **arr)
+{
+	t_astar	*new;
+	t_vect2	i;
+
+	new = malloc(map->size.x * map->size.y * sizeof(t_astar));
+	if (new == NULL)
 		exit_strerr(MALLOC_ERR);
 	i.y = 0;
 	while (i.y < map->size.y)
@@ -45,41 +60,17 @@ t_astar	*st_init_arr(t_map *map)
 		i.x = 0;
 		while (i.x < map->size.x)
 		{
-			st_init_node(&arr[i.x + i.y * map->size.x], i);
+			st_init_node(&new[i.x + i.y * map->size.x], i);
 			i.x++;
 		}
 		i.y++;
 	}
-	return (arr);
+	*arr = new;
 }
 
 double	st_heuristic(t_fvect2 end, t_fvect2 current)
 {
 	return (hypot(end.x - current.x, end.y - current.y));
-}
-
-void	st_insert_node(t_list **list, t_list *node)
-{
-	t_list	*temp;
-
-	temp = *list;
-	if (temp == NULL)
-		return ;
-	while (temp->next != NULL && ((t_astar *)temp->content)->heur_score < \
-								((t_astar *)node->content)->heur_score)
-		temp = temp->next;
-	if (temp->content == node->content)
-		return ;
-	if (temp->next == NULL)
-	{
-		temp->next = node;
-		node->next = NULL;
-	}
-	else
-	{
-		node->next = temp->next->next;
-		temp->next = node;
-	}
 }
 
 t_list	*st_get_neighbors(t_astar *arr, t_astar *current, t_map *map)
@@ -89,31 +80,41 @@ t_list	*st_get_neighbors(t_astar *arr, t_astar *current, t_map *map)
 
 	lst = NULL;
 	pos = current->pos;
-	if (pos.x > 0)
+	if (pos.x > 0 && mapindex(map, pos.x - 1, pos.y) != WALL)
 	{
-		ft_lstadd_front(&lst, ft_lstnew(&arr[(pos.x - 1) + pos.y * map->size.x]));
+		ft_lstadd_back(&lst, ft_lstnew(&arr[(pos.x - 1) + pos.y * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
-	if (pos.x < map->size.x - 2)
+	if (pos.x < map->size.x - 1 && mapindex(map, pos.x + 1, pos.y) != WALL)
 	{
-		ft_lstadd_front(&lst, ft_lstnew(&arr[(pos.x + 1) + pos.y * map->size.x]));
+		ft_lstadd_back(&lst, ft_lstnew(&arr[(pos.x + 1) + pos.y * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
-	if (pos.y > 0)
+	if (pos.y > 0 && mapindex(map, pos.x, pos.y - 1) != WALL)
 	{
-		ft_lstadd_front(&lst, ft_lstnew(&arr[pos.x + (pos.y - 1) * map->size.x]));
+		ft_lstadd_back(&lst, ft_lstnew(&arr[pos.x + (pos.y - 1) * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
-	if (pos.y < map->size.y - 2)
+	if (pos.y < map->size.y - 1 && mapindex(map, pos.x, pos.y + 1) != WALL)
 	{
-		ft_lstadd_front(&lst, ft_lstnew(&arr[pos.x + (pos.y + 1) * map->size.x]));
+		ft_lstadd_back(&lst, ft_lstnew(&arr[pos.x + (pos.y + 1) * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
 	return (lst);
+}
+
+void	db_ptlist(t_list *lst)
+{
+	while (lst != NULL)
+	{
+		printf("%p\n", lst->content);
+		lst = lst->next;
+	}
+	printf("---\n");
 }
 
 void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 end, t_map *map)
@@ -130,46 +131,79 @@ void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 en
 	while (node != NULL)
 	{
 		temp = (t_astar *)node->content;
+		next = node->next;
 		if (new_dscore < temp->dist_score)
 		{
 			temp->prev = current;
 			temp->dist_score = new_dscore;
 			temp->heur_score = new_dscore + st_heuristic(vec(temp->pos.x, temp->pos.y), vec(end.x, end.y));
-			next = node->next;
-			st_insert_node(open, node);
+			ft_lstadd_front(open, ft_lstnew(node->content));
 		}
 		node = next;
+	}
+	st_freenodes(neighbors);
+}
+
+t_astar *st_get_current(t_list *lst)
+{
+	t_astar	*temp;
+	t_astar	*low;
+
+	low = NULL;
+	while (lst != NULL)
+	{
+		temp = (t_astar *)lst->content;
+		if (low == NULL || low->heur_score > temp->heur_score)
+			low = temp;
+		lst = lst->next;
+	}
+	return (low);
+}
+
+void	st_rmnode(t_list **list, t_astar *item)
+{
+	t_list *temp;
+
+	temp = *list;
+	if (*list == NULL)
+		return ;
+	if((*list)->content == (void *)item)
+	{
+		*list = (*list)->next;
+		return ;
+	}
+	while (temp != NULL && temp->next != NULL)
+	{
+		if (temp->next->content == (void *)item)
+			temp->next = temp->next->next;
+		temp = temp->next;
 	}
 }
 
 t_list	**astar(t_vect2 start, t_vect2 end, t_map *map)
 {
 	t_astar	*arr;
-	t_astar	current;
+	t_astar	*current;
 	t_list	*open;
-	t_list	*temp;
-	t_list	*closed;
 
-	arr = st_init_arr(map);
+	st_init_arr(map, &arr);
 	arr[start.x + start.y * map->size.x].dist_score = 0;
-	arr[start.x + start.y * map->size.x].heur_score = st_heuristic(vec(start.x ,start.y), vec(end.x, end.y));
+	arr[start.x + start.y * map->size.x].heur_score = st_heuristic(vec(start.x, start.y), vec(end.x, end.y));
 	open = ft_lstnew(&arr[start.x + start.y * map->size.x]);
 	if (open == NULL)
 		exit_strerr(MALLOC_ERR);
 	while (open != NULL)
 	{
-		current = *((t_astar *)(open->content));
-		if (current.pos.x == end.x && current.pos.y == end.y)
+		current = st_get_current(open);
+		if (current->pos.x == end.x && current->pos.y == end.y)
 		{
 			printf("yes!\n");
 			return (NULL);
 			// return (st_get_path(closed, current));
 		}
-		st_iter_neighbors(arr, &current, &open, end, map);
-		temp = open;
-		open = open->next;
-		temp->next = closed;
-		closed = temp;
+		st_iter_neighbors(arr, current, &open, end, map);
+		st_rmnode(&open, current); //fix leaks later
 	}
+	free(arr);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/03 16:49:32 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:27:51 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define MOV_SPD 0.1
 # define ROT_SPD 0.1
-# define ENEMY_SPD 0.05
+# define ENEMY_SPD 0.025
 # define FOV 1.0471976 // pi / 3
 
 # define FLOOR 0

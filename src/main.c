@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/03 18:20:04 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:33:57 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int32_t	main(int argc, char **argv)
 	vars.canvas = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(vars.mlx, vars.canvas, 0, 0);
 	vars.canvas->instances[0].z = Z_LVL_CANVAS;
+	t_vect2 start = {.x = 1, .y = 2}, end = {.x = 7, .y = 1};
+	astar(start, end, &vars.map);
 	mlx_loop_hook(vars.mlx, &player_hook, &vars);
 	mlx_loop_hook(vars.mlx, &render, &vars);
 	mlx_loop_hook(vars.mlx, &render2d_minimap, &vars);
