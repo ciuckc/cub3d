@@ -8,7 +8,7 @@ BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/re
 ifdef WITH_ASAN
 	FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 else
-	FLAGS = -Wall -Wextra -Werror -g
+	FLAGS = -Wall -Wextra -Werror -O3
 endif
 
 # Includes

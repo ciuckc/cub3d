@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/06 12:27:51 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:34:23 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ typedef struct s_fvect2 {
 	double	x;
 	double	y;
 }			t_fvect2;
+
+typedef struct s_astar {
+	struct s_astar	*prev;
+	t_vect2			pos;
+	double			dist_score;
+	double			heur_score;
+}			t_astar;
 
 /**
  * @brief Stores current position of the player and the direction

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:25:07 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/06 17:07:48 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:52:38 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,11 @@
 #include "libft.h"
 #include "parse.h"
 
-typedef struct s_astar {
-	struct s_astar	*prev;
-	t_vect2				pos;
-	double				dist_score;
-	double				heur_score;
-}			t_astar;
-
 void	st_init_node(t_astar *node, t_vect2 pos)
 {
 	node->prev = NULL;
-	node->dist_score = 10e10;
-	node->heur_score = 10e10;
+	node->dist_score = 10e20;
+	node->heur_score = 10e20;
 	node->pos = pos;
 }
 
@@ -44,6 +37,7 @@ void	st_freenodes(t_list *lst)
 		lst = temp;
 		temp = temp->next;
 	}
+	free(lst);
 }
 
 void	st_init_arr(t_map *map, t_astar **arr)
@@ -82,39 +76,29 @@ t_list	*st_get_neighbors(t_astar *arr, t_astar *current, t_map *map)
 	pos = current->pos;
 	if (pos.x > 0 && mapindex(map, pos.x - 1, pos.y) != WALL)
 	{
-		ft_lstadd_back(&lst, ft_lstnew(&arr[(pos.x - 1) + pos.y * map->size.x]));
+		ft_lstadd_front(&lst, ft_lstnew(&arr[(pos.x - 1) + pos.y * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
 	if (pos.x < map->size.x - 1 && mapindex(map, pos.x + 1, pos.y) != WALL)
 	{
-		ft_lstadd_back(&lst, ft_lstnew(&arr[(pos.x + 1) + pos.y * map->size.x]));
+		ft_lstadd_front(&lst, ft_lstnew(&arr[(pos.x + 1) + pos.y * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
 	if (pos.y > 0 && mapindex(map, pos.x, pos.y - 1) != WALL)
 	{
-		ft_lstadd_back(&lst, ft_lstnew(&arr[pos.x + (pos.y - 1) * map->size.x]));
+		ft_lstadd_front(&lst, ft_lstnew(&arr[pos.x + (pos.y - 1) * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
 	if (pos.y < map->size.y - 1 && mapindex(map, pos.x, pos.y + 1) != WALL)
 	{
-		ft_lstadd_back(&lst, ft_lstnew(&arr[pos.x + (pos.y + 1) * map->size.x]));
+		ft_lstadd_front(&lst, ft_lstnew(&arr[pos.x + (pos.y + 1) * map->size.x]));
 		if (lst == NULL)
 			exit_strerr(MALLOC_ERR);
 	}
 	return (lst);
-}
-
-void	db_ptlist(t_list *lst)
-{
-	while (lst != NULL)
-	{
-		printf("%p\n", lst->content);
-		lst = lst->next;
-	}
-	printf("---\n");
 }
 
 void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 end, t_map *map)
@@ -125,7 +109,10 @@ void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 en
 	t_list	*node;
 	t_list	*next;
 
-	neighbors = st_get_neighbors(arr, current, map);
+	// neighbors = st_get_neighbors(arr, current, map);
+	(void)arr;
+	(void)map;
+	neighbors = NULL;
 	node = neighbors;
 	new_dscore = current->dist_score + 1;
 	while (node != NULL)
@@ -137,11 +124,12 @@ void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 en
 			temp->prev = current;
 			temp->dist_score = new_dscore;
 			temp->heur_score = new_dscore + st_heuristic(vec(temp->pos.x, temp->pos.y), vec(end.x, end.y));
-			ft_lstadd_front(open, ft_lstnew(node->content));
+			ft_lstadd_front(open, node);
 		}
+		else
+			free(node);
 		node = next;
 	}
-	st_freenodes(neighbors);
 }
 
 t_astar *st_get_current(t_list *lst)
@@ -160,23 +148,25 @@ t_astar *st_get_current(t_list *lst)
 	return (low);
 }
 
-void	st_rmnode(t_list **list, t_astar *item)
+// this could return after if statement is true as long as open 
+// does not contain duplicates
+void	st_mvnode(t_list **open, t_list **closed, t_astar *item)
 {
-	t_list *temp;
+	t_list	*node;
+	t_list	*swap;
 
-	temp = *list;
-	if (*list == NULL)
-		return ;
-	if((*list)->content == (void *)item)
+	node = *open;
+	while (node != NULL && node->next != NULL)
 	{
-		*list = (*list)->next;
-		return ;
-	}
-	while (temp != NULL && temp->next != NULL)
-	{
-		if (temp->next->content == (void *)item)
-			temp->next = temp->next->next;
-		temp = temp->next;
+		if (node->next->content == item)
+		{
+			swap = node->next;
+			node->next = swap->next;
+			ft_lstadd_front(closed, swap);
+			// return ;
+		}
+		else
+			node = node->next;
 	}
 }
 
@@ -185,10 +175,12 @@ t_list	**astar(t_vect2 start, t_vect2 end, t_map *map)
 	t_astar	*arr;
 	t_astar	*current;
 	t_list	*open;
+	t_list	*closed;
 
 	st_init_arr(map, &arr);
 	arr[start.x + start.y * map->size.x].dist_score = 0;
 	arr[start.x + start.y * map->size.x].heur_score = st_heuristic(vec(start.x, start.y), vec(end.x, end.y));
+	closed = NULL;
 	open = ft_lstnew(&arr[start.x + start.y * map->size.x]);
 	if (open == NULL)
 		exit_strerr(MALLOC_ERR);
@@ -202,8 +194,10 @@ t_list	**astar(t_vect2 start, t_vect2 end, t_map *map)
 			// return (st_get_path(closed, current));
 		}
 		st_iter_neighbors(arr, current, &open, end, map);
-		st_rmnode(&open, current); //fix leaks later
+		st_mvnode(&open, &closed, current);
 	}
+	st_freenodes(open);
+	st_freenodes(closed);
 	free(arr);
 	return (NULL);
 }
