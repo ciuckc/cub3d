@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:25:07 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/07 19:52:38 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:07:14 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	st_init_arr(t_map *map, t_astar **arr)
 	*arr = new;
 }
 
-double	st_heuristic(t_fvect2 end, t_fvect2 current)
-{
-	return (hypot(end.x - current.x, end.y - current.y));
-}
-
 t_list	*st_get_neighbors(t_astar *arr, t_astar *current, t_map *map)
 {
 	t_vect2	pos;
@@ -109,10 +104,7 @@ void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 en
 	t_list	*node;
 	t_list	*next;
 
-	// neighbors = st_get_neighbors(arr, current, map);
-	(void)arr;
-	(void)map;
-	neighbors = NULL;
+	neighbors = st_get_neighbors(arr, current, map);
 	node = neighbors;
 	new_dscore = current->dist_score + 1;
 	while (node != NULL)
@@ -123,7 +115,7 @@ void	st_iter_neighbors(t_astar *arr, t_astar *current, t_list **open, t_vect2 en
 		{
 			temp->prev = current;
 			temp->dist_score = new_dscore;
-			temp->heur_score = new_dscore + st_heuristic(vec(temp->pos.x, temp->pos.y), vec(end.x, end.y));
+			temp->heur_score = new_dscore + hypot(temp->pos.x - end.x,  temp->pos.y - end.y);
 			ft_lstadd_front(open, node);
 		}
 		else
@@ -148,25 +140,26 @@ t_astar *st_get_current(t_list *lst)
 	return (low);
 }
 
-// this could return after if statement is true as long as open 
-// does not contain duplicates
 void	st_mvnode(t_list **open, t_list **closed, t_astar *item)
 {
 	t_list	*node;
-	t_list	*swap;
+	t_list	*prev;
+	t_list	*next;
 
-	node = *open;
-	while (node != NULL && node->next != NULL)
+	prev = *open;
+	node = prev->next;
+	while (node != NULL)
 	{
-		if (node->next->content == item)
+		next = node->next;
+		if ((t_astar *)node->content == item)
 		{
-			swap = node->next;
-			node->next = swap->next;
-			ft_lstadd_front(closed, swap);
-			// return ;
+			prev->next = next;
+			node->next = NULL;
+			ft_lstadd_front(closed, node);
 		}
 		else
-			node = node->next;
+			prev = node;
+		node = next;
 	}
 }
 
@@ -179,7 +172,7 @@ t_list	**astar(t_vect2 start, t_vect2 end, t_map *map)
 
 	st_init_arr(map, &arr);
 	arr[start.x + start.y * map->size.x].dist_score = 0;
-	arr[start.x + start.y * map->size.x].heur_score = st_heuristic(vec(start.x, start.y), vec(end.x, end.y));
+	arr[start.x + start.y * map->size.x].heur_score = hypot(start.x - end.x, start.y - end.y);
 	closed = NULL;
 	open = ft_lstnew(&arr[start.x + start.y * map->size.x]);
 	if (open == NULL)
