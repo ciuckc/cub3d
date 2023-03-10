@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 17:59:20 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/22 00:36:37 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/23 18:19:14 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,17 @@ static void	st_put_pixels(t_vars *vars, mlx_image_t *img, t_fvect2 *coords, \
 	float img_step)
 {
 	uint32_t	clr;
+	double		short_dist;
 
 	clr = 0;
 	while (coords[LN_START].y < coords[LN_END].y)
 	{
-		clr = set_pixel_color(vars, img, coords);
+		if (vars->dst.x < vars->dst.y)
+			short_dist = vars->dst.x;
+		else
+			short_dist = vars->dst.y;
+		clr = apply_shade(get_pixel(img, (t_vect2){(int)coords[IMG_POS].x, \
+		(int)coords[IMG_POS].y}), short_dist);
 		mlx_put_pixel(vars->canvas, coords[LN_START].x, coords[LN_START].y, \
 			clr);
 		coords[IMG_POS].y += img_step;

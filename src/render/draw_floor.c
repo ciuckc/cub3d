@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:40:32 by scristia      ########   odam.nl         */
+/*   Updated: 2023/02/23 18:20:53 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	st_draw_row(uint32_t y, t_vars *vars, t_fvect2 *pos, t_fvect2 step, 
 			(img->height - 1)};
 		pos->x += step.x;
 		pos->y += step.y;
-		mlx_put_pixel(vars->canvas, x, y, apply_shade(get_pixel(img, tex_pos), row_dist));
+		mlx_put_pixel(vars->canvas, x, y, \
+		apply_shade(get_pixel(img, tex_pos), row_dist));
 		x++;
 	}
 }
@@ -43,7 +44,7 @@ void	draw_floor(t_vars *vars)
 	t_fvect2	*raydir;
 	t_fvect2	flr[3];
 
-	y = HEIGHT / 2;
+	y = HEIGHT / 2 + 1;
 	flr[2] = vec_mul(vec_rot(vars->player.dir, M_PI_2), 0.58);
 	raydir = (t_fvect2 [2]){(t_fvect2){0}, (t_fvect2){0}};
 	raydir[0] = vec_sub(vars->player.dir, flr[2]);
