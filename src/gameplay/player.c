@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/03 19:38:04 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:35:04 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,29 +118,28 @@ void	st_interact(t_vars *vars)
 void	player_hook(void *param)
 {
 	t_player	*player;
-	t_vars		*vars;
 	t_map		*map;
 	mlx_t		*mlx;
 
-	vars = (t_vars *)param;
-	player = &vars->player;
-	map = &vars->map;
-	mlx = vars->mlx;
+	player = &((t_vars *)param)->player;
+	map = &((t_vars *)param)->map;
+	mlx = ((t_vars *)param)->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(mlx);
+		mlx_terminate(mlx);
 		exit(EXIT_SUCCESS);
 	}
 	st_move_player(player, map, mlx);
-	st_interact(vars);
+	st_interact((t_vars *)param);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		player->dir = vec_rot(player->dir, -ROT_SPD);
-		st_move_sky(vars, 16);
+		st_move_sky((t_vars *)param, 16);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		player->dir = vec_rot(player->dir, ROT_SPD);
-		st_move_sky(vars, -16);
+		st_move_sky((t_vars *)param, -16);
 	}
 }

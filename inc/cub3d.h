@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/07 19:34:23 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:25:03 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,6 @@ typedef struct s_fvect2 {
 	double	y;
 }			t_fvect2;
 
-typedef struct s_astar {
-	struct s_astar	*prev;
-	t_vect2			pos;
-	double			dist_score;
-	double			heur_score;
-}			t_astar;
-
 /**
  * @brief Stores current position of the player and the direction
  * the player is facing.
@@ -99,9 +92,9 @@ typedef struct s_astar {
  * the player is facing
  */
 typedef struct s_player {
-	t_fvect2	pos;	// player position on map, 1 tile == 1 unit
-	t_fvect2	dir;	// unit vector player direction
-	t_fvect2	mov;	// unit vector last player movement
+	t_fvect2	pos;
+	t_fvect2	dir;
+	t_fvect2	mov;
 }			t_player;
 
 typedef struct s_sprite {
@@ -172,7 +165,7 @@ void		enemy_hook(void *param);
 void		parse(int argc, char **argv, t_vars *vars);
 // render
 int8_t		mapindex(t_map *map, int x, int y);
-t_list		**astar(t_vect2 start, t_vect2 end, t_map *map);
+void		game_hook(void *param);
 
 // round double vector to int vector
 t_vect2		vec_round(t_fvect2 vec);

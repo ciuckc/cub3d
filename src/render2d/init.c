@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:17:50 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/21 21:34:12 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:41:07 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	st_init_hud(t_vars *vars)
 void	st_init_player2d(t_vars *vars)
 {
 	mlx_image_t	*img;
-	uint32_t	tilesize; uint32_t	mapsize;
+	uint32_t	tilesize;
+	uint32_t	mapsize;
 
 	if (WIDTH >= HEIGHT)
 		mapsize = WIDTH * MAPSCALE;

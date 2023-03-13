@@ -8,7 +8,7 @@ BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/re
 ifdef WITH_ASAN
 	FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 else
-	FLAGS = -Wall -Wextra -Werror -g
+	FLAGS = -Wall -Wextra -Werror -Ofast
 endif
 
 # Includes
@@ -45,7 +45,7 @@ vector/vector.c \
 vector/vector2.c \
 gameplay/player.c \
 gameplay/enemy.c \
-gameplay/astar.c \
+gameplay/game.c \
 draw_util/color.c \
 draw_util/get_pixel.c \
 render2d/init.c \
