@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/03 19:37:10 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:16:21 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,10 @@ void	sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr)
 	if (clr & 0xffffff00)
 	{
 		if (spr->is_animated && spr->is_toggled)
-			mlx_put_pixel(vars->canvas, i.x, i.y, inv_color(clr));
+			mlx_put_pixel(vars->canvas, i.x, i.y, apply_shade(inv_color(clr), \
+	hypot(spr->pos.x - vars->player.pos.x, spr->pos.y - vars->player.pos.y)));
 		else
-			mlx_put_pixel(vars->canvas, i.x, i.y, clr);
+			mlx_put_pixel(vars->canvas, i.x, i.y, apply_shade(clr, \
+	hypot(spr->pos.x - vars->player.pos.x, spr->pos.y - vars->player.pos.y)));
 	}
 }

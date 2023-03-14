@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/13 18:25:03 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:57:14 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,138 +16,11 @@
 # include <stdlib.h>
 # include <assert.h>
 # include "MLX42.h"
+# include "settings.h"
+# include "defs.h"
+# include "structs.h"
 # include "libft.h"
 # include <stdio.h>
-
-# define WIDTH 1024
-# define HEIGHT 1024
-
-# define MAPSCALE 0.275
-# define TPM 8
-# define PLAYER2D_CLR 0xffffffff
-
-# define ANIM_FR 0.15
-
-# define MOV_SPD 0.1
-# define ROT_SPD 0.1
-# define ENEMY_SPD 0.025
-# define FOV 1.0471976 // pi / 3
-
-# define FLOOR 0
-# define WALL 1
-# define START_POS 2
-# define UNREACH 3
-# define COLLEC 4
-# define EXIT 5
-# define ENEMY 6
-
-# define Z_LVL_BACKGRND -1
-# define Z_LVL_CANVAS 1
-# define Z_LVL_MINIMAP 2
-# define Z_LVL_MAPDOT 3
-# define Z_LVL_HUD 4
-
-/*
-Chars which are valid map content -> SUPER IMPORTANT FOR LATER IF WE ADD
-MORE SPRITES OR OTHER STUFF.
-*/
-# define MAP_CONTENT " 01NSWEHC"
-# define TEXTURES "NSWEFC"
-
-# define HUD_PATH "assets/hud3.png"
-# define SKY_PATH "assets/sky3.xpm42"
-# define ENEMY1_PATH "assets/ghoulie.xpm42"
-# define ENEMY2_PATH "assets/ghoulie2.xpm42"
-# define COLLEC_PATH "assets/crystal.xpm42"
-# define EXIT_PATH "assets/portal.xpm42"
-# define INTERACT_PATH "assets/interact.png"
-
-// File extension
-
-# define FILE_EXT ".xpm42"
-
-/*
-	vector defines for drawing to screen
-*/
-# define IMG_POS 0
-# define LN_START 1
-# define LN_END 2
-
-typedef struct s_vect2 {
-	int32_t	x;
-	int32_t	y;
-}			t_vect2;
-
-typedef struct s_fvect2 {
-	double	x;
-	double	y;
-}			t_fvect2;
-
-/**
- * @brief Stores current position of the player and the direction
- * the player is facing.
- * 
- * @param pos Position on map. 1 tile == 1 unit.
- * @param dir Direction vector which holds the current direction
- * the player is facing
- */
-typedef struct s_player {
-	t_fvect2	pos;
-	t_fvect2	dir;
-	t_fvect2	mov;
-}			t_player;
-
-typedef struct s_sprite {
-	mlx_image_t	*tex;
-	t_fvect2	pos;
-	uint8_t		frame;
-	double		t_delta;
-	xpm_t		*pix_arr[7];
-	bool		is_animated;
-	bool		is_movable;
-	bool		is_toggled;
-}			t_sprite;
-
-/**
- * @brief Map struct with size and pointer to the map contents.
- * 
- */
-typedef struct s_map {
-	t_vect2		size;
-	uint8_t		*grid;
-}			t_map;
-
-/**
- *@brief Used for indexing paths to images in the array of textures.
- * 
- */
-enum e_content {
-	N,
-	S,
-	W,
-	E,
-	F,
-	C,
-	X
-};
-
-/**
- * @brief Program struct.
- * 
- */
-typedef struct s_vars {
-	mlx_image_t	*canvas;
-	mlx_image_t	*texture[sizeof(TEXTURES) - 1];
-	mlx_image_t	*texture2d[6];
-	uint32_t	floor_clr;
-	uint32_t	ceil_clr;
-	t_player	player;
-	t_sprite	*sprite;
-	uint32_t	num_sprites;
-	t_fvect2	dst;
-	t_map		map;
-	mlx_t		*mlx;
-}			t_vars;
 
 // capture keyboard input
 void		player_hook(void *param);
@@ -197,11 +70,10 @@ uint32_t	apply_shade(uint32_t clr, double dist);
 uint32_t	inv_color(uint32_t clr);
 
 // cast a single ray
+t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
 uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
 void		draw_floor(t_vars *vars);
-void		draw_line(t_vars *vars, uint32_t x, double angle, t_fvect2 \
-	*pos);
-t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
+void		draw_line(t_vars *v, uint32_t x, double ang, t_fvect2 *p);
 void		render(void *param);
 
 // render2d

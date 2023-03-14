@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/13 21:27:48 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:07:53 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	draw_floor(t_vars *vars)
 
 	// xpm_t *xpm = mlx_load_xpm42("assets/test.xpm42");
 	// xpm_t *xpm = mlx_load_xpm42("assets/floorsmall.xpm42");
-	xpm_t *xpm = mlx_load_xpm42("assets/floor.xpm42");
-	mlx_image_t *img = mlx_texture_to_image(vars->mlx, &xpm->texture);
+	// xpm_t *xpm = mlx_load_xpm42("assets/floor.xpm42");
+	// mlx_image_t *img = mlx_texture_to_image(vars->mlx, &xpm->texture);
 
 	y = HEIGHT / 2 + 1;
 	flr[2] = vec_mul(vec_rot(vars->player.dir, M_PI_2), 0.58);
@@ -64,7 +64,7 @@ void	draw_floor(t_vars *vars)
 			row_dist * (raydir[1].y - raydir[0].y) / WIDTH};
 		flr[1] = (t_fvect2){vars->player.pos.x + row_dist * raydir[0].x, \
 			vars->player.pos.y + row_dist * raydir[0].y};
-		st_draw_row(y, vars, &flr[1], flr[0], img, row_dist);
+		st_draw_row(y, vars, &flr[1], flr[0], vars->texture[S], row_dist);
 		y++;
 	}
 }
