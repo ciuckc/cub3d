@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/13 17:34:04 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 14:27:27 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ void	st_interact(t_vars *vars)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
 	{
 		vars->texture2d[5]->enabled = true;
-		i = 0;
-		while (!vars->sprite[i].is_animated && i < vars->num_sprites)
-			i++;
-		if (i == vars->num_sprites)
+		i = vars->num_sprites - 1;
+		while (i > 0 && !vars->sprite[i].is_animated)
+			i--;
+		if (!vars->sprite[i].is_animated)
 			return ;
 		dist = vec_sub(vars->player.pos, vars->sprite[i].pos);
-		if (dist.x < 0.1 && dist.y < 0.1)
+		if (vec_len(dist) < 0.5)
 			vars->sprite[i].is_toggled = true;
 	}
 	else
@@ -118,14 +118,12 @@ void	st_interact(t_vars *vars)
 void	player_hook(void *param)
 {
 	t_player	*player;
-	t_vars		*vars;
 	t_map		*map;
 	mlx_t		*mlx;
 
-	vars = (t_vars *)param;
-	player = &vars->player;
-	map = &vars->map;
-	mlx = vars->mlx;
+	player = &((t_vars *)param)->player;
+	map = &((t_vars *)param)->map;
+	mlx = ((t_vars *)param)->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(mlx);
@@ -133,15 +131,15 @@ void	player_hook(void *param)
 		exit(EXIT_SUCCESS);
 	}
 	st_move_player(player, map, mlx);
-	st_interact(vars);
+	st_interact((t_vars *)param);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		player->dir = vec_rot(player->dir, -ROT_SPD);
-		st_move_sky(vars, 8);
+		st_move_sky((t_vars *)param, 16);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		player->dir = vec_rot(player->dir, ROT_SPD);
-		st_move_sky(vars, -8);
+		st_move_sky((t_vars *)param, -16);
 	}
 }

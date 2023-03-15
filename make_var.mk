@@ -44,6 +44,7 @@ vector/vector.c \
 vector/vector2.c \
 gameplay/player.c \
 gameplay/enemy.c \
+gameplay/game.c \
 draw_util/color.c \
 draw_util/get_pixel.c \
 render2d/init.c \

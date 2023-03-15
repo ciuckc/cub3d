@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/20 18:59:13 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/23 18:22:48 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 14:27:22 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ uint32_t	apply_shade(uint32_t clr, double dist)
 {
 	double	intensity;
 
-	intensity = 2 / dist * 0.1;
+	intensity = 1 / dist * 0.75;
 	if (intensity > 1)
 		return (clr);
 	clr = get_rgba(get_red(clr) * intensity, get_grn(clr) * intensity, \

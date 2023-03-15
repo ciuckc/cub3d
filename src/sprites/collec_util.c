@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:22:57 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/21 14:00:06 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:31:43 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos)
 		exit_strerr(MALLOC_ERR);
 }
 
-void	collec_update_frame(t_sprite *collec, double delta)
+void	collec_update_frame(t_sprite *collec, double t_delta)
 {
-	static double	last_frm;
-
-	last_frm += delta;
-	if (last_frm > ANIM_FR)
+	if (!collec->is_animated)
+		return ;
+	collec->t_delta += t_delta;
+	if (collec->t_delta > ANIM_FR)
 	{
-		last_frm = 0;
+		collec->t_delta = 0;
 		collec->frame++;
 	}
 	if (collec->frame == 7)

@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/23 17:21:18 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:16:21 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	st_init_sprite(t_vars *vars, t_sprite *sprt, char *path, t_vect2 i)
 	mlx_delete_xpm42(xpm);
 	sprt->pos.x = (double)(i.x + 0.5);
 	sprt->pos.y = (double)(i.y + 0.5);
+	sprt->t_delta = 0.0;
 }
 
 // count all sprites in the map
@@ -70,7 +71,6 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 			st_init_sprite(vars, &vars->sprite[*i_spr], ENEMY2_PATH, i);
 		vars->sprite[*i_spr].is_animated = false;
 		vars->sprite[*i_spr].is_movable = true;
-		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 	else if (mapindex(&vars->map, i.x, i.y) == COLLEC)
@@ -86,7 +86,6 @@ void	st_set_sprite_type(t_vars *vars, t_vect2 i, uint32_t *i_spr)
 		st_init_sprite(vars, &vars->sprite[*i_spr], EXIT_PATH, i);
 		vars->sprite[*i_spr].is_animated = false;
 		vars->sprite[*i_spr].is_movable = false;
-		vars->sprite[*i_spr].is_toggled = false;
 		*i_spr += 1;
 	}
 }
@@ -135,8 +134,10 @@ void	sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, t_sprite *spr)
 	if (clr & 0xffffff00)
 	{
 		if (spr->is_animated && spr->is_toggled)
-			mlx_put_pixel(vars->canvas, i.x, i.y, inv_color(clr));
+			mlx_put_pixel(vars->canvas, i.x, i.y, apply_shade(inv_color(clr), \
+	hypot(spr->pos.x - vars->player.pos.x, spr->pos.y - vars->player.pos.y)));
 		else
-			mlx_put_pixel(vars->canvas, i.x, i.y, clr);
+			mlx_put_pixel(vars->canvas, i.x, i.y, apply_shade(clr, \
+	hypot(spr->pos.x - vars->player.pos.x, spr->pos.y - vars->player.pos.y)));
 	}
 }

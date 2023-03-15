@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 13:27:49 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 14:27:10 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int32_t	main(int argc, char **argv)
 	mlx_loop_hook(vars.mlx, &player_hook, &vars);
 	mlx_loop_hook(vars.mlx, &render, &vars);
 	mlx_loop_hook(vars.mlx, &render2d_minimap, &vars);
-	mlx_loop_hook(vars.mlx, &sprites_sort, &vars);
 	mlx_loop_hook(vars.mlx, &enemy_hook, &vars);
+	mlx_loop_hook(vars.mlx, &game_hook, &vars);
 	mlx_loop(vars.mlx);
 	mlx_terminate(vars.mlx);
 	return (EXIT_SUCCESS);
