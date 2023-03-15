@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/14 20:07:53 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:40:26 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,12 @@ void	draw_floor(t_vars *vars)
 	uint32_t	y;
 	double		row_dist;
 	t_fvect2	*raydir;
-	t_fvect2	flr[3];
-
-	// xpm_t *xpm = mlx_load_xpm42("assets/test.xpm42");
-	// xpm_t *xpm = mlx_load_xpm42("assets/floorsmall.xpm42");
-	// xpm_t *xpm = mlx_load_xpm42("assets/floor.xpm42");
-	// mlx_image_t *img = mlx_texture_to_image(vars->mlx, &xpm->texture);
+	t_fvect2	flr[2];
 
 	y = HEIGHT / 2 + 1;
-	flr[2] = vec_mul(vec_rot(vars->player.dir, M_PI_2), 0.58);
 	raydir = (t_fvect2 [2]){(t_fvect2){0}, (t_fvect2){0}};
-	raydir[0] = vec_sub(vars->player.dir, flr[2]);
-	raydir[1] = vec_add(vars->player.dir, flr[2]);
-
 	raydir[0] = vec_mul(vec_rot(vars->player.dir, -FOV / 2.0), 1.156);
 	raydir[1] = vec_mul(vec_rot(vars->player.dir, FOV / 2.0), 1.156); 
-
 	while (y < HEIGHT)
 	{
 		row_dist = (0.5 * HEIGHT) / (y - HEIGHT * 0.5);

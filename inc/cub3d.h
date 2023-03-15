@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/14 15:57:14 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:47:05 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,11 @@
 # include "libft.h"
 # include <stdio.h>
 
-// capture keyboard input
-void		player_hook(void *param);
-void		enemy_hook(void *param);
-
-/**
- * @brief Makes sure that the a map is provided, the map name provided is a 
- * valid .cub map, then it creates a full string out of the content. Then it
- * creates a matrix that simbolizes the map contents and another array which
- * stores of 
- * @param argc 
- * @param argv 
- * @param vars 
- */
+// parse() will validate that the map is playable, closed off and all the right
+// texture info is present and then load everything in to the right structs
 void		parse(int argc, char **argv, t_vars *vars);
-// render
+// get tile value at given position
 int8_t		mapindex(t_map *map, int x, int y);
-void		game_hook(void *param);
 
 // round double vector to int vector
 t_vect2		vec_round(t_fvect2 vec);
@@ -59,33 +47,59 @@ double		vec_angle(t_fvect2 v1, t_fvect2 v2);
 // construct vector
 t_fvect2	vec(double x, double y);
 
-// functions to extract components or construct a color
+// construct color from seperate channels
 uint32_t	get_rgba(int r, int g, int b, int a);
+// get pixel value at position in image
 uint32_t	get_pixel(mlx_image_t *img, t_vect2 i);
+// get specific channel from color
 uint8_t		get_red(uint32_t clr);
 uint8_t		get_grn(uint32_t clr);
 uint8_t		get_blu(uint32_t clr);
 uint8_t		get_alpha(uint32_t clr);
+// darken color based on distance
 uint32_t	apply_shade(uint32_t clr, double dist);
+// invert color
 uint32_t	inv_color(uint32_t clr);
 
-// cast a single ray
+// cast a single ray and return the first x and y intersections with a wall
 t_fvect2	cast_ray(t_map *map, t_player *player, t_fvect2 raydir);
-uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
+// floorcasting
 void		draw_floor(t_vars *vars);
+// draw a single vertical wall segment
 void		draw_line(t_vars *v, uint32_t x, double ang, t_fvect2 *p);
+// driver code for wall and floorcasting as well as sprites
 void		render(void *param);
 
-// render2d
+// all these functions do is init some mlx images that get pushed to the
+// render queue so mlx handles everything afterwards
 void		render2d_init(t_vars *vars);
+// update the minimap image
 void		render2d_minimap(void *param);
-void		sprite_display(t_vars *vars, double *z_arr);
-void		sprites_init(t_vars *vars);
-void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
+
+// init the interact action image
 void		init_interact(t_vars *vars);
+// checks if the game is won or lost
+void		game_hook(void *param);
+// capture all keyboard input and handle it
+// some things that happen here are not really player related
+// move them to a more appropriate function
+void		player_hook(void *param);
+// move enemies towards player
+void		enemy_hook(void *param);
+
+// draw a sprite using the distance for all vertical segments calculated
+// during raycasting
+void		sprite_display(t_vars *vars, double *z_arr);
+// init sprite structs
+void		sprites_init(t_vars *vars);
+// init animated sprites
+void		collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos);
+// check if animated sprite needs to display a new frame
 void		collec_update_frame(t_sprite *collec, double t_delta);
-void		sprite_put_pixel(t_vars *vars, t_vect2 i, t_vect2 img_i, \
-	t_sprite *spr);
+// put_pixel wrapper that applies shading and inverts colors when necessary
+void		sprite_put_pixel(t_vars *v, t_vect2 i, t_vect2 img_i, t_sprite *s);
+// sort sprites based on distance from the player so they get draw in the 
+// right order
 void		sprites_sort(t_vars *vars);
 
 #endif
