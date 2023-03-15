@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:22:57 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/03 19:31:43 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:45:45 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	collec_init(t_vars *vars, t_sprite *collec, t_vect2 pos)
 	collec->tex = mlx_texture_to_image(vars->mlx, &collec->pix_arr[0]->texture);
 	if (collec->tex == NULL)
 		exit_strerr(MALLOC_ERR);
+	free(collec->tex->pixels);
+	collec->tex->pixels = collec->pix_arr[0]->texture.pixels;
 }
 
 void	collec_update_frame(t_sprite *collec, double t_delta)

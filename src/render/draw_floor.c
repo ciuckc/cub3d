@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/15 18:48:52 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:16:55 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	st_draw_row(uint32_t y, t_vars *vars, t_fvect2 *flr, \
 	{
 		cell = (t_vect2){floor(flr[1].x), floor(flr[1].y)};
 		tex_pos = (t_vect2){(int)(img->width * (flr[1].x - cell.x)) % \
-			(img->width - 1), (int)(img->height * (flr[1].y - cell.y)) % \
-			(img->height - 1)};
+			(img->width), (int)(img->height * (flr[1].y - cell.y)) % \
+			(img->height)};
 		flr[1].x += flr[0].x;
 		flr[1].y += flr[0].y;
 		mlx_put_pixel(vars->canvas, x, y, apply_shade(get_pixel(img, tex_pos), \
