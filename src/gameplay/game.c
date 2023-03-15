@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:19 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/13 15:16:04 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:14:52 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ void	game_hook(void *param)
 	if (st_won(&vars->player, vars->sprite, vars->num_sprites, &vars->map))
 	{
 		printf("You won!\n");
+		mlx_close_window(vars->mlx);
+		mlx_terminate(vars->mlx);
 		exit(EXIT_SUCCESS);
 	}
 	if (st_lost(&vars->player, vars->sprite, vars->num_sprites))
 	{
 		printf("You lost!\n");
+		mlx_close_window(vars->mlx);
+		mlx_terminate(vars->mlx);
 		exit(EXIT_SUCCESS);
 	}
 }

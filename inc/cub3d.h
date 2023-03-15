@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 13:47:05 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:12:58 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,8 @@ void		sprite_put_pixel(t_vars *v, t_vect2 i, t_vect2 img_i, t_sprite *s);
 // sort sprites based on distance from the player so they get draw in the 
 // right order
 void		sprites_sort(t_vars *vars);
+
+// remove this after merge!!!
+uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *i);
 
 #endif
