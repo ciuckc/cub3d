@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw_floor.c                                       :+:    :+:            */
+/*   draw_floor.c                                       :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/15 14:28:21 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 18:48:52 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static void	st_draw_row(uint32_t y, t_vars *vars, t_fvect2 *flr, \
 	mlx_image_t	*img;
 
 	x = 0;
-	img = vars->texture[N];
+	img = vars->texture[F];
 	cell = (t_vect2){0};
 	tex_pos = (t_vect2){0};
 	while (x < WIDTH)
 	{
 		cell = (t_vect2){floor(flr[1].x), floor(flr[1].y)};
-		tex_pos = (t_vect2){(int)(img->width * (flr[1].x - cell.x)) & \
-			(img->width - 1), (int)(img->height * (flr[1].y - cell.y)) & \
+		tex_pos = (t_vect2){(int)(img->width * (flr[1].x - cell.x)) % \
+			(img->width - 1), (int)(img->height * (flr[1].y - cell.y)) % \
 			(img->height - 1)};
 		flr[1].x += flr[0].x;
 		flr[1].y += flr[0].y;

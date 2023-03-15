@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   set_map_content.c                                  :+:    :+:            */
+/*   set_map_content.c                                  :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:04:08 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/15 13:57:15 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 18:40:10 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	set_map_content(t_vars *vars, char *str)
 	uint8_t	*table;
 
 	table = (uint8_t [128]){[' '] = UNREACH, ['H'] = ENEMY, ['C'] = \
-		COLLEC, ['X'] = ENEMY};
+		COLLEC, ['X'] = EXIT};
 	st_set_map_size(&vars->map, str);
 	len = vars->map.size.x * vars->map.size.y;
 	vars->map.grid = ft_calloc(len, sizeof(int8_t));
