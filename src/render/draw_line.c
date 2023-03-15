@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 17:59:20 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/23 18:19:14 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:22:54 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int32_t ln_height, double wall_x)
 		coords[LN_END].y = HEIGHT;
 	step = (double)img->height / ln_height;
 	offset = coords[LN_START].y - HEIGHT / 2 + ln_height / 2;
-	coords[IMG_POS].x = round(wall_x * (double)img->width);
+	coords[IMG_POS].x = floor(wall_x * (double)img->width);
 	coords[IMG_POS].y = offset * step;
 }
 

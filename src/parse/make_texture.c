@@ -6,13 +6,13 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/17 18:25:15 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 14:24:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static void	st_check_colour(char *path)
+static bool	st_check_colour(char *path)
 {
 	uint32_t	i;
 	uint32_t	clr_index;
@@ -32,12 +32,11 @@ static void	st_check_colour(char *path)
 		if (path[i] == '\0')
 			continue ;
 		else if (path[i] != ',' || nr_len > 3)
-			exit_strerr(COL_ERR);
+			return (false);
 		nr_len = 0;
 		i++;
 	}
-	if (clr_index != 3)
-		exit_strerr(COL_ERR);
+	return (clr_index == 3);
 }
 
 static uint32_t	st_get_clr(char *path)
@@ -64,20 +63,21 @@ static uint32_t	st_get_clr(char *path)
 	return (get_rgba(channel[0], channel[1], channel[2], 255));
 }
 
-static void	st_check_path(char *path)
+static bool	st_check_path(char *path)
 {
 	uint32_t	len;
 	int32_t		fd;
 
 	len = ft_strlen(path);
 	if (len <= 6)
-		exit_strerr(EXT_ERR);
+		return (false);
 	if (ft_strncmp(path + (len - 6), ".xpm42", 6) != 0)
-		exit_strerr(EXT_ERR);
+		return (false);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		exit_strerr(IMG_ERR);
+		return (false);
 	close(fd);
+	return (true);
 }
 
 static mlx_image_t	*st_get_tex(char *path, mlx_t *mlx)
@@ -105,11 +105,17 @@ void	make_texture(char key, char *path, t_vars *vars)
 	['E'] = E, ['F'] = F, ['C'] = C};
 	if (key == 'C' || key == 'F')
 	{
-		st_check_colour(path);
-		if (key == 'C')
-			vars->ceil_clr = st_get_clr(path);
+		if (st_check_colour(path))
+		{
+			if (key == 'C')
+				vars->ceil_clr = st_get_clr(path);
+			else
+				vars->floor_clr = st_get_clr(path);
+		}
+		else if (st_check_path(path))
+			vars->texture[(int) table[(int) key]] = st_get_tex(path, vars->mlx);
 		else
-			vars->floor_clr = st_get_clr(path);
+			exit_strerr("Invalid floor or ceiling colour/texture.\n");
 	}
 	else
 	{

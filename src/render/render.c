@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:46:44 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 14:16:04by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ static void	st_draw_wall(t_vars *vars, double *z_arr)
 	}
 }
 
+static void	st_draw_floor(t_vars *vars)
+{
+	if (vars->texture[F] == NULL)
+		ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * \
+		sizeof(uint32_t) / 2, 128, WIDTH * HEIGHT * \
+			sizeof(uint32_t) / 2);
+	else
+		draw_floor(vars);
+}
+
 void	render(void *param)
 {
 	t_vars		*vars;
@@ -45,11 +55,8 @@ void	render(void *param)
 
 	vars = (t_vars *)param;
 	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * \
-		sizeof(uint32_t) / 2);
-	ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * \
-	sizeof(uint32_t) / 2, 128, WIDTH * HEIGHT * \
-		sizeof(uint32_t) / 2);
-	draw_floor(vars);
+			sizeof(uint32_t) / 2);
+	st_draw_floor(vars);
 	st_draw_wall(vars, z_arr);
 	sprite_display(vars, z_arr);
 }

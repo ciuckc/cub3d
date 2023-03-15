@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/23 17:46:27 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:19:30 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,6 @@ uint32_t	apply_shade(uint32_t clr, double dist);
 uint32_t	inv_color(uint32_t clr);
 
 // cast a single ray
-uint32_t	set_pixel_color(t_vars *vars, mlx_image_t *img, t_fvect2 *coords);
 void		draw_floor(t_vars *vars);
 void		draw_line(t_vars *vars, uint32_t x, double angle, t_fvect2 \
 	*pos);

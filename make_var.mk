@@ -8,7 +8,7 @@ BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/re
 ifdef WITH_ASAN
 	FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 else
-	FLAGS = -Wall -Wextra -Werror
+	FLAGS = -Wall -Wextra -Werror -O3
 endif
 
 # Includes
@@ -39,7 +39,6 @@ UNPREFIXED_SRC = main.c \
 render/raycast.c \
 render/render.c \
 render/draw_line.c \
-render/set_pixel_color.c \
 render/draw_floor.c \
 vector/vector.c \
 vector/vector2.c \

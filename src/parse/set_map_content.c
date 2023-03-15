@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:04:08 by scristia      #+#    #+#                 */
-/*   Updated: 2023/02/21 20:11:42 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/15 13:57:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	st_get_player_pos(t_vars *var)
 	}
 	var->player.pos.y = (player_idx / var->map.size.x) + 0.5;
 	var->player.pos.x = (player_idx % var->map.size.x) + 0.5;
-	var->player.dir = table[(int) var->map.grid[player_idx]];
+	var->player.dir = vec_rot(table[(int) var->map.grid[player_idx]], 0.01);
 	var->map.grid[player_idx] = START_POS;
 }
 
@@ -103,7 +103,10 @@ void	set_map_content(t_vars *vars, char *str)
 {
 	int32_t	len;
 	int32_t	i;
+	uint8_t	*table;
 
+	table = (uint8_t [128]){[' '] = UNREACH, ['H'] = ENEMY, ['C'] = \
+		COLLEC, ['X'] = ENEMY};
 	st_set_map_size(&vars->map, str);
 	len = vars->map.size.x * vars->map.size.y;
 	vars->map.grid = ft_calloc(len, sizeof(int8_t));
@@ -116,14 +119,8 @@ void	set_map_content(t_vars *vars, char *str)
 	{
 		if (ft_isdigit(vars->map.grid[i]))
 			vars->map.grid[i] -= '0';
-		else if (vars->map.grid[i] == ' ')
-			vars->map.grid[i] = UNREACH;
-		else if (vars->map.grid[i] == 'H')
-			vars->map.grid[i] = ENEMY;
-		else if (vars->map.grid[i] == 'C')
-			vars->map.grid[i] = COLLEC;
-		else if (vars->map.grid[i] == 'X')
-			vars->map.grid[i] = EXIT;
+		else if (!ft_strchr("NSEW", vars->map.grid[i]))
+			vars->map.grid[i] = table[(int)vars->map.grid[i]];
 		i++;
 	}
 	st_get_player_pos(vars);

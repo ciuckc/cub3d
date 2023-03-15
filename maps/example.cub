@@ -3,7 +3,7 @@ SO ./assets/wall2.xpm42
 WE ./assets/wall3.xpm42
 EA ./assets/wall4.xpm42
 
-F 220,100,0
+F ./assets/wall1.xpm42
 C 225,30,0
 
         1111111111111111111111111
