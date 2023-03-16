@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 16:03:28 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:35:13 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int32_t	main(int argc, char **argv)
 	t_vars	vars;
 	bool	error;
 
-	error = 0;
+	error = false;
 	vars.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	if (!vars.mlx)
 		return (EXIT_FAILURE);
@@ -34,6 +34,8 @@ int32_t	main(int argc, char **argv)
 	render2d_init(&vars);
 	sprites_init(&vars);
 	vars.canvas = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
+	if (vars.canvas == NULL)
+		return (EXIT_FAILURE);
 	mlx_image_to_window(vars.mlx, vars.canvas, 0, 0);
 	vars.canvas->instances[0].z = Z_LVL_CANVAS;
 	error |= !mlx_loop_hook(vars.mlx, &player_hook, &vars);

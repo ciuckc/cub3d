@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:37:30 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/16 16:27:15 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:02:56 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // a lot off the bonus stuff will look bad in any other size than
 // 1024 x 1024 and can only be turned off manually
 # define WIDTH 1024
-# define HEIGHT 1024
+# define HEIGHT 512
 
 // minimap settings
 // scale refers to minimap size proportional to the window
