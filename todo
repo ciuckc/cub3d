@@ -1,4 +1,4 @@
-norme
+//norme
 ceiling color
 floor color use put_pixel instead of memset
 add header dependencies in makefile

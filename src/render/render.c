@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 14:16:04by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/16 16:59:01 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,43 @@ static void	st_draw_wall(t_vars *vars, double *z_arr)
 	}
 }
 
+static void	st_draw_ceil(t_vars *vars)
+{
+	t_vect2	pos;
+
+	pos = (t_vect2){.x = 0, .y = 0};
+	while (pos.y < HEIGHT / 2)
+	{
+		pos.x = 0;
+		while (pos.x < WIDTH)
+		{
+			mlx_put_pixel(vars->canvas, pos.x, pos.y, \
+			vars->ceil_clr);
+			pos.x++;
+		}
+		pos.y++;
+	}
+}
+
 static void	st_draw_floor(t_vars *vars)
 {
+	t_vect2	pos;
+
+	pos = (t_vect2){.x = 0, .y = HEIGHT / 2};
 	if (vars->texture[F] == NULL)
-		ft_memset(vars->canvas->pixels + WIDTH * HEIGHT * \
-		sizeof(uint32_t) / 2, 128, WIDTH * HEIGHT * \
-			sizeof(uint32_t) / 2);
+	{
+		while (pos.y < HEIGHT)
+		{
+			pos.x = 0;
+			while (pos.x < WIDTH)
+			{
+				mlx_put_pixel(vars->canvas, pos.x, pos.y, \
+				vars->floor_clr);
+				pos.x++;
+			}
+			pos.y++;
+		}
+	}
 	else
 		draw_floor(vars);
 }
@@ -54,9 +85,8 @@ void	render(void *param)
 	double		z_arr[WIDTH];
 
 	vars = (t_vars *)param;
-	ft_memset(vars->canvas->pixels, 0, WIDTH * HEIGHT * \
-			sizeof(uint32_t) / 2);
 	st_draw_floor(vars);
+	st_draw_ceil(vars);
 	st_draw_wall(vars, z_arr);
 	sprite_display(vars, z_arr);
 }

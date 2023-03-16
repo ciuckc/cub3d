@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/15 14:24:28 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/16 17:15:26 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static uint32_t	st_get_clr(char *path)
 		ch_i++;
 		i++;
 	}
+	if (!ft_strncmp(path, "default", 8))
+		return (0);
 	return (get_rgba(channel[0], channel[1], channel[2], 255));
 }
 
@@ -105,14 +107,15 @@ void	make_texture(char key, char *path, t_vars *vars)
 	['E'] = E, ['F'] = F, ['C'] = C};
 	if (key == 'C' || key == 'F')
 	{
-		if (st_check_colour(path))
+		if (st_check_colour(path) || (!ft_strncmp(path, "default", 8) && \
+			key == 'C'))
 		{
 			if (key == 'C')
 				vars->ceil_clr = st_get_clr(path);
 			else
 				vars->floor_clr = st_get_clr(path);
 		}
-		else if (st_check_path(path))
+		else if (st_check_path(path) && key != 'C')
 			vars->texture[(int) table[(int) key]] = st_get_tex(path, vars->mlx);
 		else
 			exit_strerr("Invalid floor or ceiling colour/texture.\n");

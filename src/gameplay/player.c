@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 18:58:19 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:12:22 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	st_move_sky(t_vars *vars, int32_t offset)
 	mlx_image_t	*img1;
 	mlx_image_t	*img2;
 
+	if (vars->ceil_clr != 0)
+		return ;
 	img1 = vars->texture2d[3];
 	img2 = vars->texture2d[4];
 	img1->instances[0].x += offset;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 19:17:50 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/15 18:58:27 by mbatstra         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/01/25 19:17:50 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/03/16 17:09:59 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ void	render2d_init(t_vars *vars)
 	init_interact(vars);
 	if (WIDTH == 1024 && HEIGHT == 1024)
 		st_init_hud(vars);
-	st_init_sky(vars);
+	if (vars->ceil_clr == 0)
+		st_init_sky(vars);
 }
