@@ -6,14 +6,11 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/15 19:35:06 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:18:49 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "MLX42.h"
-#include "parse.h"
-#include "libft.h"
 #include "cub3d.h"
 
 // calculate the sprite coords relative to the player

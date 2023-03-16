@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/12/08 16:42:15 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 14:27:00 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 13:25:48 by mbatstra          #+#    #+#             */
+/*   Updated: 2023/03/16 13:25:51 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 # define CUB3D_H
 
 # include <stdlib.h>
-# include <assert.h>
+# include <stdint.h>
 # include "MLX42.h"
 # include "settings.h"
 # include "defs.h"
 # include "structs.h"
-# include "libft.h"
-# include <stdio.h>
 
 // parse() will validate that the map is playable, closed off and all the right
 // texture info is present and then load everything in to the right structs

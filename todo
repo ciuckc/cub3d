@@ -1,8 +1,6 @@
 norme
 ceiling color
 floor color use put_pixel instead of memset
-add header dependencies in makefile
-unused inclusions
 fix mangled stdheaders
 non-square textures?
 tests:

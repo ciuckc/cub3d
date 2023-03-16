@@ -16,7 +16,7 @@ $(NAME): $(OBJ)
 
 #Object build
 
-$(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(BUILD_DIR) $(BUILD_SUBDIRS)
+$(BUILD_DIR)%.o: $(SRC_DIR)%.c $(INC)* | $(BUILD_DIR) $(BUILD_SUBDIRS)
 	@printf $(YELLOW)"%-33.33s\r"$(RESET) $@
 	@$(CC) $(FLAGS) -I$(INC) -I$(MLX_INC) -c $< -o $@
 

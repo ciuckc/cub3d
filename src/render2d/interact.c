@@ -6,13 +6,12 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:10:19 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/21 21:33:48 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:16:54 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
 #include "parse.h"
-#include "libft.h"
 #include "cub3d.h"
 
 void	init_interact(t_vars *vars)

@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
+/*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
-/*                                                     +:+                    */
-/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 18:58:19 by mbatstra         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 13:23:19 by mbatstra          #+#    #+#             */
+/*   Updated: 2023/03/16 13:23:22 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "MLX42.h"
-#include "libft.h"
 #include "cub3d.h"
 
 // calculate new position based on pressed key

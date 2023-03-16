@@ -6,14 +6,11 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:49:42 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/01/26 19:44:12 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:14:02 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "libft.h"
 #include "cub3d.h"
 
 // calculate the total distance a ray needs to go from one 

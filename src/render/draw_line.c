@@ -1,18 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   draw_line.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/16 17:59:20 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/15 14:28:32 by scristia      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 #include "math.h"
-#include <stdio.h>
 
 static mlx_image_t	*st_get_cardinal_img(t_vars *vars, t_fvect2 dst, t_fvect2 \
 ray_dir)

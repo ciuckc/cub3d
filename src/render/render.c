@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/15 14:16:04by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 13:24:59 by mbatstra          #+#    #+#             */
+/*   Updated: 2023/03/16 13:25:02 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <limits.h>
 #include "libft.h"
 #include "cub3d.h"
 

@@ -6,14 +6,12 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:05:34 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/14 17:16:21 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:19:38 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "MLX42.h"
 #include "parse.h"
-#include "libft.h"
 #include "cub3d.h"
 
 // load the xpm into an mlx image and set the sprite position

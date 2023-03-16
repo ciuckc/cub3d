@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   color.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/12/08 19:28:06 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/02/13 15:28:48 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 13:22:45 by mbatstra          #+#    #+#             */
+/*   Updated: 2023/03/16 13:22:54 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stdint.h>
 
 uint32_t	get_rgba(int r, int g, int b, int a)
 {
