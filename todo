@@ -1,8 +1,3 @@
-ceiling color
-floor color use put_pixel instead of memset
 mlx error checks and clean exits
 tests:
-	- lot o maps
 	- different window sizes
-	- different textures
-	- all possible combinations of textures/colors

@@ -1,0 +1,13 @@
+NO ./assets/test1.xpm42
+SO ./assets/test1.xpm42
+WE ./assets/test1.xpm42
+EA ./assets/test1.xpm42
+
+C 200,invalid,250
+F 50,75,50
+
+1111111111111
+1000001100001
+1011011100001
+100100000E001
+1111111111111

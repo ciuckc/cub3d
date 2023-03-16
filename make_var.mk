@@ -4,7 +4,6 @@ SRC_DIR = src/
 BUILD_DIR = build/
 BUILD_SUBDIRS = build/draw_util build/gameplay build/parse build/render build/render2d build/vector build/sprites
 
-# make with asan rule to compile with the adress sanitizer -> make re to get rid of it
 ifdef WITH_ASAN
 	FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 else

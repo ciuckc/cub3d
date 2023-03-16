@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 14:58:19 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/16 13:21:28 by mbatstra         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   game.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/13 14:58:19 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/03/16 18:47:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	st_won(t_player *plyr, t_sprite *sprt, uint32_t num_sprt, t_map *map)
 	size_t	i;
 
 	i = 0;
-	while (mapindex(map, sprt[i].pos.x, sprt[i].pos.y) != EXIT && i < num_sprt)
+	while (i < num_sprt && mapindex(map, sprt[i].pos.x, sprt[i].pos.y) != EXIT)
 		i++;
 	if (i == num_sprt || hypot(sprt[i].pos.x - plyr->pos.x, \
 							sprt[i].pos.y - plyr->pos.y) > 0.1)
