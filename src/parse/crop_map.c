@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 17:07:40 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/16 13:23:41 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:38:51 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,4 @@ void	crop_map(t_map *unsan_map, t_tile **tiles, t_player *plr)
 	unsan_map->grid = san_map;
 	unsan_map->size = (t_vect2){new_x, new_y};
 	st_get_new_player_pos(unsan_map, plr);
-	printf("new px: %f new py: %f\n", plr->pos.x, plr->pos.y);
 }

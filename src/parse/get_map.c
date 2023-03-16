@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:24:11 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/16 13:24:13 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:31:14 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	st_check_map_content(char *str, uint32_t *i)
 	uint32_t	j;
 
 	table = (char [128]){[' '] = true, ['0'] = true, ['1'] = true, ['\n'] = \
-	true, ['N'] = true, ['S'] = true, ['W'] = true, ['E'] = true, ['H'] = true, ['C'] = true, ['X'] = true};
+	true, ['N'] = true, ['S'] = true, ['W'] = true, ['E'] = true, \
+	['H'] = true, ['C'] = true, ['X'] = true};
 	while (str[*i] == '\n' && str[*i] != '\0')
 		(*i)++;
 	if (str[*i] == '\0')

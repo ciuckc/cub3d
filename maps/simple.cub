@@ -1,15 +1,15 @@
-NO ./assets/1.xpm42
-SO ./assets/2.xpm42
-WE ./assets/3.xpm42
-EA ./assets/4.xpm42
+NO ./assets/test1.xpm42
+SO ./assets/test2.xpm42
+WE ./assets/test3.xpm42
+EA ./assets/test4.xpm42
 
-F ./assets/floor.xpm42
+F ./assets/test5.xpm42
 C 180,10,0
 
 111111111
 10000X001
 100000001
-100H000C1
+1000000C1
 100000001
 100000C01
 1E0010001
