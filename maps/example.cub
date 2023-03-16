@@ -3,7 +3,7 @@ SO ./assets/2.xpm42
 WE ./assets/3.xpm42
 EA ./assets/4.xpm42
 
-F 240,200,40
+F ./assets/floor.xpm42
 C default
 
         1111111111111111111111111

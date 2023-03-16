@@ -1,10 +1,10 @@
-NO ./assets/wall1.xpm42
-SO ./assets/wall2.xpm42
-WE ./assets/wall3.xpm42
-EA ./assets/wall4.xpm42
+NO ./assets/1.xpm42
+SO ./assets/2.xpm42
+WE ./assets/3.xpm42
+EA ./assets/4.xpm42
 
-F 220,100,0
-C 225,30,0
+F ./assets/floor.xpm42
+C default
 
 1111111111111111111111
 1000100000000000000001
