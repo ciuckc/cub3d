@@ -6,12 +6,10 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:58:26 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/24 17:21:57 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:19:21 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
-#include "libft.h"
 #include "cub3d.h"
 
 void	st_swap(t_sprite *i, t_sprite *j)

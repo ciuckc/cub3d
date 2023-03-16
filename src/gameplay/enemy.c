@@ -6,13 +6,11 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:29:23 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/02/27 15:36:45 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:10:29 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
 #include "cub3d.h"
-#include <stdio.h>
 
 void	enemy_hook(void *param)
 {

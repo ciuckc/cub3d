@@ -6,13 +6,13 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:19 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/15 14:14:52 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:21:28 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdio.h>
 #include "MLX42.h"
-#include "libft.h"
 #include "cub3d.h"
 
 bool	st_won(t_player *plyr, t_sprite *sprt, uint32_t num_sprt, t_map *map)

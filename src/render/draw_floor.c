@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   draw_floor.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/22 00:49:56 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/16 17:02:05 by scristia      ########   odam.nl         */
+/*   Created: 2023/03/16 13:24:43 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/03/16 17:19:12 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

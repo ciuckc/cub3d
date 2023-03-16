@@ -5,16 +5,13 @@
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/10 23:09:42 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 17:12:22 by scristia      ########   odam.nl         */
+/*   Created: 2023/03/16 13:23:19 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/03/16 17:18:24 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "MLX42.h"
-#include "libft.h"
 #include "cub3d.h"
 
 // calculate new position based on pressed key

@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
+/*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
-/*                                                     +:+                    */
-/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/12/08 17:21:43 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/01/26 20:30:38 by mbatstra         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 13:25:16 by mbatstra          #+#    #+#             */
+/*   Updated: 2023/03/16 13:25:19 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <math.h>
 #include "MLX42.h"
 #include "parse.h"
-#include "libft.h"
 #include "cub3d.h"
 
 // fills a square inside minimap image with a given color

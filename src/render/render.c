@@ -3,15 +3,14 @@
 /*                                                        ::::::::            */
 /*   render.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/16 16:18:54 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 16:59:01 by scristia      ########   odam.nl         */
+/*   Created: 2023/03/16 13:24:59 by mbatstra      #+#    #+#                 */
+/*   Updated: 2023/03/16 17:19:46 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <limits.h>
 #include "libft.h"
 #include "cub3d.h"
 
