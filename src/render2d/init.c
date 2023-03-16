@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/25 19:17:50 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 17:19:54 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/16 18:54:46 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	st_init_player2d(t_vars *vars)
 		mapsize = HEIGHT * MAPSCALE;
 	tilesize = mapsize / TPM;
 	img = mlx_new_image(vars->mlx, tilesize / 8, tilesize / 8);
+	if (img == NULL)
+		exit_strerr(MALLOC_ERR);
 	ft_memset(img->pixels, PLAYER2D_CLR, \
 				img->width * img->height * sizeof(uint32_t));
 	vars->texture2d[2] = img;
@@ -70,6 +72,8 @@ void	st_init_minimap(t_vars *vars)
 		mapsize = HEIGHT * MAPSCALE;
 	mapsize += mapsize / TPM;
 	vars->texture2d[1] = mlx_new_image(vars->mlx, mapsize, mapsize);
+	if (vars->texture2d[1] == NULL)
+		exit_strerr(MALLOC_ERR);
 	mlx_image_to_window(vars->mlx, vars->texture2d[1], 0, 0);
 	render2d_minimap(vars);
 	mlx_set_instance_depth(&vars->texture2d[1]->instances[0], Z_LVL_MINIMAP);

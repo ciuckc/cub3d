@@ -4,7 +4,7 @@ WE ./assets/test3.xpm42
 EA ./assets/test4.xpm42
 
 F ./assets/test5.xpm42
-C 180,10,0
+C 0,0,0
 
 111111111
 10000X001

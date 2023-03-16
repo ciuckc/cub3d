@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 17:23:52 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/16 19:11:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int32_t	main(int argc, char **argv)
 	t_vars	vars;
 	bool	error;
 
-	error = 0;
+	error = false;
 	vars.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	if (!vars.mlx)
 		return (EXIT_FAILURE);
