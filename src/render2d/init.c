@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/25 19:17:50 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 18:39:58 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:54:46 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	st_init_minimap(t_vars *vars)
 		mapsize = HEIGHT * MAPSCALE;
 	mapsize += mapsize / TPM;
 	vars->texture2d[1] = mlx_new_image(vars->mlx, mapsize, mapsize);
-	if (vars->texure2d[1] == NULL)
+	if (vars->texture2d[1] == NULL)
 		exit_strerr(MALLOC_ERR);
 	mlx_image_to_window(vars->mlx, vars->texture2d[1], 0, 0);
 	render2d_minimap(vars);
