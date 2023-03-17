@@ -1,9 +1,9 @@
-NO ./assets/test2.xpm42
-SO ./assets/test2.xpm42
-WE ./assets/test2.xpm42
-EA ./assets/test2.xpm42
+NO ./cub_include/textures/dungeonTexture.png
+SO ./cub_include/textures/dungeonTexture.png
+WE ./cub_include/textures/dungeonTexture.png
+EA ./cub_include/textures/dungeonTexture.png
 
-C 203,225 ,20
+C 203,225, 20
 F 94,9,0
 
         1111111111111111111111111

@@ -1,7 +1,7 @@
-NO ./cub_include/textures/dungeonTexture.png
-SO ./cub_include/textures/dungeonTexture.png
-WE ./cub_include/textures/dungeonTexture.png
-EA ./cub_include/textures/dungeonTexture.png
+NO ./assets/test2.xpm42
+SO ./assets/test2.xpm42
+WE ./assets/test2.xpm42
+EA ./assets/test2.xpm42
 
 C 203,225,20
 F 94,9,0

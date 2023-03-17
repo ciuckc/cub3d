@@ -1,0 +1,17 @@
+NO ./cub_include/textures/dungeonTexture.png
+SO ./cub_include/textures/dungeonTexture.png
+WE ./cub_include/textures/dungeonTexture.png
+EA ./cub_include/textures/dungeonTexture.png
+
+C 93,142,193
+F 231,230,230
+
+111111111111
+111101111111
+111101111111
+110000001101
+100000000001
+100000N00001
+111111111111
+
+

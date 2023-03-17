@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MAPS=$(find $(PWD)/cub_maps/invalid -name "*.cub")
+MAPS=$(find $(PWD)/cub_maps/valid -name "*.cub")
 
 EXEC=$(PWD)/cub3D
 

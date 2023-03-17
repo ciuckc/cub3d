@@ -1,7 +1,7 @@
-NO ./cub_include/textures/happy_weevil.png
-SO ./cub_include/textures/rainbow_weevil.png
-WE ./cub_include/textures/flying_weevil.png
-EA ./cub_include/textures/smol_weevil.png
+NO ./assets/test1.xpm42
+SO ./assets/test1.xpm42
+WE ./assets/test1.xpm42
+EA ./assets/test1.xpm42
 
 C 200,250,250
 F 50,75,50

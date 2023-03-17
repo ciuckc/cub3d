@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:37:30 by mbatstra          #+#    #+#             */
-/*   Updated: 2023/03/16 18:54:12 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:48:16 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@
 // minimap settings
 // scale refers to minimap size proportional to the window
 // tpm is tiles per map, eg the tilesize in the minimap
-// player2d_clr is the color of the dot representing the player
 # define MAPSCALE 0.275
 # define TPM 8
-# define PLAYER2D_CLR 0xfffffff
 
 // number of seconds it takes to go to a new frame for animated sprites
 // this is shared for all sprites

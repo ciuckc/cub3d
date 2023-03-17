@@ -1,7 +1,7 @@
-NO ./assets/test1.xpm42
-SO ./assets/test1.xpm42
-WE ./assets/test1.xpm42
-EA ./assets/test1.xpm42
+NO ./cub_include/textures/brown_weevil.png
+SO ./cub_include/textures/happy_weevil.png
+WE ./cub_include/textures/glitter_weevil.png
+EA ./cub_include/textures/smol_weevil.png
 
 C 93,142 ,     103
 F 231,230,230

@@ -1,13 +1,13 @@
 
 
 
-NO ./cub_include/textures/dungeonTexture.png
+NO ./assets/test2.xpm42
 C 93,142,193
-WE ./cub_include/textures/dungeonTexture.png
+WE ./assets/test2.xpm42
 
 
 
-EA ./cub_include/textures/dungeonTexture.png
+EA ./assets/test2.xpm42
 
 
 
@@ -17,7 +17,7 @@ F 231,230,230
 
 
 
-SO ./cub_include/textures/dungeonTexture.png
+SO ./assets/test2.xpm42
 
 1111111111111
 1111011111111

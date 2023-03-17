@@ -6,7 +6,7 @@
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/25 19:17:50 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/16 18:54:46 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:48:06 by mbatstra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	st_init_player2d(t_vars *vars)
 	img = mlx_new_image(vars->mlx, tilesize / 8, tilesize / 8);
 	if (img == NULL)
 		exit_strerr(MALLOC_ERR);
-	ft_memset(img->pixels, PLAYER2D_CLR, \
-				img->width * img->height * sizeof(uint32_t));
+	ft_memset(img->pixels, 255, img->width * img->height * sizeof(uint32_t));
 	vars->texture2d[2] = img;
 	mlx_image_to_window(vars->mlx, img, \
 					mapsize / 2 - tilesize / 16, mapsize / 2 - tilesize / 16);
