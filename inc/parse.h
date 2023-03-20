@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:02:30 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:52:50 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:08:11 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,6 @@ typedef struct s_tile
 	bool		reached : 1;
 }		t_tile;
 
-/**
- * @brief Print error and str_err and exit with code 1
- * 
- * @param str_err the reason of exiting.
- */
 void	exit_strerr(char *str_err);
 
 void	get_textures(char *str, t_vars *vars, uint32_t *i);

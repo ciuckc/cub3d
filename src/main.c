@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mbatstra <mbatstra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/08 16:31:14 by mbatstra      #+#    #+#                 */
-/*   Updated: 2023/03/17 17:12:42 by mbatstra         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:04:27 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
-#include "libft.h"
 #include "cub3d.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 int8_t	mapindex(t_map *map, int32_t x, int32_t y)
 {

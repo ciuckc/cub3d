@@ -1,3 +1,0 @@
-mlx error checks and clean exits
-tests:
-	- different window sizes
