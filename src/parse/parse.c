@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 20:07:16 by scristia      #+#    #+#                 */
-/*   Updated: 2023/01/25 20:33:54 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:34:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ static bool	st_make_map_str(char **str_map, int32_t fd)
 	}
 }
 
+static void	st_trim_str(char **str)
+{
+	char	*trim_str;
+
+	trim_str = ft_strtrim(*str, "\n");
+	if (trim_str == NULL)
+		exit_strerr(MALLOC_ERR);
+	free(*str);
+	*str = trim_str;
+}
+
 void	parse(int argc, char **argv, t_vars *vars)
 {
 	char		*str_map;
@@ -66,6 +77,7 @@ void	parse(int argc, char **argv, t_vars *vars)
 		exit_strerr(FD_ERR);
 	if (!st_make_map_str(&str_map, fd))
 		exit_strerr(MALLOC_ERR);
+	st_trim_str(&str_map);
 	str_index = 0;
 	get_textures(str_map, vars, &str_index);
 	get_map(str_map, vars, &str_index);
