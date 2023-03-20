@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/12 17:51:02 by scristia      #+#    #+#                 */
-/*   Updated: 2023/03/16 17:15:26 by scristia      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:55:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 static bool	st_check_colour(char *path)
 {
-	uint32_t	i;
 	uint32_t	clr_index;
 	uint32_t	nr_len;
 
 	nr_len = 0;
-	i = 0;
 	clr_index = 0;
-	while (path[i] != '\0')
+	while (*path != '\0')
 	{
-		while (ft_isdigit(path[i]))
+		while (*path == ' ')
+			path++;
+		while (ft_isdigit(*path))
 		{
 			nr_len++;
-			i++;
+			path++;
 		}
+		while (*path == ' ')
+			path++;
 		clr_index++;
-		if (path[i] == '\0')
+		if (*path == '\0')
 			continue ;
-		else if (path[i] != ',' || nr_len > 3)
+		else if (*path != ',' || nr_len > 3)
 			return (false);
 		nr_len = 0;
-		i++;
+		path++;
 	}
 	return (clr_index == 3);
 }
@@ -43,25 +45,27 @@ static uint32_t	st_get_clr(char *path)
 {
 	uint32_t	*channel;
 	uint32_t	ch_i;
-	uint32_t	i;
 
-	i = 0;
+	if (!ft_strncmp(path, "default", 8))
+		return (0);
 	ch_i = 0;
 	channel = (uint32_t [3]){0};
 	while (true)
 	{
-		while (ft_isdigit(path[i]))
+		while (*path == ' ')
+			path++;
+		while (ft_isdigit(*path))
 		{
-			channel[ch_i] = channel[ch_i] * 10 + (path[i] - '0');
-			i++;
+			channel[ch_i] = channel[ch_i] * 10 + (*path - '0');
+			path++;
 		}
-		if (path[i] == '\0')
+		while (*path == ' ')
+			path++;
+		if (*path == '\0')
 			break ;
 		ch_i++;
-		i++;
+		path++;
 	}
-	if (!ft_strncmp(path, "default", 8))
-		return (0);
 	return (get_rgba(channel[0], channel[1], channel[2], 255));
 }
 
